@@ -1,6 +1,6 @@
 import useFetchData from "../functions/FetchApi";
 import { Question } from "../types/Question";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import TextToSpeech from "../functions/TextToSpeech";
 import ListenPersonAnswer from "../functions/ListenPerson";
 import { Button } from "react-bootstrap";
