@@ -27,3 +27,10 @@ class InterviewSerializer(serializers.ModelSerializer):
         model = Interview
         fields = '__all__'
 
+
+class GetAnswersQuestionSerializer(serializers.ModelSerializer):
+    answers = AnswerSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Question
+        fields = ['id', 'text', 'interview_type', 'level', 'answers']

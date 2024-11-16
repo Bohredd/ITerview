@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { ApiService } from "../services/Api";
+import { useState } from "react";
 import { Interview } from "../types/Interview";
+import useFetchData from "../functions/FetchApi";
+import { Button } from "react-bootstrap";
 
 export const InterviewView = () => {
   const { id } = useParams<{ id: string }>();
@@ -9,27 +10,20 @@ export const InterviewView = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!id) {
-      setError("Invalid ID");
-      setLoading(false);
-      return;
-    }
+  if (!id) {
+    setError("Invalid interview ID");
+    setLoading(false);
+    return null;
+  }
 
-    const fetchInterview = async () => {
-      try {
-        const data = await ApiService.get<Interview>("/interview/", Number(id));
-        setInterview(data);
-        setLoading(false);
-      } catch (err) {
-        console.error("Error getting interview", err);
-        setError("Failed to load interview");
-        setLoading(false);
-      }
-    };
-
-    fetchInterview();
-  }, [id]);
+  useFetchData<Interview>({
+    method: "GET",
+    url: "/interview/",
+    id,
+    setData: setInterview,
+    setLoading,
+    setError,
+  });
 
   if (loading) {
     return <div>Loading...</div>;
@@ -46,6 +40,11 @@ export const InterviewView = () => {
   return (
     <div>
       <h1>Interview {id}</h1>
+      <div>{interview.interview_type}</div>
+      <div>{interview.level}</div>
+      <Button variant="primary" href={`/interview/${id}/start`}>
+        Start Interview
+      </Button>
     </div>
   );
 };
