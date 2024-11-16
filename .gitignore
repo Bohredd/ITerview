@@ -26,3 +26,8 @@ dist-ssr
 *.pyc
 /venv/
 venv/
+
+/__pycache__/
+/env/
+/.env
+/venv/
