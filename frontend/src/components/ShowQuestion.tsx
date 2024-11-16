@@ -1,10 +1,11 @@
 import useFetchData from "../functions/FetchApi";
 import { Question } from "../types/Question";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import TextToSpeech from "../functions/TextToSpeech";
 import ListenPersonAnswer from "../functions/ListenPerson";
 import { Button } from "react-bootstrap";
 import VerifyAnswer from "../functions/VerifyAnswer";
+import { useGlobalContext } from "../App";
 
 interface ShowQuestionProps {
   question: Question;
@@ -12,6 +13,10 @@ interface ShowQuestionProps {
 }
 
 export const ShowQuestion = ({ question, is_spoken }: ShowQuestionProps) => {
+  const { language, theme } = useGlobalContext();
+
+  console.log(language, theme);
+
   if (!question) {
     return <div>Loading...</div>;
   }
@@ -28,6 +33,7 @@ export const ShowQuestion = ({ question, is_spoken }: ShowQuestionProps) => {
   const [personAnswer, setPersonAnswer] = useState<string | null>(null);
   const [isCorrectedAnswered, setIsCorrectedAnswered] =
     useState<boolean>(false);
+  const [clearAnswer, setClearAnswer] = useState<boolean>(false);
 
   question.answers.forEach(() => {
     useFetchData<Question>({
@@ -64,7 +70,6 @@ export const ShowQuestion = ({ question, is_spoken }: ShowQuestionProps) => {
   const handleStartAnswer = async () => {
     try {
       setIsAnswering(true);
-      const language = "pt-BR";
       const recognition = ListenPersonAnswer(language);
       setRecognitionInstance(recognition);
 
@@ -93,7 +98,6 @@ export const ShowQuestion = ({ question, is_spoken }: ShowQuestionProps) => {
         questionFiltered.answers.filter((answer) => answer.is_correct)[0].text,
         "pt-BR"
       );
-
       setIsCorrectedAnswered(isCorrect);
     }
     setPersonAnswer(null);
@@ -105,13 +109,16 @@ export const ShowQuestion = ({ question, is_spoken }: ShowQuestionProps) => {
       <p>{questionFiltered.text}</p>
 
       {personAnswer && <p>Your answer: {personAnswer}</p>}
-      {isCorrectedAnswered && <p>Your answer is correct!</p>}
+      {isCorrectedAnswered && !clearAnswer && <p>Your answer is correct!</p>}
+      {!isCorrectedAnswered && personAnswer && !isAnswering && !clearAnswer && (
+        <p>Your answer is incorrect!</p>
+      )}
 
       {is_spoken && TextToSpeech({ text: questionFiltered.text })}
       <h2>Answers</h2>
       {questionFiltered.answers.map((answer) => (
         <div key={answer.id}>
-          <p>{answer.text}</p>
+          -<p>{answer.text}</p>
           {is_spoken && TextToSpeech({ text: answer.text })}
         </div>
       ))}

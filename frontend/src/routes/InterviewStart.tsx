@@ -44,6 +44,8 @@ export const InterviewStart = () => {
     return <div>Loading...</div>;
   }
 
+  console.log(questions);
+
   return (
     <div>
       <ShowQuestion question={questions[actualQuestion]} is_spoken={true} />
