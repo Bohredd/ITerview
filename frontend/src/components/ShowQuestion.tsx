@@ -1,6 +1,11 @@
 import useFetchData from "../functions/FetchApi";
 import { Question } from "../types/Question";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import TextToSpeech from "../functions/TextToSpeech";
+import ListenPersonAnswer from "../functions/ListenPerson";
+import { Button } from "react-bootstrap";
+import VerifyAnswer from "../functions/VerifyAnswer";
+
 interface ShowQuestionProps {
   question: Question;
   is_spoken: boolean;
@@ -18,6 +23,11 @@ export const ShowQuestion = ({ question, is_spoken }: ShowQuestionProps) => {
   const [questionFiltered, setQuestion] = useState<Question | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [isAnswering, setIsAnswering] = useState<boolean>(false);
+  const [recognitionInstance, setRecognitionInstance] = useState<any>(null);
+  const [personAnswer, setPersonAnswer] = useState<string | null>(null);
+  const [isCorrectedAnswered, setIsCorrectedAnswered] =
+    useState<boolean>(false);
 
   question.answers.forEach(() => {
     useFetchData<Question>({
@@ -29,6 +39,15 @@ export const ShowQuestion = ({ question, is_spoken }: ShowQuestionProps) => {
       setError: setError,
     });
   });
+
+  useEffect(() => {
+    return () => {
+      if (recognitionInstance) {
+        recognitionInstance.stop();
+        console.log("Speech recognition stopped on cleanup.");
+      }
+    };
+  }, [recognitionInstance]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -42,20 +61,82 @@ export const ShowQuestion = ({ question, is_spoken }: ShowQuestionProps) => {
     return <div>Loading...</div>;
   }
 
-  console.log("is spoken: ", is_spoken);
+  const handleStartAnswer = async () => {
+    try {
+      setIsAnswering(true);
+      const language = "pt-BR";
+      const recognition = ListenPersonAnswer(language);
+      setRecognitionInstance(recognition);
 
-  console.log("questionFiltered: ", questionFiltered.answers);
+      recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        console.log("Person answer:", transcript);
+        setPersonAnswer(transcript);
+      };
+
+      recognition.start();
+      console.log("Speech recognition started.");
+    } catch (error) {
+      console.error("Error starting speech recognition:", error);
+    }
+  };
+
+  const handleFinishAnswer = () => {
+    if (recognitionInstance) {
+      recognitionInstance.stop();
+    }
+    setIsAnswering(false);
+
+    if (personAnswer) {
+      const isCorrect = VerifyAnswer(
+        personAnswer,
+        questionFiltered.answers.filter((answer) => answer.is_correct)[0].text,
+        "pt-BR"
+      );
+
+      setIsCorrectedAnswered(isCorrect);
+    }
+    setPersonAnswer(null);
+  };
 
   return (
     <div>
       <h1>Question</h1>
       <p>{questionFiltered.text}</p>
+
+      {personAnswer && <p>Your answer: {personAnswer}</p>}
+      {isCorrectedAnswered && <p>Your answer is correct!</p>}
+
+      {is_spoken && TextToSpeech({ text: questionFiltered.text })}
       <h2>Answers</h2>
       {questionFiltered.answers.map((answer) => (
         <div key={answer.id}>
           <p>{answer.text}</p>
+          {is_spoken && TextToSpeech({ text: answer.text })}
         </div>
       ))}
+
+      <Button
+        variant="primary"
+        onClick={handleStartAnswer}
+        disabled={isAnswering}
+      >
+        Responder
+      </Button>
+      <Button
+        variant="primary"
+        onClick={handleFinishAnswer}
+        disabled={!isAnswering}
+      >
+        Terminar de responder.
+      </Button>
+      <Button
+        variant="primary"
+        onClick={handleFinishAnswer}
+        disabled={isAnswering}
+      >
+        Limpar resposta.
+      </Button>
     </div>
   );
 };

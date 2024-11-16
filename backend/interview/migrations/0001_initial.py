@@ -52,7 +52,6 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('interview_type', models.CharField(choices=[('tech', 'Technical'), ('behavior', 'Behavioral')], max_length=255)),
                 ('level', models.CharField(choices=[('junior', 'Junior'), ('mid', 'Mid'), ('senior', 'Senior')], max_length=255)),
-                ('is_spoken', models.BooleanField(default=False)),
                 ('sub_themes', models.ManyToManyField(related_name='interview', to='interview.interviewsubtheme')),
                 ('themes', models.ManyToManyField(related_name='interviews', to='interview.interviewtheme')),
                 ('questions', models.ManyToManyField(related_name='interviews', to='interview.question')),

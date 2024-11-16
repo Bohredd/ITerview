@@ -22,6 +22,7 @@ export const InterviewStart = () => {
   const [questions, setQuestions] = useState<Question[] | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [actualQuestion, setActualQuestion] = useState<number>(0);
 
   useFetchData<Question[]>({
     method: "LIST",
@@ -43,11 +44,23 @@ export const InterviewStart = () => {
     return <div>Loading...</div>;
   }
 
-  console.log(questions);
-
   return (
     <div>
-      <ShowQuestion question={questions[0]} is_spoken={false} />
+      <ShowQuestion question={questions[actualQuestion]} is_spoken={true} />
+      {actualQuestion === questions.length - 1 && (
+        <Button variant="primary" href="/interviews">
+          Finalizar entrevista
+        </Button>
+      )}
+
+      {actualQuestion !== questions.length - 1 && (
+        <Button
+          variant="primary"
+          onClick={() => setActualQuestion(actualQuestion + 1)}
+        >
+          Próxima pergunta
+        </Button>
+      )}
     </div>
   );
 };

@@ -13,7 +13,8 @@ class Command(BaseCommand):
 
         interview = Interview.objects.create(
             interview_type=InterviewType.tech,
-            level=InterviewLevel.junior
+            level=InterviewLevel.junior,
+        
         )
 
         interview.themes.add(backend_theme)

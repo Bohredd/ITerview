@@ -9,5 +9,4 @@ export type Interview = {
   themes: InterviewTheme[];
   sub_themes: InterviewSubTheme[];
   questions: Question[];
-  is_spoken: boolean;
 };
