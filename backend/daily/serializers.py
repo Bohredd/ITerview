@@ -24,3 +24,10 @@ class GetSpeechesDailySerializer(serializers.ModelSerializer):
     class Meta:
         model = Daily
         fields = '__all__'
+
+class GetPersonsDailySerializer(serializers.ModelSerializer):
+
+    people = PersonSerializer(many=True, read_only=True)
+    class Meta:
+        model = Daily
+        fields = ['people']

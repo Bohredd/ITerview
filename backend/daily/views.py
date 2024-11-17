@@ -1,7 +1,6 @@
 from daily.models import Daily, Speech, Person
-from daily.serializers import DailySerializer, PersonSerializer, SpeechSerializer, GetSpeechesDailySerializer
+from daily.serializers import DailySerializer, PersonSerializer, SpeechSerializer, GetSpeechesDailySerializer, GetPersonsDailySerializer
 from rest_framework import viewsets
-from rest_framework.response import Response
 
 class DailyViewSet(viewsets.ModelViewSet):
     queryset = Daily.objects.all()
@@ -16,5 +15,9 @@ class PersonViewSet(viewsets.ModelViewSet):
     serializer_class = PersonSerializer
 
 class DailySpeechViewSet(viewsets.ModelViewSet):
-    queryset = Daily.objects.all().prefetch_related('speeches') # Precarregar os discursos para evitar queries N+1
+    queryset = Daily.objects.all().prefetch_related('speeches')
     serializer_class = GetSpeechesDailySerializer
+
+class DailyPersonViewSet(viewsets.ModelViewSet):
+    queryset = Daily.objects.all().prefetch_related('people')
+    serializer_class = GetPersonsDailySerializer

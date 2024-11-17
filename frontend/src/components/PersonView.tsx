@@ -1,7 +1,9 @@
+import { Person } from "../types/Person";
+
 interface PersonViewProps {
-  dailyId: number | string;
+  person: Person;
 }
 
-export const PersonView = ({ dailyId }: PersonViewProps) => {
+export const PersonView = ({ person }: PersonViewProps) => {
   return <div>PersonView</div>;
 };
