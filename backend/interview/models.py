@@ -41,14 +41,3 @@ class Interview(models.Model):
 
 
     questions = models.ManyToManyField('Question', related_name='interviews')
-
-    def generate_questions(self, questions_number, interview_language):
-
-        questions = self.questions.filter(
-            interview_type=self.interview_type,
-            level=self.level
-        ).order_by('?')[:questions_number]
-
-        # need to translate the questions and answers
-
-        return questions

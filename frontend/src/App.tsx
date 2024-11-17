@@ -5,6 +5,9 @@ import { InterviewView } from "./routes/Interview";
 import { InterviewStart } from "./routes/InterviewStart";
 import { InterviewsView } from "./routes/InterviewsView";
 import { createContext, useContext, useState } from "react";
+import { DailiesView } from "./routes/DailiesView";
+import { DailyStart } from "./routes/DailyStart";
+import { DailyView } from "./routes/Daily";
 
 type Theme = "light" | "dark";
 type Language = "en-US" | "pt-BR";
@@ -36,6 +39,9 @@ function App() {
         <Route path="/interviews" element={<InterviewsView />} />
         <Route path="/interview/:id" element={<InterviewView />} />
         <Route path="/interview/:id/start" element={<InterviewStart />} />
+        <Route path="/dailies" element={<DailiesView />} />
+        <Route path="/daily/:id" element={<DailyView />} />
+        <Route path="/daily/:id/start" element={<DailyStart />} />
       </Routes>
     </GlobalContext.Provider>
   );
