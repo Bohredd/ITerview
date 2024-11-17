@@ -101,7 +101,7 @@ export const ShowQuestion = ({ question, is_spoken }: ShowQuestionProps) => {
       );
       setIsCorrectedAnswered(isCorrect);
     }
-    setPersonAnswer(null);
+    setPersonAnswer("");
   };
 
   return (

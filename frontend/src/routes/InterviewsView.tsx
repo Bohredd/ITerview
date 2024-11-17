@@ -1,9 +1,14 @@
 import useFetchData from "../functions/FetchApi";
 import { Interview } from "../types/Interview";
 import { useState } from "react";
+import { InterviewTheme } from "../types/InterviewTheme";
+import { InterviewSubTheme } from "../types/InterviewSubTheme";
+import { Button } from "react-bootstrap";
 
 export function InterviewsView() {
   const [interviews, setInterviews] = useState<Interview[]>([]);
+  const [themes, setThemes] = useState<InterviewTheme[]>([]);
+  const [subThemes, setSubThemes] = useState<InterviewSubTheme[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -11,6 +16,22 @@ export function InterviewsView() {
     method: "LIST",
     url: "/interview/",
     setData: setInterviews,
+    setLoading,
+    setError,
+  });
+
+  useFetchData<InterviewTheme[]>({
+    method: "LIST",
+    url: "/interview_theme/",
+    setData: setThemes,
+    setLoading,
+    setError,
+  });
+
+  useFetchData<InterviewSubTheme[]>({
+    method: "LIST",
+    url: "/interview_sub_theme/",
+    setData: setSubThemes,
     setLoading,
     setError,
   });
@@ -27,9 +48,6 @@ export function InterviewsView() {
     return <div>No interviews found</div>;
   }
 
-  console.log(interviews[0].sub_themes);
-  console.log(interviews[0].themes);
-  // TODO: criar uma viewset para retornar os themes e subthemes relacionados a uma interview
   return (
     <div>
       <h1>Interviews</h1>
@@ -38,11 +56,28 @@ export function InterviewsView() {
           <h2>Interview {interview.id}</h2>
           <div>{interview.interview_type}</div>
           <div>{interview.level}</div>
-          <div>{interview.themes.map((theme) => theme.name).join(", ")}</div>
           <div>
-            {interview.sub_themes.map((sub_theme) => sub_theme.name).join(", ")}
+            <h3>Themes</h3>
+            {interview.themes.map((themeId) => {
+              const theme = themes.find(
+                (theme) => theme.id === Number(themeId)
+              );
+              return theme ? <div key={theme.id}>{theme.name}</div> : null;
+            })}
+            <h3>Sub Themes</h3>
+            {interview.sub_themes.map((subThemeId) => {
+              const subTheme = subThemes.find(
+                (subTheme) => subTheme.id === Number(subThemeId)
+              );
+              return subTheme ? (
+                <div key={subTheme.id}>{subTheme.name}</div>
+              ) : null;
+            })}
           </div>
-          <a href={`/interview/${interview.id}`}>View Interview</a>
+
+          <Button variant="primary mt-3" href={`/interview/${interview.id}`}>
+            View Interview
+          </Button>
         </div>
       ))}
     </div>

@@ -2,17 +2,17 @@ from django.db import models
 from django.db.models import TextChoices
 
 class InterviewType(TextChoices):
-    tech = 'tech', 'Technical'
-    behavior = 'behavior', 'Behavioral'
+    tech = 'Tech', 'Technical'
+    behavior = 'Behavior', 'Behavioral'
 
 class InterviewLevel(TextChoices):
-    junior = 'junior', 'Junior'
-    mid = 'mid', 'Mid'
-    senior = 'senior', 'Senior'
+    junior = 'Junior', 'Junior'
+    pleno = 'Pleno', 'Pleno'
+    senior = 'Senior', 'Senior'
 
 class InterviewLanguage(TextChoices):
-    en = 'en', 'English'
-    pt_br = 'pt_br', 'Português Brasileiro'
+    en = 'en-US', 'English'
+    pt_br = 'pt-BR', 'Português Brasileiro'
 
 class Question(models.Model):
     text = models.TextField()
