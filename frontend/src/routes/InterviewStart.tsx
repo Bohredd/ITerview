@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { Question } from "../types/Question";
-import useFetchData from "../functions/FetchApi";
+import useFetchDataInterview from "../functions/FetchInterviewApi";
 import { useEffect, useState } from "react";
 import { ShowQuestion } from "../components/ShowQuestion";
 import { Interview } from "../types/Interview";
@@ -26,7 +26,7 @@ export const InterviewStart = () => {
   const [error, setError] = useState<string | null>(null);
   const [actualQuestion, setActualQuestion] = useState<number>(0);
 
-  useFetchData<Interview>({
+  useFetchDataInterview<Interview>({
     method: "GET",
     url: "/get_questions_interview/",
     id: Number(id),

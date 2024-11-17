@@ -1,4 +1,4 @@
-import useFetchData from "../functions/FetchApi";
+import useFetchDataInterview from "../functions/FetchInterviewApi";
 import { Interview } from "../types/Interview";
 import { useState } from "react";
 import { InterviewTheme } from "../types/InterviewTheme";
@@ -12,7 +12,7 @@ export function InterviewsView() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  useFetchData<Interview[]>({
+  useFetchDataInterview<Interview[]>({
     method: "LIST",
     url: "/interview/",
     setData: setInterviews,
@@ -20,7 +20,7 @@ export function InterviewsView() {
     setError,
   });
 
-  useFetchData<InterviewTheme[]>({
+  useFetchDataInterview<InterviewTheme[]>({
     method: "LIST",
     url: "/interview_theme/",
     setData: setThemes,
@@ -28,7 +28,7 @@ export function InterviewsView() {
     setError,
   });
 
-  useFetchData<InterviewSubTheme[]>({
+  useFetchDataInterview<InterviewSubTheme[]>({
     method: "LIST",
     url: "/interview_sub_theme/",
     setData: setSubThemes,

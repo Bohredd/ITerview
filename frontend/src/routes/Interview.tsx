@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { Interview } from "../types/Interview";
-import useFetchData from "../functions/FetchApi";
+import useFetchDataInterview from "../functions/FetchInterviewApi";
 import { Button } from "react-bootstrap";
 
 export const InterviewView = () => {
@@ -16,7 +16,7 @@ export const InterviewView = () => {
     return null;
   }
 
-  useFetchData<Interview>({
+  useFetchDataInterview<Interview>({
     method: "GET",
     url: "/interview/",
     id,

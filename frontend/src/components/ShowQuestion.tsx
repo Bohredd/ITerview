@@ -1,4 +1,4 @@
-import useFetchData from "../functions/FetchApi";
+import useFetchDataInterview from "../functions/FetchInterviewApi";
 import { Question } from "../types/Question";
 import { useState, useEffect } from "react";
 import TextToSpeech from "../functions/TextToSpeech";
@@ -35,7 +35,7 @@ export const ShowQuestion = ({ question, is_spoken }: ShowQuestionProps) => {
   const [lastPersonAnswer, setLastPersonAnswer] = useState<string | null>(null);
 
   question.answers.forEach(() => {
-    useFetchData<Question>({
+    useFetchDataInterview<Question>({
       method: "GET",
       url: "/get_answers_question/",
       id: question.id,

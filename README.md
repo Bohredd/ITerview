@@ -1,11 +1,7 @@
-# 1. Criar get questions interview OK
+# 1 . feedback da interview
 
-# 2. Criar get theme interview OK
+# 2. estrutura das views (dividir entre interview e dailies )
 
-# 3. Criar get subtheme interview OK
+# 3. montar a sequencia de falas da daily
 
-# 4. Criar translator das mensagens para a linguagem padrão do context provider
-
-# 5. Arrumar a limpeza da resposta e limpeza de resposta correta ou incorreta OK
-
-# 6. Juntar dados das respostas dadas (corretas e falsas para feedback dashboard)
+# 4. montar a estrutura igual ao discord kkk
