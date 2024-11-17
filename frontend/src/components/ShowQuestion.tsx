@@ -15,8 +15,6 @@ interface ShowQuestionProps {
 export const ShowQuestion = ({ question, is_spoken }: ShowQuestionProps) => {
   const { language, theme } = useGlobalContext();
 
-  console.log(language, theme);
-
   if (!question) {
     return <div>Loading...</div>;
   }
@@ -47,10 +45,15 @@ export const ShowQuestion = ({ question, is_spoken }: ShowQuestionProps) => {
   });
 
   useEffect(() => {
+    setIsCorrectedAnswered(false);
+    setPersonAnswer(null);
+    setClearAnswer(false);
+  }, [question]);
+
+  useEffect(() => {
     return () => {
       if (recognitionInstance) {
         recognitionInstance.stop();
-        console.log("Speech recognition stopped on cleanup.");
       }
     };
   }, [recognitionInstance]);
@@ -75,12 +78,10 @@ export const ShowQuestion = ({ question, is_spoken }: ShowQuestionProps) => {
 
       recognition.onresult = (event: any) => {
         const transcript = event.results[0][0].transcript;
-        console.log("Person answer:", transcript);
         setPersonAnswer(transcript);
       };
 
       recognition.start();
-      console.log("Speech recognition started.");
     } catch (error) {
       console.error("Error starting speech recognition:", error);
     }
