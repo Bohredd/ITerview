@@ -32,6 +32,7 @@ export const ShowQuestion = ({ question, is_spoken }: ShowQuestionProps) => {
   const [isCorrectedAnswered, setIsCorrectedAnswered] =
     useState<boolean>(false);
   const [clearAnswer, setClearAnswer] = useState<boolean>(false);
+  const [lastPersonAnswer, setLastPersonAnswer] = useState<string | null>(null);
 
   question.answers.forEach(() => {
     useFetchData<Question>({
@@ -71,6 +72,7 @@ export const ShowQuestion = ({ question, is_spoken }: ShowQuestionProps) => {
   }
 
   const handleStartAnswer = async () => {
+    setLastPersonAnswer(null);
     try {
       setIsAnswering(true);
       const recognition = ListenPersonAnswer(language);
@@ -79,6 +81,7 @@ export const ShowQuestion = ({ question, is_spoken }: ShowQuestionProps) => {
       recognition.onresult = (event: any) => {
         const transcript = event.results[0][0].transcript;
         setPersonAnswer(transcript);
+        setLastPersonAnswer(transcript);
       };
 
       recognition.start();
@@ -97,11 +100,19 @@ export const ShowQuestion = ({ question, is_spoken }: ShowQuestionProps) => {
       const isCorrect = VerifyAnswer(
         personAnswer,
         questionFiltered.answers.filter((answer) => answer.is_correct)[0].text,
-        "pt-BR"
+        language
       );
       setIsCorrectedAnswered(isCorrect);
     }
-    setPersonAnswer("");
+    setLastPersonAnswer(personAnswer);
+    setPersonAnswer(null);
+  };
+
+  const handleClearAnswer = () => {
+    setPersonAnswer(null);
+    setClearAnswer(true);
+    setIsAnswering(false);
+    setLastPersonAnswer(null);
   };
 
   return (
@@ -109,11 +120,12 @@ export const ShowQuestion = ({ question, is_spoken }: ShowQuestionProps) => {
       <h1>Question</h1>
       <p>{questionFiltered.text}</p>
 
-      {personAnswer && <p>Your answer: {personAnswer}</p>}
+      {lastPersonAnswer && <p>Your answer: {lastPersonAnswer}</p>}
       {isCorrectedAnswered && !clearAnswer && <p>Your answer is correct!</p>}
-      {!isCorrectedAnswered && personAnswer && !isAnswering && !clearAnswer && (
-        <p>Your answer is incorrect!</p>
-      )}
+      {!isCorrectedAnswered &&
+        lastPersonAnswer &&
+        !isAnswering &&
+        !clearAnswer && <p>Your answer is incorrect!</p>}
 
       {is_spoken && TextToSpeech({ text: questionFiltered.text })}
       <h2>Answers</h2>
@@ -140,7 +152,7 @@ export const ShowQuestion = ({ question, is_spoken }: ShowQuestionProps) => {
       </Button>
       <Button
         variant="primary"
-        onClick={handleFinishAnswer}
+        onClick={handleClearAnswer}
         disabled={isAnswering}
       >
         Limpar resposta.

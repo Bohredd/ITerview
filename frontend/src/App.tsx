@@ -9,7 +9,6 @@ import { createContext, useContext, useState } from "react";
 type Theme = "light" | "dark";
 type Language = "en-US" | "pt-BR";
 
-// Define the shape of the context
 interface GlobalContextType {
   theme: Theme;
   language: Language;

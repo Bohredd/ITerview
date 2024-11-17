@@ -4,6 +4,7 @@ const ListenPersonAnswer = (language: string) => {
   const recognition = new (window as any).webkitSpeechRecognition();
   recognition.continuous = true;
   recognition.interimResults = true;
+  console.log("Language: ", language);
   recognition.lang = language;
 
   recognition.onresult = (event: any) => {

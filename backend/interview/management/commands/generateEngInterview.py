@@ -5,13 +5,11 @@ class Command(BaseCommand):
     help = 'Creates a Frontend interview with React.js and TypeScript themes and junior-level questions'
 
     def handle(self, *args, **kwargs):
-        # Create themes and sub-themes
         frontend_theme = InterviewTheme.objects.create(name="Frontend", interview_type=InterviewType.tech)
         
         react_subtheme = InterviewSubTheme.objects.create(name="React.js", interview_theme=frontend_theme)
         typescript_subtheme = InterviewSubTheme.objects.create(name="TypeScript", interview_theme=frontend_theme)
 
-        # Create interview
         interview = Interview.objects.create(
             interview_type=InterviewType.tech,
             level=InterviewLevel.junior,
@@ -20,7 +18,6 @@ class Command(BaseCommand):
         interview.themes.add(frontend_theme)
         interview.sub_themes.add(react_subtheme, typescript_subtheme)
 
-        # Create React.js questions
         question1 = Question.objects.create(
             text="What is a React component?",
             interview_type=InterviewType.tech,
@@ -55,7 +52,6 @@ class Command(BaseCommand):
 
         question2.answers.add(answer1_q2, answer2_q2)
 
-        # Create TypeScript questions
         question3 = Question.objects.create(
             text="What is TypeScript?",
             interview_type=InterviewType.tech,
@@ -107,7 +103,6 @@ class Command(BaseCommand):
 
         question5.answers.add(answer1_q5, answer2_q5)
 
-        # Add questions to interview
         interview.questions.add(question1, question2, question3, question4, question5)
 
         interview.save()
