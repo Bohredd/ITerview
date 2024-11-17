@@ -119,7 +119,7 @@ export const ShowQuestion = ({ question, is_spoken }: ShowQuestionProps) => {
       <h2>Answers</h2>
       {questionFiltered.answers.map((answer) => (
         <div key={answer.id}>
-          -<p>{answer.text}</p>
+          <p>{answer.text}</p>
           {is_spoken && TextToSpeech({ text: answer.text })}
         </div>
       ))}
