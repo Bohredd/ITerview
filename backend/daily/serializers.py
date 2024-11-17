@@ -9,7 +9,7 @@ class DailySerializer(serializers.ModelSerializer):
 class SpeechSerializer(serializers.ModelSerializer):
     class Meta:
         model = Speech
-        fields = ['id', 'order', 'content', 'is_question', 'is_to_you']
+        fields = '__all__'
 
 class PersonSerializer(serializers.ModelSerializer):
     speeches = SpeechSerializer(many=True, read_only=True)
@@ -17,3 +17,10 @@ class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
         fields = ['id', 'name', 'role', 'is_you', 'voice', 'image', 'speeches']
+
+class GetSpeechesDailySerializer(serializers.ModelSerializer):
+
+    speeches = SpeechSerializer(many=True, read_only=True)
+    class Meta:
+        model = Daily
+        fields = '__all__'

@@ -8,4 +8,5 @@ export type Daily = {
   speeches: Speech[];
   you: Person;
   your_atributions: string;
+  people: Person[];
 };

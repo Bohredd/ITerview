@@ -40,7 +40,7 @@ export const DailyView = () => {
 
   useFetchDataDaily<Daily>({
     method: "GET",
-    url: "/daily/",
+    url: "/daily_speech/",
     id: Number(id),
     setData: setDaily,
     setLoading,
@@ -60,6 +60,10 @@ export const DailyView = () => {
   }
 
   console.log(daily);
+  console.log(daily.speeches);
+  console.log(daily.you);
+  console.log(daily.your_atributions);
+  console.log(daily.people);
 
   return (
     <div>

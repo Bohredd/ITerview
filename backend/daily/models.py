@@ -67,6 +67,9 @@ class Daily(models.Model):
     # project team
     speeches = models.ManyToManyField(Speech)
 
+    # project team people
+    people = models.ManyToManyField(Person)
+
     # you 
     you = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='you')
 

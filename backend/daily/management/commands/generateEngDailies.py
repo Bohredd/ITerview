@@ -111,4 +111,8 @@ class Command(BaseCommand):
         )
         daily_meeting.save()
 
+        # Add people to the daily meeting
+        daily_meeting.people.add(tech_lead, developer, qa, pm, product_owner, scrum_master, designer)
+        daily_meeting.save()
+
         self.stdout.write(self.style.SUCCESS('Successfully populated the data with a full conversation!'))
