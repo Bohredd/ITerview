@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from interview.serializers import InterviewSerializer, InterviewThemeSerializer, InterviewSubThemeSerializer, QuestionSerializer, AnswerSerializer, GetAnswersQuestionSerializer
+from interview.serializers import (InterviewSerializer, InterviewThemeSerializer, InterviewSubThemeSerializer, 
+                                   QuestionSerializer, AnswerSerializer, GetAnswersQuestionSerializer,
+                                   GetQuestionsInterviewSerializer, GetThemesInterviewSerializer, GetSubThemesInterviewSerializer)
 from interview.models import Interview, InterviewTheme, InterviewSubTheme, Question, Answer
 from rest_framework import viewsets
 
@@ -27,3 +29,15 @@ class AnswerViewSet(viewsets.ModelViewSet):
 class GetAnswersQuestionViewSet(viewsets.ModelViewSet):
     queryset = Question.objects.all().prefetch_related('answers')  # Precarregar as respostas para evitar queries N+1
     serializer_class = GetAnswersQuestionSerializer
+
+class GetQuestionsInterviewViewSet(viewsets.ModelViewSet):
+    queryset = Interview.objects.all().prefetch_related('questions')  # Precarregar as perguntas para evitar queries N+1
+    serializer_class = GetQuestionsInterviewSerializer
+
+class GetThemesInterviewViewSet(viewsets.ModelViewSet):
+    queryset = Interview.objects.all().prefetch_related('themes')  # Precarregar os temas para evitar queries N+1
+    serializer_class = GetThemesInterviewSerializer
+
+class GetSubThemesInterviewViewSet(viewsets.ModelViewSet):
+    queryset = Interview.objects.all().prefetch_related('sub_themes')  # Precarregar os subtemas para evitar queries N+1
+    serializer_class = GetSubThemesInterviewSerializer  

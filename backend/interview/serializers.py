@@ -34,3 +34,26 @@ class GetAnswersQuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = ['id', 'text', 'interview_type', 'level', 'answers']
+
+class GetQuestionsInterviewSerializer(serializers.ModelSerializer):
+    questions = QuestionSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Interview
+        fields = ['id', 'interview_type', 'level', 'questions']
+        
+
+class GetThemesInterviewSerializer(serializers.ModelSerializer):
+    themes = InterviewThemeSerializer(many=True, read_only=True)
+    sub_themes = InterviewSubThemeSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Interview
+        fields = ['id', 'interview_type', 'level', 'themes', 'sub_themes']
+
+class GetSubThemesInterviewSerializer(serializers.ModelSerializer):
+    sub_themes = InterviewSubThemeSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Interview
+        fields = ['id', 'interview_type', 'level', 'sub_themes']
