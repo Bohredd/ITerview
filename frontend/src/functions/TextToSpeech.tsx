@@ -6,7 +6,11 @@ interface TextToSpeechProps {
 }
 
 const TextToSpeech: React.FC<TextToSpeechProps> = ({ text, voice }) => {
+  console.log(text);
+  console.log(voice);
+
   const speak = () => {
+    console.log("speak");
     const synth = window.speechSynthesis;
 
     if (synth.onvoiceschanged !== undefined) {

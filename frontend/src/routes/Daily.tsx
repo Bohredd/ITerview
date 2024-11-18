@@ -2,10 +2,9 @@ import useFetchDataDaily from "../functions/FetchDailyApi";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Daily } from "../types/Daily";
-import { PersonView } from "../components/PersonView";
-import { Person } from "../types/Person";
-import { Speech } from "../types/Speech";
 import { Button } from "react-bootstrap";
+import { PersonFrame } from "../components/PersonFrame";
+import TextToSpeech from "../functions/TextToSpeech";
 
 export const DailyView = () => {
   const { id } = useParams<{ id: string }>();
@@ -46,20 +45,40 @@ export const DailyView = () => {
     setSpeechNumActual(speechNumActual - 1);
   };
 
+  console.log(`len speakers ${daily.people.length}`);
+
   return (
     <div>
       <h1>{daily.project_name}</h1>
-      <p>{daily.project_description}</p>
-      <p>{daily.your_atributions}</p>
+      {daily.project_description}
+      {daily.your_atributions}
+
+      {daily.speeches.length !== speechNumActual && (
+        <h5>Speech: {daily.speeches[speechNumActual].content}</h5>
+      )}
+
+      <PersonFrame personCount={daily.people.length} />
 
       {speechNumActual !== 0 && (
         <Button variant="primary" onClick={handlePrevious}>
           Previous interation
         </Button>
       )}
-      <Button variant="primary" onClick={handleNext}>
-        Next interation
-      </Button>
+      {speechNumActual !== daily.speeches.length &&
+        TextToSpeech({
+          text: daily.speeches[speechNumActual].content,
+        })}
+      {speechNumActual !== daily.speeches.length && (
+        <Button variant="primary" onClick={handleNext}>
+          Next interation
+        </Button>
+      )}
+
+      {speechNumActual === daily.speeches.length && (
+        <Button variant="primary" href="/dailies">
+          Finish
+        </Button>
+      )}
     </div>
   );
 };

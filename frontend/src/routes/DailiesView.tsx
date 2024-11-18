@@ -33,10 +33,14 @@ export const DailiesView = () => {
     <div>
       {dailies.map((daily) => (
         <div key={daily.id}>
-          <h2>{daily.project_name}</h2>
+          <h2>Project Name</h2>
+          <p>{daily.project_name}</p>
+          <h4>Project Description</h4>
           <p>{daily.project_description}</p>
+          <h4>Team Size</h4>
+          <p>{daily.people.length}</p>
           <Button variant="primary" href={`/daily/${daily.id}/start`}>
-            Ir para daily
+            I want this one!
           </Button>
         </div>
       ))}

@@ -37,8 +37,8 @@ export const DailyStart = () => {
   return (
     <div>
       <h1>{daily.project_name}</h1>
-      <p>{daily.project_description}</p>
-      <p>{daily.your_atributions}</p>
+      {daily.project_description}
+      {daily.your_atributions}
       <Button variant="primary" href={`/daily/${daily.id}`}>
         Start Daily
       </Button>
