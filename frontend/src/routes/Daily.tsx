@@ -4,13 +4,10 @@ import { useState } from "react";
 import useFetchDataDaily from "../functions/FetchDailyApi";
 import { DailyInfo } from "../components/DailyInfo";
 import { Button } from "react-bootstrap";
-import TextToSpeech from "../functions/TextToSpeech";
-import { Speech } from "../types/Speech";
+import { SpeakContent } from "../components/SpeakContent";
 
 export const DailyView = () => {
   const { id } = useParams<{ id: string }>();
-
-  console.log("Daily view id: ", id);
 
   const [daily, setDaily] = useState<Daily | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -20,10 +17,6 @@ export const DailyView = () => {
   const [hasPrevious, setHasPrevious] = useState<boolean>(false);
   const [hasNext, setHasNext] = useState<boolean>(true);
 
-  // const [actualSpeechObject, setActualSpeechObject] = useState<Speech | null>(
-  //   null
-  // );
-
   useFetchDataDaily<Daily>({
     method: "GET",
     url: `/daily/`,
@@ -32,15 +25,6 @@ export const DailyView = () => {
     setLoading,
     setError,
   });
-
-  // useFetchDataDaily<Speech>({
-  //   method: "GET",
-  //   url: `/speech/`,
-  //   id: actualSpeechId,
-  //   setData: setActualSpeechObject,
-  //   setLoading,
-  //   setError,
-  // });
 
   if (loading) {
     return <div>Loading...</div>;
@@ -53,10 +37,6 @@ export const DailyView = () => {
   if (!daily) {
     return <div>No daily found</div>;
   }
-
-  // if (!actualSpeechObject) {
-  //   return <div>No speech found</div>;
-  // }
 
   const handlePrevious = () => {
     if (actualSpeechId === 0) {
@@ -90,7 +70,6 @@ export const DailyView = () => {
         dailyInfo={daily}
         actualSpeechId={daily.speeches[actualSpeechId]}
       />
-
       <Button
         variant="primary"
         onClick={handlePrevious}
@@ -98,12 +77,7 @@ export const DailyView = () => {
       >
         Previous interation
       </Button>
-      <Button
-        variant="primary"
-        // onClick={() => TextToSpeech(actualSpeechObject.content ?? "")}
-      >
-        Listen
-      </Button>
+      <SpeakContent actualSpeechId={daily.speeches[actualSpeechId]} />
       <Button variant="primary" onClick={handleNext} disabled={!hasNext}>
         Next interation
       </Button>

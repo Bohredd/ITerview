@@ -8,14 +8,9 @@ interface PersonFrameProps {
 }
 
 export const PersonFrame = ({ peopleId, actualSpeechId }: PersonFrameProps) => {
-  console.log("People id: ", peopleId);
-  console.log("Type of people id: ", typeof peopleId);
-
   const [person, setPerson] = useState<Person | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
-  console.log("Antes do person");
 
   useFetchDataDaily<Person>({
     method: "GET",

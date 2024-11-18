@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "react-bootstrap";
 
 interface TextToSpeechProps {
   text: string;
@@ -6,9 +7,6 @@ interface TextToSpeechProps {
 }
 
 const TextToSpeech: React.FC<TextToSpeechProps> = ({ text, voice }) => {
-  console.log(text);
-  console.log(voice);
-
   const speak = () => {
     console.log("speak");
     const synth = window.speechSynthesis;
@@ -32,7 +30,11 @@ const TextToSpeech: React.FC<TextToSpeechProps> = ({ text, voice }) => {
     synth.speak(utterThis);
   };
 
-  return <button onClick={speak}>Speak</button>;
+  return (
+    <Button variant="primary" onClick={speak}>
+      Speak
+    </Button>
+  );
 };
 
 export default TextToSpeech;

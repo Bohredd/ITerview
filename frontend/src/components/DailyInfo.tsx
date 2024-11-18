@@ -30,7 +30,6 @@ export const DailyInfo: React.FC<DailyInfoProps> = ({
     setLoading,
     setError,
   });
-  console.log("daily info speeches id ", actualSpeechId);
 
   useFetchDataDaily<Speech>({
     method: "GET",
@@ -40,8 +39,6 @@ export const DailyInfo: React.FC<DailyInfoProps> = ({
     setLoading,
     setError,
   });
-
-  console.log("Speech: ", speech);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -59,13 +56,6 @@ export const DailyInfo: React.FC<DailyInfoProps> = ({
     return <div>No daily info found</div>;
   }
 
-  console.log("Daily info: ", dailyInfo);
-  console.log("Type of daily info: ", typeof dailyInfo);
-  console.log("You: ", you);
-  console.log("Type of you: ", typeof you);
-
-  console.log("People in team: ", dailyInfo.people);
-
   return (
     <div>
       <h2>{dailyInfo.project_name}</h2>
@@ -79,7 +69,11 @@ export const DailyInfo: React.FC<DailyInfoProps> = ({
       <Container fluid className="py-5">
         <Row className="justify-content-md-center">
           {dailyInfo.people.map((personId) => (
-            <PersonFrame peopleId={personId} actualSpeechId={actualSpeechId} />
+            <PersonFrame
+              key={personId}
+              peopleId={personId}
+              actualSpeechId={actualSpeechId}
+            />
           ))}
         </Row>
       </Container>
