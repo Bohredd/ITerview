@@ -57,7 +57,11 @@ export const DailyView = () => {
         <h5>Speech: {daily.speeches[speechNumActual].content}</h5>
       )}
 
-      <PersonFrame personCount={daily.people.length} />
+      <PersonFrame
+        personCount={daily.people.length}
+        peopleIds={daily.people}
+        actualSpeech={daily.speeches[speechNumActual].speaker}
+      />
 
       {speechNumActual !== 0 && (
         <Button variant="primary" onClick={handlePrevious}>
