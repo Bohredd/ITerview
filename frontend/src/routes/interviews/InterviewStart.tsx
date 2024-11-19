@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import { Question } from "../../types/interview/Question";
 import useFetchDataInterview from "../../functions/interview/FetchInterviewApi";
 import { useEffect, useState } from "react";
-import { ShowQuestion } from "../../components/interview/ShowQuestion";
+import { ShowQuestion } from "../../components/daily/ShowQuestion";
 import { Interview } from "../../types/interview/Interview";
 
 export const InterviewStart = () => {

@@ -2,9 +2,9 @@ import { Daily } from "../../types/daily/Daily";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import useFetchDataDaily from "../../functions/daily/FetchDailyApi";
-import { DailyInfo } from "../../components/interview/DailyInfo";
+import { DailyInfo } from "../../components/daily/DailyInfo";
 import { Button } from "react-bootstrap";
-import { SpeakContent } from "../../components/interview/SpeakContent";
+import { SpeakContent } from "../../components/daily/SpeakContent";
 
 export const DailyView = () => {
   const { id } = useParams<{ id: string }>();

@@ -4,7 +4,6 @@ import useFetchDataDaily from "../../functions/daily/FetchDailyApi";
 import ProbablyAnswerShow from "./ProbablyAnswer";
 import { Button } from "react-bootstrap";
 import ListenPersonAnswer from "../../functions/utils/ListenPerson";
-// import { Information } from "../../types/daily/Information";
 
 interface ShowProbablyAnswersProps {
   speechId: number | string;
