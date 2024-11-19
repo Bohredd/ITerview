@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { ApiService } from "../services/ApiInterview";
+import { ApiServiceDaily } from "../../services/api/ApiDaily";
 type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "LIST" | "FILTER";
 
 interface UseFetchDataParams<T> {
@@ -12,7 +12,7 @@ interface UseFetchDataParams<T> {
   setError: (error: string) => void;
 }
 
-const useFetchDataInterview = <T,>({
+const useFetchDataDaily = <T,>({
   method,
   url,
   id,
@@ -28,13 +28,13 @@ const useFetchDataInterview = <T,>({
         let data;
 
         if (method === "GET" || method === "LIST") {
-          data = await ApiService.get<T>(url, id ? Number(id) : undefined);
+          data = await ApiServiceDaily.get<T>(url, id ? Number(id) : undefined);
         } else if (method === "POST") {
-          data = await ApiService.post<T>(url, body);
+          data = await ApiServiceDaily.post<T>(url, body);
         } else if (method === "PUT") {
-          data = await ApiService.put<T>(url, body);
+          data = await ApiServiceDaily.put<T>(url, body);
         } else if (method === "DELETE") {
-          data = await ApiService.delete<T>(url);
+          data = await ApiServiceDaily.delete<T>(url);
         }
 
         if (data !== undefined) {
@@ -59,4 +59,4 @@ const useFetchDataInterview = <T,>({
   }, [method, url, id, body, setData, setLoading, setError]);
 };
 
-export default useFetchDataInterview;
+export default useFetchDataDaily;

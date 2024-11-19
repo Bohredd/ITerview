@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from daily.models import Person, PersonRole, Voices, Speech, Daily, ProbablyAnswer
+from daily.models import Person, PersonRole, Voices, Speech, Daily, ProbablyAnswer, Information
 
 class Command(BaseCommand):
     help = 'Populate initial data for the project with a long conversation'
@@ -43,7 +43,9 @@ class Command(BaseCommand):
         speech13 = Speech.objects.create(order=13, speaker=designer, content="I worked on the UI for the new feature and reviewed design drafts.", is_question=False)
 
         # Scrum Master asks questions about today's work
-        speech14 = Speech.objects.create(order=14, speaker=scrum_master, content="Bob, what will you do today?", is_question=True, is_to_you=True)
+        information = Information.objects.create(title="Task for today", content="Implement the new feature and fix any bugs that ive been noticed yesterday.")
+
+        speech14 = Speech.objects.create(order=14, speaker=scrum_master, content="Bob, what will you do today?", is_question=True, is_to_you=True, information=information)
 
         probably_answer1 = ProbablyAnswer.objects.create(answer="I’ll implement the new feature and fix any bugs.", is_correct=True)
         probably_answer2 = ProbablyAnswer.objects.create(answer="I’ll work on a different task instead.", is_correct=False, penality="Focus on the assigned tasks for today.", who_says_penality=scrum_master)
@@ -68,14 +70,17 @@ class Command(BaseCommand):
         speech25 = Speech.objects.create(order=25, speaker=designer, content="I’ll finish the UI design and provide feedback on implementation.", is_question=False)
 
         # Scrum Master asks if there are any blocks
-        speech26 = Speech.objects.create(order=26, speaker=scrum_master, content="Bob, do you have any blocks?", is_question=True, is_to_you=True)
+
+        information = Information.objects.create(title="Blocks", content="If you have any blocks, please share them with the team. Remeber, you did all your work from yesterday and you will start a new feature and fix bugs. How you have blocks if you did all your work?")
+
+        speech26 = Speech.objects.create(order=26, speaker=scrum_master, content="Bob, do you have any blocks?", is_question=True, is_to_you=True, information=information)
 
         # Create probable answers for a specific question about blocks
         probably_answer1 = ProbablyAnswer.objects.create(answer="No blocks for today, everything is on track.", is_correct=True)
         probably_answer2 = ProbablyAnswer.objects.create(answer="I have some blocks that need to be addressed", is_correct=False, penality="You need to work on the assigned tasks for today.", who_says_penality=scrum_master)
 
         speech26.probably_answers.add(probably_answer1, probably_answer2)
-
+    
         speech27 = Speech.objects.create(order=27, speaker=scrum_master, content="Alice, do you have any blocks?", is_question=True)
         speech28 = Speech.objects.create(order=28, speaker=tech_lead, content="No blocks for today.", is_question=False)
 

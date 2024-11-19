@@ -1,7 +1,7 @@
 import { useState } from "react";
-import useFetchDataDaily from "../functions/FetchDailyApi";
-import { ProbablyAnswer } from "../types/ProbablyAnswer";
-import TextToSpeech from "../functions/TextToSpeech";
+import useFetchDataDaily from "../../functions/daily/FetchDailyApi";
+import { ProbablyAnswer } from "../../types/daily/ProbablyAnswer";
+import TextToSpeech from "../../functions/utils/TextToSpeech";
 interface ProbablyAnswerProps {
   probablyAnswerId: number | string;
 }

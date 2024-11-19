@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap";
 
-export const Home = () => {
+export const SeeProducts = () => {
   return (
     <div>
       <Button variant="primary" href="/interviews">

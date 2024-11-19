@@ -1,10 +1,10 @@
-import { Daily } from "../types/Daily";
+import { Daily } from "../../types/daily/Daily";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import useFetchDataDaily from "../functions/FetchDailyApi";
-import { DailyInfo } from "../components/DailyInfo";
+import useFetchDataDaily from "../../functions/daily/FetchDailyApi";
+import { DailyInfo } from "../../components/interview/DailyInfo";
 import { Button } from "react-bootstrap";
-import { SpeakContent } from "../components/SpeakContent";
+import { SpeakContent } from "../../components/interview/SpeakContent";
 
 export const DailyView = () => {
   const { id } = useParams<{ id: string }>();

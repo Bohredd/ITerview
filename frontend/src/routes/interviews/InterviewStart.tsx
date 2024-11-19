@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-import { Question } from "../types/Question";
-import useFetchDataInterview from "../functions/FetchInterviewApi";
+import { Question } from "../../types/interview/Question";
+import useFetchDataInterview from "../../functions/interview/FetchInterviewApi";
 import { useEffect, useState } from "react";
-import { ShowQuestion } from "../components/ShowQuestion";
-import { Interview } from "../types/Interview";
+import { ShowQuestion } from "../../components/interview/ShowQuestion";
+import { Interview } from "../../types/interview/Interview";
 
 export const InterviewStart = () => {
   const { id } = useParams<{ id: string }>();

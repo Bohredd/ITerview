@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { ProbablyAnswer } from "../types/ProbablyAnswer";
-import useFetchDataDaily from "../functions/FetchDailyApi";
+import { ProbablyAnswer } from "../../types/daily/ProbablyAnswer";
+import useFetchDataDaily from "../../functions/daily/FetchDailyApi";
 
 interface AnswerShowerDailyProps {
   probablyAnswer: number | string;

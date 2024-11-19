@@ -1,8 +1,8 @@
-import { Person } from "../types/Person";
+import { Person } from "../../types/daily/Person";
 import { useState } from "react";
-import useFetchDataDaily from "../functions/FetchDailyApi";
+import useFetchDataDaily from "../../functions/daily/FetchDailyApi";
 import { Col, Card } from "react-bootstrap";
-import { Speech } from "../types/Speech";
+import { Speech } from "../../types/daily/Speech";
 
 interface PersonFrameProps {
   peopleId: number | string;

@@ -1,11 +1,11 @@
-import useFetchDataInterview from "../functions/FetchInterviewApi";
-import { Question } from "../types/Question";
+import useFetchDataInterview from "../../functions/interview/FetchInterviewApi";
+import { Question } from "../../types/interview/Question";
 import { useState, useEffect } from "react";
-import TextToSpeech from "../functions/TextToSpeech";
-import ListenPersonAnswer from "../functions/ListenPerson";
+import TextToSpeech from "../../functions/utils/TextToSpeech";
+import ListenPersonAnswer from "../../functions/utils/ListenPerson";
 import { Button } from "react-bootstrap";
-import VerifyAnswer from "../functions/VerifyAnswer";
-import { useGlobalContext } from "../App";
+import VerifyAnswer from "../../functions/interview/VerifyAnswer";
+import { useGlobalContext } from "../../App";
 
 interface ShowQuestionProps {
   question: Question;

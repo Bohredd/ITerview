@@ -1,9 +1,9 @@
-import { Speech } from "../types/Speech";
+import { Speech } from "../../types/daily/Speech";
 import { useState } from "react";
-import useFetchDataDaily from "../functions/FetchDailyApi";
+import useFetchDataDaily from "../../functions/daily/FetchDailyApi";
 import ProbablyAnswerShow from "./ProbablyAnswer";
 import { Button } from "react-bootstrap";
-import ListenPersonAnswer from "../functions/ListenPerson";
+import ListenPersonAnswer from "../../functions/utils/ListenPerson";
 
 interface ShowProbablyAnswersProps {
   speechId: number | string;

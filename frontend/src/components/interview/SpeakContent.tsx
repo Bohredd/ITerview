@@ -1,8 +1,8 @@
-import { Speech } from "../types/Speech";
+import { Speech } from "../../types/daily/Speech";
 import { useState } from "react";
-import useFetchDataDaily from "../functions/FetchDailyApi";
-import TextToSpeech from "../functions/TextToSpeech";
-import { Person } from "../types/Person";
+import useFetchDataDaily from "../../functions/daily/FetchDailyApi";
+import TextToSpeech from "../../functions/utils/TextToSpeech";
+import { Person } from "../../types/daily/Person";
 
 interface SpeakContentProps {
   actualSpeechId: number | string;

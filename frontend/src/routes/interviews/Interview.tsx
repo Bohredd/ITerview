@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { Interview } from "../types/Interview";
-import useFetchDataInterview from "../functions/FetchInterviewApi";
+import { Interview } from "../../types/interview/Interview";
+import useFetchDataInterview from "../../functions/interview/FetchInterviewApi";
 import { Button } from "react-bootstrap";
 
 export const InterviewView = () => {

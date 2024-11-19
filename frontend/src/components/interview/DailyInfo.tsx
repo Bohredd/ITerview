@@ -1,15 +1,14 @@
-import { Daily } from "../types/Daily";
-import { Person } from "../types/Person";
+import { Daily } from "../../types/daily/Daily";
+import { Person } from "../../types/daily/Person";
 import { useState } from "react";
-import useFetchDataDaily from "../functions/FetchDailyApi";
+import useFetchDataDaily from "../../functions/daily/FetchDailyApi";
 import { PersonFrame } from "./PersonFrame";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { Speech } from "../types/Speech";
+import { Speech } from "../../types/daily/Speech";
 import ShowProbablyAnswers from "./ShowProbablyAnswers";
 import {
   BsFillTelephoneFill,
   BsMicMuteFill,
-  BsFillMicFill,
   BsDisplay,
   BsMicFill,
 } from "react-icons/bs";

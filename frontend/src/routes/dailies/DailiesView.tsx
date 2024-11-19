@@ -1,6 +1,6 @@
-import { Daily } from "../types/Daily";
+import { Daily } from "../../types/daily/Daily";
 import { useState } from "react";
-import useFetchDataDaily from "../functions/FetchDailyApi";
+import useFetchDataDaily from "../../functions/daily/FetchDailyApi";
 import { Button } from "react-bootstrap";
 export const DailiesView = () => {
   const [dailies, setDailies] = useState<Daily[] | null>(null);

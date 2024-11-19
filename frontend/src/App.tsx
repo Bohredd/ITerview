@@ -1,13 +1,14 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import { Home } from "./routes/Home";
-import { InterviewView } from "./routes/Interview";
-import { InterviewStart } from "./routes/InterviewStart";
-import { InterviewsView } from "./routes/InterviewsView";
+import { SeeProducts } from "./routes/home/SeeProducts";
+import { InterviewView } from "./routes/interviews/Interview";
+import { InterviewStart } from "./routes/interviews/InterviewStart";
+import { InterviewsView } from "./routes/interviews/InterviewsView";
 import { createContext, useContext, useState } from "react";
-import { DailiesView } from "./routes/DailiesView";
-import { DailyStart } from "./routes/DailyStart";
-import { DailyView } from "./routes/Daily";
+import { DailiesView } from "./routes/dailies/DailiesView";
+import { DailyStart } from "./routes/dailies/DailyStart";
+import { DailyView } from "./routes/dailies/Daily";
+import { Home } from "./routes/home/Home";
 
 type Theme = "light" | "dark";
 type Language = "en-US" | "pt-BR";
@@ -36,6 +37,7 @@ function App() {
     <GlobalContext.Provider value={{ theme, language, setTheme, setLanguage }}>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/see" element={<SeeProducts />} />
         <Route path="/interviews" element={<InterviewsView />} />
         <Route path="/interview/:id" element={<InterviewView />} />
         <Route path="/interview/:id/start" element={<InterviewStart />} />

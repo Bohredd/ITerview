@@ -1,8 +1,8 @@
-import useFetchDataInterview from "../functions/FetchInterviewApi";
-import { Interview } from "../types/Interview";
+import useFetchDataInterview from "../../functions/interview/FetchInterviewApi";
+import { Interview } from "../../types/interview/Interview";
 import { useState } from "react";
-import { InterviewTheme } from "../types/InterviewTheme";
-import { InterviewSubTheme } from "../types/InterviewSubTheme";
+import { InterviewSubTheme } from "../../types/interview/InterviewSubTheme";
+import { InterviewTheme } from "../../types/interview/InterviewTheme";
 import { Button } from "react-bootstrap";
 
 export function InterviewsView() {
