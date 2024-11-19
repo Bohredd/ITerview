@@ -4,6 +4,7 @@ import useFetchDataDaily from "../../functions/daily/FetchDailyApi";
 import ProbablyAnswerShow from "./ProbablyAnswer";
 import { Button } from "react-bootstrap";
 import ListenPersonAnswer from "../../functions/utils/ListenPerson";
+// import { Information } from "../../types/daily/Information";
 
 interface ShowProbablyAnswersProps {
   speechId: number | string;
@@ -18,6 +19,7 @@ export default function ShowProbablyAnswers({
   const [isAnswering, setIsAnswering] = useState<boolean>(false);
   const [answer, setAnswer] = useState<string>("");
   const [recognition, setRecognition] = useState<any>(null);
+  // const [information, setInformation] = useState<Information | null>(null);
 
   useFetchDataDaily<Speech>({
     method: "GET",
@@ -27,6 +29,15 @@ export default function ShowProbablyAnswers({
     setLoading,
     setError,
   });
+
+  // useFetchDataDaily<Information>({
+  //   method: "GET",
+  //   url: `/information/`,
+  //   id: speech?.information as number,
+  //   setData: setInformation,
+  //   setLoading,
+  //   setError,
+  // });
 
   console.log("speech: ", speech);
 

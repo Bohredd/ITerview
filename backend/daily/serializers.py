@@ -36,3 +36,8 @@ class ProbablyAnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProbablyAnswer
         fields = '__all__'
+
+class InformationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Information
+        fields = '__all__'
