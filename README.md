@@ -1,6 +1,6 @@
 # 1 . feedback da interview
 
-# 2. estrutura das views (dividir entre interview e dailies )
+# 2. estrutura das views (dividir entre interview e dailies ) ok
 
 # 3. montar a sequencia de falas da daily ok
 
@@ -21,3 +21,5 @@
 # 11. colocar caso errada resposta, mostrar penalty (falada)
 
 # de alguem
+
+# 12. montar "beleza do projeto"

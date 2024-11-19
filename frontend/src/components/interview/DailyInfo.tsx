@@ -88,12 +88,14 @@ export const DailyInfo: React.FC<DailyInfoProps> = ({
 
       <Container fluid className="py-5">
         <Row className="justify-content-md-center">
+          <Col className="col-8 col-md-4 mb-3"></Col>
           <Col className="col-8 col-md-4 mb-3">
             <Button variant="secondary" size="lg">
               <BsDisplay />
             </Button>
-          </Col>
-          <Col className="col-8 col-md-4 mb-3">
+            <Button variant="danger" size="lg">
+              <BsFillTelephoneFill />
+            </Button>
             <Button
               variant={
                 speech?.speaker == you.id || speech?.is_to_you == true
@@ -111,12 +113,7 @@ export const DailyInfo: React.FC<DailyInfoProps> = ({
               )}
             </Button>
           </Col>
-
-          <Col className="col-8 col-md-4 mb-3">
-            <Button variant="danger" size="lg">
-              <BsFillTelephoneFill />
-            </Button>
-          </Col>
+          <Col className="col-8 col-md-4 mb-3"></Col>
         </Row>
       </Container>
 
