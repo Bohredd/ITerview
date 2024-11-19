@@ -31,3 +31,8 @@ class GetPersonsDailySerializer(serializers.ModelSerializer):
     class Meta:
         model = Daily
         fields = ['people']
+
+class ProbablyAnswerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProbablyAnswer
+        fields = '__all__'

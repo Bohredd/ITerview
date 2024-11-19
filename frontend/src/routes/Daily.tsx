@@ -70,6 +70,7 @@ export const DailyView = () => {
         dailyInfo={daily}
         actualSpeechId={daily.speeches[actualSpeechId]}
       />
+      <p> Actual speech id: {actualSpeechId} </p>
       <Button
         variant="primary"
         onClick={handlePrevious}

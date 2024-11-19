@@ -3,9 +3,16 @@ import { Person } from "../types/Person";
 import { useState } from "react";
 import useFetchDataDaily from "../functions/FetchDailyApi";
 import { PersonFrame } from "./PersonFrame";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { Speech } from "../types/Speech";
 import ShowProbablyAnswers from "./ShowProbablyAnswers";
+import {
+  BsFillTelephoneFill,
+  BsMicMuteFill,
+  BsFillMicFill,
+  BsDisplay,
+  BsMicFill,
+} from "react-icons/bs";
 
 interface DailyInfoProps {
   dailyInfo: Daily;
@@ -56,6 +63,8 @@ export const DailyInfo: React.FC<DailyInfoProps> = ({
     return <div>No daily info found</div>;
   }
 
+  console.log("Actual speaker ", speech?.speaker);
+
   return (
     <div>
       <h2>{dailyInfo.project_name}</h2>
@@ -75,6 +84,40 @@ export const DailyInfo: React.FC<DailyInfoProps> = ({
               actualSpeechId={actualSpeechId}
             />
           ))}
+        </Row>
+      </Container>
+
+      <Container fluid className="py-5">
+        <Row className="justify-content-md-center">
+          <Col className="col-8 col-md-4 mb-3">
+            <Button variant="secondary" size="lg">
+              <BsDisplay />
+            </Button>
+          </Col>
+          <Col className="col-8 col-md-4 mb-3">
+            <Button
+              variant={
+                speech?.speaker == you.id || speech?.is_to_you == true
+                  ? "success"
+                  : "primary"
+              }
+              size="lg"
+            >
+              {speech?.speaker === you.id ? (
+                <BsMicMuteFill />
+              ) : speech?.is_to_you ? (
+                <BsMicFill />
+              ) : (
+                <BsMicFill />
+              )}
+            </Button>
+          </Col>
+
+          <Col className="col-8 col-md-4 mb-3">
+            <Button variant="danger" size="lg">
+              <BsFillTelephoneFill />
+            </Button>
+          </Col>
         </Row>
       </Container>
 

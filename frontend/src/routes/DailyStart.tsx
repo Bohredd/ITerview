@@ -32,13 +32,11 @@ export const DailyStart = () => {
     return <div>{error}</div>;
   }
 
-  console.log(daily);
-
   return (
     <div>
       <h1>{daily.project_name}</h1>
       {daily.project_description}
-      {daily.your_atributions}
+      <p>{daily.your_atributions}</p>
       <Button variant="primary" href={`/daily/${daily.id}`}>
         Start Daily
       </Button>
