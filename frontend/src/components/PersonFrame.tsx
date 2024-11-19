@@ -58,7 +58,7 @@ export const PersonFrame = ({ peopleId, actualSpeechId }: PersonFrameProps) => {
       >
         <Card.Img
           variant="top"
-          src="holder.js/100px180?text=Image cap"
+          src={person.image || "holder.js/100px180?text=Image cap"}
           className="card-img-top "
         />
         <Card.Body className="text-center">

@@ -1,8 +1,8 @@
 import { Speech } from "../types/Speech";
-import { Button } from "react-bootstrap";
 import { useState } from "react";
 import useFetchDataDaily from "../functions/FetchDailyApi";
 import TextToSpeech from "../functions/TextToSpeech";
+import { Person } from "../types/Person";
 
 interface SpeakContentProps {
   actualSpeechId: number | string;
@@ -15,6 +15,8 @@ export const SpeakContent: React.FC<SpeakContentProps> = ({
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  const [speaker, setSpeaker] = useState<Person | null>(null);
+
   useFetchDataDaily<Speech>({
     method: "GET",
     url: `/speech/`,
@@ -23,6 +25,17 @@ export const SpeakContent: React.FC<SpeakContentProps> = ({
     setLoading,
     setError,
   });
+
+  // console.log(`speech speaker: ${speech?.speaker}`);
+
+  // useFetchDataDaily<Person>({
+  //   method: "GET",
+  //   url: `/person/`,
+  //   id: speech?.speaker as number,
+  //   setData: setSpeaker,
+  //   setLoading,
+  //   setError,
+  // });
 
   if (loading) {
     return <div>Loading...</div>;

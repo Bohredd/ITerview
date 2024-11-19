@@ -2,6 +2,8 @@ import { Speech } from "../types/Speech";
 import { useState } from "react";
 import useFetchDataDaily from "../functions/FetchDailyApi";
 import ProbablyAnswerShow from "./ProbablyAnswer";
+import { Button } from "react-bootstrap";
+import ListenPersonAnswer from "../functions/ListenPerson";
 
 interface ShowProbablyAnswersProps {
   speechId: number | string;
@@ -13,6 +15,9 @@ export default function ShowProbablyAnswers({
   const [speech, setSpeech] = useState<Speech | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [isAnswering, setIsAnswering] = useState<boolean>(false);
+  const [answer, setAnswer] = useState<string>("");
+  const [recognition, setRecognition] = useState<any>(null);
 
   useFetchDataDaily<Speech>({
     method: "GET",
@@ -37,9 +42,36 @@ export default function ShowProbablyAnswers({
     return <div>No speech found</div>;
   }
 
-  console.log("probably answers: ", speech.probably_answers);
+  // TODO: show the information to the question (it will help the user to answer the question made to himself)
+  const handleAnswer = () => {
+    try {
+      setIsAnswering(true);
+      const recognition = ListenPersonAnswer("en-US");
+      setRecognition(recognition);
+      recognition.onresult = (event: any) => {
+        const current = event.resultIndex;
+        const transcript = event.results[current][0].transcript;
+        setAnswer(transcript);
+        console.log("transcript: ", transcript);
+      };
 
-  console.log("speech information ", speech.information);
+      recognition.start();
+    } catch (error) {
+      console.log("error: ", error);
+    }
+  };
+
+  const handleStopAnswering = () => {
+    if (recognition) {
+      recognition.stop();
+    }
+
+    setIsAnswering(false);
+
+    if (answer) {
+      console.log("answer is: ", answer);
+    }
+  };
 
   return (
     <div>
@@ -49,6 +81,19 @@ export default function ShowProbablyAnswers({
           <ProbablyAnswerShow probablyAnswerId={probablyAnswer} />
         </div>
       ))}
+
+      {answer && <h3>Your current answer is {answer}</h3>}
+
+      <Button variant="primary" onClick={handleAnswer}>
+        Answer
+      </Button>
+      <Button
+        variant="danger"
+        onClick={handleStopAnswering}
+        disabled={!isAnswering}
+      >
+        Stop answering
+      </Button>
     </div>
   );
 }
