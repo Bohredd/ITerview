@@ -2,7 +2,7 @@ import { Button } from "react-bootstrap";
 import { QuestionShow } from "./QuestionShow";
 import { useState } from "react";
 import ListenPersonAnswer from "../../functions/ListenPerson";
-import { VerifyAnswers } from "../../functions/VerifyAnswers";
+// import { VerifyAnswers } from "../../functions/VerifyAnswers";
 
 interface Props {
     questions: number[];

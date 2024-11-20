@@ -9,6 +9,8 @@ import { SentenceView } from "./views/sentences/Sentence";
 import { See } from "./views/home/See";
 import { InterviewsView } from "./views/interviews/InterviewsView";
 import { InterviewView } from "./views/interviews/Interview";
+import { DailiesView } from "./views/dailies/DailiesView";
+import { DailyView } from "./views/dailies/DailyView";
 
 type Theme = "light" | "dark";
 type Language = "en-US" | "pt-BR";
@@ -38,9 +40,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/interviews" element={<InterviewsView />} />
-        <Route path="/dailies" element={<h1>Dailies</h1>} />
+        <Route path="/dailies" element={<DailiesView />} />
         <Route path="/interviews/:id" element={<InterviewView />} />
-        <Route path="/dailies/:id" element={<h1>Daily</h1>} />
+        <Route path="/dailies/:id" element={<DailyView />} />
         <Route path="/features" element={<Features />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/sentences" element={<SentencesView />} />

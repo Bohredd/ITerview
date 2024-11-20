@@ -1,21 +1,23 @@
-import { Daily } from "../../types/daily/Daily";
-import { Person } from "../../types/daily/Person";
-import { useState } from "react";
-import useFetchDataDaily from "../../functions/daily/FetchData";
+import { Button } from "react-bootstrap"
+import { Daily } from "../../types/daily/Daily"
+import { Person } from "../../types/daily/Person"
+import useFetchData from "../../functions/FetchData"
+import { useState } from "react"
 
 interface DailyInfoProps {
-  dailyInfo: Daily;
+  daily : Daily
 }
 
-export const DailyInfo: React.FC<DailyInfoProps> = ({ dailyInfo }) => {
+export const DailyInfo = ({ daily } : DailyInfoProps) => {
   const [you, setYou] = useState<Person | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  useFetchDataDaily<Person>({
+  useFetchData<Person>({
     method: "GET",
-    url: `/person/`,
-    id: dailyInfo.you as number,
+    app_name: "dailies",
+    url: `person/`,
+    id: daily.you,
     setData: setYou,
     setLoading,
     setError,
@@ -30,22 +32,22 @@ export const DailyInfo: React.FC<DailyInfoProps> = ({ dailyInfo }) => {
   }
 
   if (!you) {
-    return <div>No you found</div>;
+    return <div>No person found</div>;
   }
 
-  if (!dailyInfo) {
-    return <div>No daily info found</div>;
-  }
+  console.log(you);
 
   return (
     <div>
-      <h2>{dailyInfo.project_name}</h2>
-      <h3>{dailyInfo.project_description}</h3>
-      <p>{dailyInfo.your_atributions}</p>
-      <p>People count in team {dailyInfo.people.length}</p>
+      <h1>{daily.project_name}</h1>
+      <p>{daily.project_description}</p>
       <p>
         You are {you.name} and you work as {you.role}
       </p>
+      <p>People team size: {daily.people.length}</p>
+      <Button variant="primary" href={`/dailies/${daily.id}`}>
+        I want to participate in this daily
+      </Button>
     </div>
   );
 };
