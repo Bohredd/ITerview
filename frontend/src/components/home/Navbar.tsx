@@ -1,13 +1,23 @@
 import { Container, Nav } from "react-bootstrap";
 import { Navbar } from "react-bootstrap";
 import { BsFillPersonFill } from "react-icons/bs";
+// import Figure from "react-bootstrap/Figure";
 
 export const CustomNavbar = () => {
   return (
     <Navbar className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="/" className="fw-bold">
-          <span className="text-primary">IT</span>erview
+        <Navbar.Brand href="/" className="fw-bold d-flex align-items-center">
+          {/* <Figure className="mb-0">
+            <Figure.Image
+              width={40}
+              height="auto"
+              alt="ITerview Logo"
+              src="/src/assets/iterview-logo.png"
+              style={{ verticalAlign: "middle" }}
+            />
+          </Figure> */}
+          <span className="ms-2 fw-bold fs-5"><span className="text-primary">IT</span>erview</span>
         </Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link href="/features">

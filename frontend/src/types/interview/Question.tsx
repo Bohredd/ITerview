@@ -1,4 +1,3 @@
-import { Answer } from "./Answer";
 
 export type Question = {
   id: number;
@@ -6,5 +5,5 @@ export type Question = {
   level: string;
   text: string;
 
-  answers: Answer[];
+  answers: number[];
 };

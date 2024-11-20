@@ -7,6 +7,8 @@ import { Pricing } from "./views/home/Pricing";
 import { SentencesView } from "./views/sentences/SentencesView";
 import { SentenceView } from "./views/sentences/Sentence";
 import { See } from "./views/home/See";
+import { InterviewsView } from "./views/interviews/InterviewsView";
+import { InterviewView } from "./views/interviews/Interview";
 
 type Theme = "light" | "dark";
 type Language = "en-US" | "pt-BR";
@@ -35,9 +37,9 @@ function App() {
     <GlobalContext.Provider value={{ theme, language, setTheme, setLanguage }}>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/interviews" element={<h1>Interviews</h1>} />
+        <Route path="/interviews" element={<InterviewsView />} />
         <Route path="/dailies" element={<h1>Dailies</h1>} />
-        <Route path="/interviews/:id" element={<h1>Interview</h1>} />
+        <Route path="/interviews/:id" element={<InterviewView />} />
         <Route path="/dailies/:id" element={<h1>Daily</h1>} />
         <Route path="/features" element={<Features />} />
         <Route path="/pricing" element={<Pricing />} />

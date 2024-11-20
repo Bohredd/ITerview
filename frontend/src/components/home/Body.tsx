@@ -1,12 +1,12 @@
 import { Button, Container } from "react-bootstrap";
+import Image from 'react-bootstrap/Image';
 
 export const CustomBody = () => {
   return (
     <Container>
       <div className="d-flex justify-content-center">
-        <div style={{ paddingTop: "200px" }}>
-          <span className="text-primary fw-bold fs-1">IT</span>
-          <span className="fs-1 fw-bold text-black">erview</span>
+        <div style={{ paddingTop: "100px"}}>
+          <Image src="src/assets/iterview-logo.png" rounded />
         </div>
       </div>
 
