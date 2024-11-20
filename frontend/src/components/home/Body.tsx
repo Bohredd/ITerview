@@ -23,7 +23,7 @@ export const CustomBody = () => {
         </p>
         <p className="text-justify text-black fw-bold p-2"> English </p>
         <p className="text-justify fw-bold fs-6" style={{ color: "gray" }}>
-          skills and get the job you want with
+          skills and be ready for the job you want with
         </p>
         <p className="text-justify p-2 fw-bold fs-6" style={{ color: "blue" }}>
           ITerview

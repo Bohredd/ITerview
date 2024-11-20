@@ -6,6 +6,7 @@ import { Features } from "./views/home/Features";
 import { Pricing } from "./views/home/Pricing";
 import { SentencesView } from "./views/sentences/SentencesView";
 import { SentenceView } from "./views/sentences/Sentence";
+import { See } from "./views/home/See";
 
 type Theme = "light" | "dark";
 type Language = "en-US" | "pt-BR";
@@ -42,7 +43,7 @@ function App() {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/sentences" element={<SentencesView />} />
         <Route path="/sentences/play" element={<SentenceView />} />
-        <Route path="/gameSelection" element={<h1>Game Selection</h1>} />
+        <Route path="/gameSelection" element={<See />} />
       </Routes>
     </GlobalContext.Provider>
   );
