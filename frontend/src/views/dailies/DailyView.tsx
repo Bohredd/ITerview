@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Daily } from "../../types/daily/Daily";
 import { ShowPeopleFrame } from "../../components/daily/ShowPeopleFrame";
 import { ShowConversations } from "../../components/daily/ShowConversations";
+
 export const DailyView = () => {
     const { id } = useParams<{ id: string }>();
 

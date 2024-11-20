@@ -1,7 +1,9 @@
 import { Speech } from "../../types/daily/Speech";
 import useFetchData from "../../functions/FetchData";
 import { useState } from "react";
-
+import { Button } from "react-bootstrap";
+import { TextToSpeech } from "../../functions/TextToSpeech";
+import { ShowInfoQuestionAnswers } from "./ShowInfoQuestionAnswers";
 interface ShowConversationProps {
   speechId: number;
 }
@@ -35,8 +37,16 @@ export const ShowConversation = ({ speechId }: ShowConversationProps) => {
 
     console.log(speech);
 
+    const handleListen = () => {
+        TextToSpeech(speech.content);
+    }
+
   return <div>
     <h3>{speech.speaker}</h3>
     <p>{speech.content}</p>
+    <Button onClick={handleListen}>Listen the speech</Button>
+    {speech.is_question && speech.is_to_you && (
+        <ShowInfoQuestionAnswers speechId={speechId} />
+    )}
   </div>;
 };

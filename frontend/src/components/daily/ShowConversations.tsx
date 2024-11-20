@@ -25,8 +25,6 @@ export const ShowConversations = ({ speechesId }: ShowConversationsProps) => {
         }
     }
 
-
-
     return (
         <div>
             <ShowConversation speechId={speechesId[currentSpeechId]} />
