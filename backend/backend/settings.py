@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'user',
     'feedback',
     'daily',
+    'plans',
+    'sentences',
 ]
 
 MIDDLEWARE = [

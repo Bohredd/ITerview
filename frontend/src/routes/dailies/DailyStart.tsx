@@ -1,5 +1,5 @@
 import { Daily } from "../../types/daily/Daily";
-import useFetchDataDaily from "../../functions/daily/FetchDailyApi";
+import useFetchDataDaily from "../../functions/daily/FetchData";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";

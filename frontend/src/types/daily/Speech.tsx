@@ -1,9 +1,9 @@
 export type Speech = {
-  id: number | string;
-  speaker: number | string;
+  id: number;
+  speaker: number;
   content: string;
   is_question: boolean;
   is_to_you: boolean;
-  probably_answers: number[] | string[];
-  information: number | string;
+  probably_answers: number[];
+  information: number;
 };
