@@ -41,3 +41,26 @@ class InformationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Information
         fields = '__all__'
+
+
+class GetSpeechesCorrectAnswerSerializer(serializers.ModelSerializer):
+    probably_answers = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Speech
+        fields = [
+            "id",
+            "order",
+            "speaker",
+            "content",
+            "is_question",
+            "is_to_you",
+            "probably_answers",
+        ]
+
+    def get_probably_answers(self, obj):
+        # Retorna apenas os valores do campo 'answer' para respostas corretas
+        correct_answers = obj.probably_answers.filter(is_correct=True).values_list(
+            "id", flat=True
+        )
+        return list(correct_answers)

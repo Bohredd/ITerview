@@ -1,9 +1,9 @@
 export type Daily = {
-  id: number | string;
+  id: number;
   project_name: string;
   project_description: string;
-  speeches: number[] | string[];
+  speeches: number[];
   you: number | string;
   your_atributions: string;
-  people: number[] | string[];
+  people: number[];
 };

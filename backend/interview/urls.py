@@ -1,7 +1,8 @@
 from rest_framework.routers import DefaultRouter
 from interview.views import (InterviewThemeViewSet, InterviewSubThemeViewSet, 
                              QuestionViewSet, AnswerViewSet, InterviewViewSet, GetAnswersQuestionViewSet,
-                             GetQuestionsInterviewViewSet, GetThemesInterviewViewSet, GetSubThemesInterviewViewSet)
+                             GetQuestionsInterviewViewSet, GetThemesInterviewViewSet, GetSubThemesInterviewViewSet,
+                             GetCorrectAnswerFromQuestionViewSet)
 
 router = DefaultRouter()
 
@@ -14,5 +15,6 @@ router.register('api/get_answers_question', GetAnswersQuestionViewSet, basename=
 router.register('api/get_questions_interview', GetQuestionsInterviewViewSet, basename='get_questions_interview')
 router.register('api/get_themes_interview', GetThemesInterviewViewSet, basename='get_themes_interview')
 router.register('api/get_sub_themes_interview', GetSubThemesInterviewViewSet, basename='get_sub_themes_interview')
+router.register('api/questions-correct-answers', GetCorrectAnswerFromQuestionViewSet, basename='questions-correct-answers')
 
 urlpatterns = router.urls

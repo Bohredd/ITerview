@@ -1,5 +1,5 @@
 export type Information = {
-  id: number | string;
+  id: number;
   title: string;
   content: string;
 };

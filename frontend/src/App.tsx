@@ -1,14 +1,16 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import { SeeProducts } from "./routes/home/SeeProducts";
-import { InterviewView } from "./routes/interviews/Interview";
-import { InterviewStart } from "./routes/interviews/InterviewStart";
-import { InterviewsView } from "./routes/interviews/InterviewsView";
 import { createContext, useContext, useState } from "react";
-import { DailiesView } from "./routes/dailies/DailiesView";
-import { DailyStart } from "./routes/dailies/DailyStart";
-import { DailyView } from "./routes/dailies/Daily";
-import { Home } from "./routes/home/Home";
+import { Home } from "./views/home/Home";
+import { Features } from "./views/home/Features";
+import { Pricing } from "./views/home/Pricing";
+import { SentencesView } from "./views/sentences/SentencesView";
+import { SentenceView } from "./views/sentences/Sentence";
+import { See } from "./views/home/See";
+import { InterviewsView } from "./views/interviews/InterviewsView";
+import { InterviewView } from "./views/interviews/Interview";
+import { DailiesView } from "./views/dailies/DailiesView";
+import { DailyView } from "./views/dailies/DailyView";
 
 type Theme = "light" | "dark";
 type Language = "en-US" | "pt-BR";
@@ -37,13 +39,15 @@ function App() {
     <GlobalContext.Provider value={{ theme, language, setTheme, setLanguage }}>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/see" element={<SeeProducts />} />
         <Route path="/interviews" element={<InterviewsView />} />
-        <Route path="/interview/:id" element={<InterviewView />} />
-        <Route path="/interview/:id/start" element={<InterviewStart />} />
         <Route path="/dailies" element={<DailiesView />} />
-        <Route path="/daily/:id" element={<DailyView />} />
-        <Route path="/daily/:id/start" element={<DailyStart />} />
+        <Route path="/interviews/:id" element={<InterviewView />} />
+        <Route path="/dailies/:id" element={<DailyView />} />
+        <Route path="/features" element={<Features />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/sentences" element={<SentencesView />} />
+        <Route path="/sentences/play" element={<SentenceView />} />
+        <Route path="/gameSelection" element={<See />} />
       </Routes>
     </GlobalContext.Provider>
   );

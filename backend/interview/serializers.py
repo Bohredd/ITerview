@@ -57,3 +57,14 @@ class GetSubThemesInterviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Interview
         fields = ['id', 'interview_type', 'level', 'sub_themes']
+
+class GetCorrectAnswerFromQuestionSerializer(serializers.ModelSerializer):
+    answers = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Question
+        fields = ['id', 'text', 'interview_type', 'level', 'answers']
+
+    def get_answers(self, obj):
+        correct_answers = obj.answers.filter(is_correct=True).values_list('id', flat=True)  
+        return list(correct_answers)
