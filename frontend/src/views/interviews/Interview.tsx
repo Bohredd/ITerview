@@ -7,7 +7,7 @@ export const InterviewView = () => {
 
     const { id } = useParams<{ id: string }>();
 
-    console.log(id);
+    // console.log(id);
 
     const [interview, setInterview] = useState<Interview | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -35,7 +35,7 @@ export const InterviewView = () => {
         return <div>No interview found</div>
     }
 
-    console.log(interview);
+    // console.log(interview);
 
     return (
         <div>

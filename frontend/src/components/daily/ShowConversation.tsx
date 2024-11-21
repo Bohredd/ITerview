@@ -35,7 +35,7 @@ export const ShowConversation = ({ speechId }: ShowConversationProps) => {
         return <div>No speech found</div>;
     }
 
-    console.log(speech);
+    // console.log(speech);
 
     const handleListen = () => {
         TextToSpeech(speech.content);

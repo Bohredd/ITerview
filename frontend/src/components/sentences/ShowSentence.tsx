@@ -51,7 +51,7 @@ export const ShowSentence = () => {
 
       const inputWords = input.value.trim().split(" ");
       const sentenceWords = currentSentence.sentence.trim().split(" ");
-
+//  quero melhorar essa  validação aqui do que foi escrito certo e errado
       const result = sentenceWords.map((word, index) => {
         const isCorrect = inputWords[index] === word;
 

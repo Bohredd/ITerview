@@ -66,6 +66,5 @@ class GetCorrectAnswerFromQuestionSerializer(serializers.ModelSerializer):
         fields = ['id', 'text', 'interview_type', 'level', 'answers']
 
     def get_answers(self, obj):
-        # Filter answers to include only those marked as correct
-        correct_answers = obj.answers.filter(is_correct=True)  # Use the related name for Answer objects
-        return AnswerSerializer(correct_answers, many=True).data
+        correct_answers = obj.answers.filter(is_correct=True).values_list('id', flat=True)  
+        return list(correct_answers)

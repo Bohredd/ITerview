@@ -35,7 +35,7 @@ export const ShowInfoQuestionAnswers = ({ speechId }: ShowInfoQuestionAnswersPro
         return <div>No speech found</div>;
     }
 
-    console.log(speech);
+    // console.log(speech);
 
     return (
         <div>

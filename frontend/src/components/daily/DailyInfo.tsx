@@ -35,7 +35,7 @@ export const DailyInfo = ({ daily } : DailyInfoProps) => {
     return <div>No person found</div>;
   }
 
-  console.log(you);
+  // console.log(you);
 
   return (
     <div>

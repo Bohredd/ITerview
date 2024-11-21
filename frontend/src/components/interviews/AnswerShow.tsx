@@ -13,8 +13,6 @@ export const AnswerShow = ({ answerId }: Props) => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
-    console.log("AnswerShow: ", answerId);
-
     useFetchData<Answer>({
         method: "GET",
         app_name: "interview",

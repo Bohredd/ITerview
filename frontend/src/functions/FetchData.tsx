@@ -30,9 +30,9 @@ const useFetchData = <T,>({
         let data;
 
         if (method === "GET" || method === "LIST") {
-          console.log("app_name: ", app_name);
-          console.log("url: ", url);
-          console.log("id: ", id);
+          // console.log("app_name: ", app_name);
+          // console.log("url: ", url);
+          // console.log("id: ", id);
           data = await ApiConsumer.get<T>(
             app_name,
             url,
