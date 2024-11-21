@@ -12,41 +12,41 @@ export const GameSelection = () => {
   };
 
   return (
-    <Container style={{ marginTop: "20px" }}>
-      <div className="d-flex justify-content-center">
-        <Card style={cardStyle}>
+    <Container className="pt-5 pb-5">
+      <div className="d-flex justify-content-center pt-5 pb-5">
+        <Card style={cardStyle} className="text-center pt-3">
           <Card.Body>
             <Card.Title>Fake Daily Meeting</Card.Title>
             <Card.Text>
               You will participate in a daily meeting with a development team
             </Card.Text>
           </Card.Body>
-          <Card.Footer>
+          <Card.Footer className="align-items-center text-center">
             <Button variant="primary" href="/dailies">
               Play this one
             </Button>
           </Card.Footer>
         </Card>
-        <Card style={cardStyle}>
+        <Card style={cardStyle} className="text-center pt-3">
           <Card.Body>
             <Card.Title>Fake Job Interview</Card.Title>
             <Card.Text>You will participate in a fake job interview</Card.Text>
           </Card.Body>
-          <Card.Footer>
-            <Button variant="primary" href="/interviews">
+          <Card.Footer className="align-items-center text-center">
+            <Button variant="dark" href="/interviews">
               Play this one
             </Button>
           </Card.Footer>
         </Card>
-        <Card style={cardStyle}>
+        <Card style={cardStyle} className="text-center pt-3">
           <Card.Body>
             <Card.Title>Common developer sentences</Card.Title>
             <Card.Text>
               You will heard a lot of common developer sentences
             </Card.Text>
           </Card.Body>
-          <Card.Footer className="align-items-center">
-            <Button variant="primary" href="/sentences">
+          <Card.Footer className="align-items-center text-center">
+            <Button variant="info" href="/sentences">
               Play this one
             </Button>
           </Card.Footer>
