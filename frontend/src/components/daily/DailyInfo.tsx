@@ -45,6 +45,8 @@ export const DailyInfo = ({ daily } : DailyInfoProps) => {
         You are {you.name} and you work as {you.role}
       </p>
       <p>People team size: {daily.people.length}</p>
+      <p>Interations between all the team: {daily.speeches.length}</p>
+      <p>Your Interations: will be here the api response for the your interations</p>
     </div>
   );
 };

@@ -11,6 +11,9 @@ import { InterviewsView } from "./views/interviews/InterviewsView";
 import { InterviewView } from "./views/interviews/Interview";
 import { DailiesView } from "./views/dailies/DailiesView";
 import { DailyView } from "./views/dailies/DailyView";
+import { Error404 } from "./views/error/Error404";
+import { LoginUser } from "./views/user/LoginUser";
+import RegisterUser from "./views/user/RegisterUser";
 
 type Theme = "light" | "dark";
 type Language = "en-US" | "pt-BR";
@@ -48,6 +51,10 @@ function App() {
         <Route path="/sentences" element={<SentencesView />} />
         <Route path="/sentences/play" element={<SentenceView />} />
         <Route path="/gameSelection" element={<See />} />
+        <Route path="/login" element={<LoginUser />} />
+        <Route path="/register" element={<RegisterUser />} />
+        <Route path="*" element={<Error404 />} />
+        <Route path="forgot-password" element={<h1>Forgot Password</h1>} />  {/* implement the forgot password yet*/}
       </Routes>
     </GlobalContext.Provider>
   );
