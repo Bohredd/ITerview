@@ -1,9 +1,9 @@
-import { Button } from "react-bootstrap";
 import { CustomNavbar } from "../../components/home/Navbar";
 import { Interview } from "../../types/interview/Interview";
 import { useState } from "react";
 import useFetchData from "../../functions/FetchData";
 import { ShowInterview } from "../../components/interviews/ShowInterview";
+
 export const InterviewsView = () => {
 
     const [interviews, setInterviews] = useState<Interview[]>([]);

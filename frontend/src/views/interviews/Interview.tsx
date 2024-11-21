@@ -3,6 +3,8 @@ import { useState } from "react"
 import useFetchData from "../../functions/FetchData"
 import { useParams } from "react-router-dom"
 import { QuestionsShow } from "../../components/interviews/QuestionsShow"
+import { CustomNavbar } from "../../components/home/Navbar"
+
 export const InterviewView = () => {
 
     const { id } = useParams<{ id: string }>();
@@ -38,10 +40,11 @@ export const InterviewView = () => {
     // console.log(interview);
 
     return (
-        <div>
-            <h1>{interview.level}</h1>
-            <p>{interview.interview_type}</p>
-            <QuestionsShow questions={interview.questions} />
-        </div>
-    )
+      <div>
+        <CustomNavbar />
+        <h1>{interview.level}</h1>
+        <p>{interview.interview_type}</p>
+        <QuestionsShow questions={interview.questions} />
+      </div>
+    );
 }

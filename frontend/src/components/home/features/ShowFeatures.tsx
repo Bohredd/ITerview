@@ -47,16 +47,14 @@ export const ShowFeatures = () => {
         <Card style={cardStyles}>
           <Card.Body>
             <Card.Title className="text-center fw-bold fs-5">
-              Fake Job Interview NEED TO ADJUST
+              Fake Job Interview
             </Card.Title>
             <Card.Text className="text-center">
               <ul>
-                <li>3 simulated dailies meetings</li>
-                <li>5 simulated jobs interviews</li>
-                <li>
-                  <span className="text-muted">∞</span> common developers
-                  sentences
-                </li>
+                <li>you will be asked about themes and subthemes of the job</li>
+                <li>you need to answer the questions speaking in english</li>
+                <li>if you dont answer correctly, you can answer again</li>
+                <li>you can listen the answer of the recruiter and the possible answers too</li> 
               </ul>
             </Card.Text>
           </Card.Body>
@@ -70,19 +68,14 @@ export const ShowFeatures = () => {
         <Card style={{ ...cardStyles, marginRight: 0 }}>
           <Card.Body>
             <Card.Title className="text-center fw-bold fs-5">
-              Most Common Sentences NEED TO ADJUST
+              Most Common Sentences
             </Card.Title>
             <Card.Text className="text-center">
               <ul>
-                <li>10 simulated dailies meetings</li>
-                <li>
-                  <span className="text-muted">∞</span> simulated jobs
-                  interviews
-                </li>
-                <li>
-                  <span className="text-muted">∞</span> common developers
-                  sentences
-                </li>
+                <li>you will listen the most common developer sentences said in the routine</li>
+                <li>after listen the sentence you need to write it correctly</li>
+                <li>you can listen the sentence again and see the correct answer</li>
+                <li>after you write the sentence correctly, you can speech it and validate if you said it correctly</li>  
               </ul>
             </Card.Text>
           </Card.Body>

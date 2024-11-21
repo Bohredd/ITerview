@@ -1,46 +1,63 @@
-
-import { Person } from "../../types/daily/Person";      
+import { Person } from "../../types/daily/Person";
 import useFetchData from "../../functions/FetchData";
 import { useState } from "react";
+import { Card } from "react-bootstrap";
 
 interface ShowPersonFrameProps {
-    personId: number;
+  personId: number;
 }
 
 export const ShowPersonFrame = ({ personId }: ShowPersonFrameProps) => {
+  const [person, setPerson] = useState<Person | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-    const [person, setPerson] = useState<Person | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+  useFetchData<Person>({
+    method: "GET",
+    app_name: "dailies",
+    url: `person/`,
+    id: personId,
+    setData: setPerson,
+    setLoading,
+    setError,
+  });
 
-    useFetchData<Person>({
-        method: "GET",
-        app_name: "dailies",
-        url: `person/`,
-        id : personId,
-        setData: setPerson,
-        setLoading,
-        setError,
-    });
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-    if (loading) {
-        return <div>Loading...</div>
-    }
+  if (error) {
+    return <div>{error}</div>;
+  }
 
-    if (error) {
-        return <div>{error}</div>
-    }
+  if (!person) {
+    return <div>No person found</div>;
+  }
 
-    if (!person) {
-        return <div>No person found</div>
-    }
+  console.log(person);
 
-    console.log(person);
+  return (
+    <div
+      className={`person-frame-${person.id}`}
+      style={{ width: "14rem", margin: "auto" }}
+    >
+      <Card style={{ width: "14rem", height: "18rem" }}>
 
-    return (
-        <div>
-            <h3>{person.name}</h3>
-            <p>{person.role}</p>
-        </div>
-    )
-}
+        <Card.Img
+          variant="top"
+          src={person.image}
+          alt={person.name}
+          style={{
+            width: "100%", 
+            height: "50%", 
+            objectFit: "cover", 
+          }}
+        />
+        <Card.Body className="text-center">
+          <Card.Title>{person.name}</Card.Title>
+          <Card.Text>{person.role}</Card.Text>
+        </Card.Body>
+      </Card>
+    </div>
+  );
+};

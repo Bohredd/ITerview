@@ -45,9 +45,6 @@ export const DailyInfo = ({ daily } : DailyInfoProps) => {
         You are {you.name} and you work as {you.role}
       </p>
       <p>People team size: {daily.people.length}</p>
-      <Button variant="primary" href={`/dailies/${daily.id}`}>
-        I want to participate in this daily
-      </Button>
     </div>
   );
 };

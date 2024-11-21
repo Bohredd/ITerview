@@ -35,15 +35,13 @@ export const ShowConversation = ({ speechId }: ShowConversationProps) => {
         return <div>No speech found</div>;
     }
 
-    // console.log(speech);
-
     const handleListen = () => {
         TextToSpeech(speech.content);
     }
 
-  return <div>
+  return <div className="d-flex justify-content-center align-items-center flex-column">
     <h3>Actual speech is : {speech.content}</h3>
-    <Button onClick={handleListen}>Listen the speech</Button>
+    <Button onClick={handleListen} className="mt-2 mb-2">Listen the speech</Button>
     {speech.is_question && speech.is_to_you && (
         <ShowInfoQuestionAnswers speechId={speechId} />
     )}

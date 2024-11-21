@@ -22,10 +22,10 @@ export const PricingCards = () => {
                 <li>5 common developers sentences </li>
               </ul>
             </Card.Text>
-            <Card.Footer className="text-center">
-              <small className="text-danger">You already have this one.</small>
-            </Card.Footer>
           </Card.Body>
+          <Card.Footer className="text-center">
+            <small className="text-danger">You already have this one.</small>
+          </Card.Footer>
         </Card>
         <Card
           style={{ width: "18rem", paddingTop: "20px", marginRight: "20px" }}
@@ -47,11 +47,11 @@ export const PricingCards = () => {
                 </li>
               </ul>
             </Card.Text>
-            <Card.Footer className="text-center">
-              {/* need to implement this part */}
-              <small className="text-warning">I want to be a mid-level.</small>
-            </Card.Footer>
           </Card.Body>
+          <Card.Footer className="text-center">
+            {/* need to implement this part */}
+            <small className="text-warning">I want to be a mid-level.</small>
+          </Card.Footer>
         </Card>
         <Card style={{ width: "18rem", paddingTop: "20px" }}>
           <Card.Body>
@@ -72,11 +72,11 @@ export const PricingCards = () => {
                 </li>
               </ul>
             </Card.Text>
-            <Card.Footer className="text-center">
-              {/* need to implement this part */}
-              <small className="text-success">I want to be a senior.</small>
-            </Card.Footer>
           </Card.Body>
+          <Card.Footer className="text-center">
+            {/* need to implement this part */}
+            <small className="text-success">I want to be a senior.</small>
+          </Card.Footer>
         </Card>
       </div>
     </Container>
