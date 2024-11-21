@@ -3,7 +3,7 @@ export type Daily = {
   project_name: string;
   project_description: string;
   speeches: number[];
-  you: number | string;
+  you: number;
   your_atributions: string;
   people: number[];
 };
