@@ -3,6 +3,7 @@ import { useState } from "react";
 import useFetchData from "../../functions/FetchData";
 import { ShowInformation } from "./ShowInformation";
 import { ShowProbablesAnswers } from "./ShowProbablesAnswers";
+import { ValidateAnswerUserDaily } from "./ValidateAnswerUserDaily";
 
 interface ShowInfoQuestionAnswersProps {
     speechId: number;
@@ -12,6 +13,7 @@ export const ShowInfoQuestionAnswers = ({ speechId }: ShowInfoQuestionAnswersPro
     const [speech, setSpeech] = useState<Speech | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [correctProbablyAnswer, setCorrectProbablyAnswer] = useState<Speech | null>(null);
 
     useFetchData<Speech>({
         method: "GET",
@@ -19,6 +21,16 @@ export const ShowInfoQuestionAnswers = ({ speechId }: ShowInfoQuestionAnswersPro
         url: `speech/`,
         id: speechId,
         setData: setSpeech,
+        setLoading,
+        setError,
+    });
+
+    useFetchData<Speech>({
+        method: "GET",
+        app_name: "dailies",
+        url: `correct_answer/`,
+        id: speechId,
+        setData: setCorrectProbablyAnswer,
         setLoading,
         setError,
     });
@@ -35,6 +47,12 @@ export const ShowInfoQuestionAnswers = ({ speechId }: ShowInfoQuestionAnswersPro
         return <div>No speech found</div>;
     }
 
+    if (!correctProbablyAnswer) {
+        return <div>No probably answer found</div>;
+    }
+
+    console.log('correct probably answer: ', correctProbablyAnswer.probably_answers);
+
     // console.log(speech);
 
     return (
@@ -44,6 +62,10 @@ export const ShowInfoQuestionAnswers = ({ speechId }: ShowInfoQuestionAnswersPro
                 )
             }
             <ShowProbablesAnswers answersId={speech.probably_answers} />
+
+
+            <ValidateAnswerUserDaily correctAnswerId={correctProbablyAnswer.probably_answers[0]} />
+          
         </div>
     );
 };

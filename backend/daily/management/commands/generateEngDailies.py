@@ -22,7 +22,10 @@ class Command(BaseCommand):
         speech3 = Speech.objects.create(order=3, speaker=tech_lead, content="Yesterday, I reviewed the code and discussed priorities with Bob.", is_question=False)
 
         # Scrum Master asked you about your work yesterday
-        speech4 = Speech.objects.create(order=4, speaker=scrum_master, content="Bob, what did you do yesterday?", is_question=True, is_to_you=True)
+
+        information = Information.objects.create(title="Yesterday's work", content="You fixed the bugs from yesterday and added a new feature. You need to be honest and tell the team what you did yesterday. If you lie, you will be penalized.")
+
+        speech4 = Speech.objects.create(order=4, speaker=scrum_master, content="Bob, what did you do yesterday?", is_question=True, is_to_you=True, information=information)
         probably_answer1 = ProbablyAnswer.objects.create(answer="I fixed the bugs from yesterday.", is_correct=True)
         probably_answer2 = ProbablyAnswer.objects.create(answer="I added a new feature instead.", is_correct=False, penality="Focus on existing tasks before adding new ones.", who_says_penality=scrum_master)
 

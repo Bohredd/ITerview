@@ -37,8 +37,8 @@ export const ShowProbablyAnswer = ({ probablyAnswerId }: ShowProbablyAnswerProps
 
     return (
         <div>
-            <h3>{probablyAnswer.answer}</h3>
-            <p>ta certa ? {probablyAnswer.is_correct}</p>
+            <h3>{probablyAnswer.answer}</h3> 
+            {/* put the permission to listen the answer here */}
         </div>
     );
 }

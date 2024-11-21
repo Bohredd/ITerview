@@ -1,7 +1,14 @@
 from daily.models import Daily, Speech, Person, ProbablyAnswer, Information
-from daily.serializers import (DailySerializer, PersonSerializer, SpeechSerializer, 
-                               GetSpeechesDailySerializer, GetPersonsDailySerializer, ProbablyAnswerSerializer,
-                               InformationSerializer)
+from daily.serializers import (
+    DailySerializer,
+    PersonSerializer,
+    SpeechSerializer,
+    GetSpeechesDailySerializer,
+    GetPersonsDailySerializer,
+    ProbablyAnswerSerializer,
+    InformationSerializer,
+    GetSpeechesCorrectAnswerSerializer,
+)
 from rest_framework import viewsets
 
 class DailyViewSet(viewsets.ModelViewSet):
@@ -31,3 +38,7 @@ class ProbablyAnswerViewSet(viewsets.ModelViewSet):
 class InformationViewSet(viewsets.ModelViewSet):
     queryset = Information.objects.all()
     serializer_class = InformationSerializer
+
+class GetCorrectAnswerFromQuestionViewSet(viewsets.ModelViewSet):
+    queryset = Speech.objects.all()
+    serializer_class = GetSpeechesCorrectAnswerSerializer

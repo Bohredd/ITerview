@@ -66,7 +66,7 @@ export const ValidateAnswerUser = ({ correctAnswerId, setCorrect }: ValidateAnsw
           return;
       }
 
-      setCorrect(answerUser === correctAnswer.text);
+      setCorrect(answerUser.toLowerCase() === correctAnswer.text.toLowerCase());
       
       setIsAnswering(false);
   };

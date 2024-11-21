@@ -42,8 +42,7 @@ export const ShowConversation = ({ speechId }: ShowConversationProps) => {
     }
 
   return <div>
-    <h3>{speech.speaker}</h3>
-    <p>{speech.content}</p>
+    <h3>Actual speech is : {speech.content}</h3>
     <Button onClick={handleListen}>Listen the speech</Button>
     {speech.is_question && speech.is_to_you && (
         <ShowInfoQuestionAnswers speechId={speechId} />
