@@ -2,6 +2,7 @@ import { Button } from "react-bootstrap";
 import { QuestionShow } from "./QuestionShow";
 import { useState } from "react";
 import { useEffect } from "react";
+import Badge from "react-bootstrap/Badge";
 
 interface Props {
     questions: number[];
@@ -30,18 +31,22 @@ export const QuestionsShow = ({ questions }: Props) => {
     }, [actualQuestion]);
 
     return (
-      <div>
-        <h3>You are answering question {actualQuestion + 1}</h3>
+      <div className="container text-center align-items-center">
+        <h3 className="fw-bold pb-3">You are answering question <Badge bg="primary"> {actualQuestion + 1} </Badge></h3>
 
-        <QuestionShow questionId={questions[actualQuestion]} setCorrect={setCorrect} correct={correct}/>
+        <QuestionShow actualQuestionNumber={actualQuestion} questionId={questions[actualQuestion]} setCorrect={setCorrect} correct={correct}/>
 
-        <Button onClick={handlePreviousQuestion}>
-          Previous
-        </Button> 
+        <div className="d-flex justify-content-center gap-3 mt-3">
 
-        <Button onClick={handleNextQuestion}>
-          Next
-        </Button>
+          <Button onClick={handlePreviousQuestion}>
+            Previous
+          </Button> 
+
+          <Button onClick={handleNextQuestion}>
+            Next
+          </Button>
+
+        </div>
       </div>
     );
 }

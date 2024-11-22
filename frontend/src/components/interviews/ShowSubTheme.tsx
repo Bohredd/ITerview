@@ -6,6 +6,8 @@ interface ShowSubThemeProps {
 
 export const ShowSubTheme = ({ subTheme }: ShowSubThemeProps) => {
     return (
+      <>
         <li>{subTheme.name}</li>
+      </>
     );
 };
