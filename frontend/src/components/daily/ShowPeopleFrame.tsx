@@ -10,12 +10,12 @@ export const ShowPeopleFrame = ({ peopleId }: ShowPersonFrameProps) => {
 
     return (
       <div>
-        <div className="d-flex justify-content-center pt-5 pb-5">
+        <div className="d-flex justify-content-center pt-1 pb-1">
           {peopleId.map((personId) => (
             <ShowPersonFrame key={personId} personId={personId} />
           ))}
         </div>
-        <div className="d-flex justify-content-center pt-5 pb-5">
+        <div className="d-flex justify-content-center pt-1 pb-1">
           <div className="d-flex justify-content-center mt-2">
             <Button className="mx-2" variant="primary">
               <BsMicFill className="mx-2" size={24} />

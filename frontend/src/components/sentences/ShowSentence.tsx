@@ -14,7 +14,11 @@ export const ShowSentence = () => {
   const [highlightedText, setHighlightedText] = useState<JSX.Element | null>(
     null
   );
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [currentIndex, setCurrentIndex] = useState<number>(
+    Math.floor(Math.random() * 10)
+  );
+  const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null);
+  const [showTranslation, setShowTranslation] = useState<boolean>(false);
 
   useFetchData<Sentence[]>({
     method: "LIST",
@@ -51,9 +55,10 @@ export const ShowSentence = () => {
 
       const inputWords = input.value.trim().split(" ");
       const sentenceWords = currentSentence.sentence.trim().split(" ");
-//  quero melhorar essa  validação aqui do que foi escrito certo e errado
+
       const result = sentenceWords.map((word, index) => {
-        const isCorrect = inputWords[index] === word;
+        const isCorrect =
+          inputWords[index]?.trim().toLowerCase() === word.trim().toLowerCase();
 
         return (
           <span
@@ -61,6 +66,7 @@ export const ShowSentence = () => {
             style={{
               color: isCorrect ? "green" : "red",
               marginRight: "5px",
+              fontWeight: isCorrect ? "bold" : "normal",
             }}
           >
             {inputWords[index] || "_"}
@@ -70,13 +76,43 @@ export const ShowSentence = () => {
 
       setHighlightedText(<div>{result}</div>);
       input.value = "";
+
+      const isCorrect = sentenceWords.every(
+        (word, index) =>
+          inputWords[index]?.trim().toLowerCase() === word.trim().toLowerCase()
+      );
+
+      setIsAnswerCorrect(isCorrect);
     }
+  };
+
+  const handleRetry = () => {
+    setAnswered(false);
+    setHighlightedText(null);
+    setIsAnswerCorrect(null);
   };
 
   const handleNextSentence = () => {
     setAnswered(false);
     setHighlightedText(null);
+    setIsAnswerCorrect(null);
     setCurrentIndex((prevIndex) => (prevIndex + 1) % sentences.length);
+  };
+
+  const handleGenerateNewSentence = () => {
+    setAnswered(false);
+    setHighlightedText(null);
+    setIsAnswerCorrect(null);
+    setCurrentIndex(Math.floor(Math.random() * sentences.length)); 
+  };
+
+  const handleRepeatSentence = () => {
+    // user vai falar a sentença e verificar se foi falado corretamente
+    TextToSpeech(currentSentence.sentence); 
+  };
+
+  const handleToggleTranslation = () => {
+    setShowTranslation(!showTranslation);
   };
 
   return (
@@ -128,14 +164,61 @@ export const ShowSentence = () => {
             className="d-flex justify-content-center"
             style={{ gap: "10px", paddingTop: "0px" }}
           >
+            {isAnswerCorrect ? (
+              <Button
+                variant="primary"
+                onClick={handleNextSentence}
+                style={{ width: "150px" }}
+              >
+                Next Sentence
+              </Button>
+            ) : (
+              <Button
+                variant="warning"
+                onClick={handleRetry}
+                style={{ width: "150px" }}
+              >
+                Try Again
+              </Button>
+            )}
             <Button
-              variant="primary"
-              onClick={handleNextSentence}
+              variant="secondary"
+              onClick={handleGenerateNewSentence}
               style={{ width: "150px" }}
             >
-              OK
+              Generate New Sentence
             </Button>
           </div>
+
+          {isAnswerCorrect && (
+            <div
+              className="d-flex justify-content-center"
+              style={{ gap: "10px", paddingTop: "10px" }}
+            >
+              <Button
+                variant="info"
+                onClick={handleRepeatSentence} 
+                style={{ width: "200px" }}
+              >
+                Repeat the answer
+              </Button>
+              <Button
+                variant="info"
+                onClick={handleToggleTranslation}
+                style={{ width: "200px" }}
+              >
+                See the translation in your language
+              </Button>
+            </div>
+          )}
+
+          {showTranslation && (
+            <div className="d-flex justify-content-center py-3">
+              <div className="alert alert-info" style={{ width: "50%" }}>
+                <strong>Translation:</strong> {currentSentence.translation_ptbr}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </Container>

@@ -1,16 +1,23 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import { createContext, useContext, useState } from "react";
-import { Home } from "./views/home/Home";
-import { Features } from "./views/home/Features";
-import { Pricing } from "./views/home/Pricing";
-import { SentencesView } from "./views/sentences/SentencesView";
-import { SentenceView } from "./views/sentences/Sentence";
-import { See } from "./views/home/See";
-import { InterviewsView } from "./views/interviews/InterviewsView";
-import { InterviewView } from "./views/interviews/Interview";
-import { DailiesView } from "./views/dailies/DailiesView";
-import { DailyView } from "./views/dailies/DailyView";
+import { createContext, useContext, useState, lazy } from "react";
+const Home = lazy(() => import("./views/home/Home"));
+const Features = lazy(() => import("./views/home/Features"));
+const Pricing = lazy(() => import("./views/home/Pricing"));
+const SentencesView = lazy(() => import("./views/sentences/SentencesView"));
+const SentenceView = lazy(() => import("./views/sentences/Sentence"));
+const See = lazy(() => import("./views/home/See"));
+const InterviewsView = lazy(() => import("./views/interviews/InterviewsView"));
+const InterviewView = lazy(() => import("./views/interviews/Interview"));
+const DailiesView = lazy(() => import("./views/dailies/DailiesView"));
+const DailyView = lazy(() => import("./views/dailies/DailyView"));
+const Error404 = lazy(() => import("./views/error/Error404"));
+const LoginUser = lazy(() => import("./views/user/LoginUser"));
+const RegisterUser = lazy( () => import("./views/user/RegisterUser"));
+const Cart = lazy( () => import("./components/home/pricing/Cart"));
+const Payment = lazy( () => import("./components/home/pricing/Payment"));
+
+import Layout from "./components/Layout";
 
 type Theme = "light" | "dark";
 type Language = "en-US" | "pt-BR";
@@ -31,6 +38,8 @@ export const useGlobalContext = (): GlobalContextType => {
   return context;
 };
 
+
+
 function App() {
   const [theme, setTheme] = useState<Theme>("light");
   const [language, setLanguage] = useState<Language>("en-US");
@@ -38,16 +47,28 @@ function App() {
   return (
     <GlobalContext.Provider value={{ theme, language, setTheme, setLanguage }}>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/interviews" element={<InterviewsView />} />
-        <Route path="/dailies" element={<DailiesView />} />
-        <Route path="/interviews/:id" element={<InterviewView />} />
-        <Route path="/dailies/:id" element={<DailyView />} />
-        <Route path="/features" element={<Features />} />
-        <Route path="/pricing" element={<Pricing />} />
-        <Route path="/sentences" element={<SentencesView />} />
-        <Route path="/sentences/play" element={<SentenceView />} />
-        <Route path="/gameSelection" element={<See />} />
+        <Route path="/" element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/interviews" element={<InterviewsView />} />
+          <Route path="/dailies" element={<DailiesView />} />
+          <Route path="/interviews/:id" element={<InterviewView />} />
+          <Route path="/dailies/:id" element={<DailyView />} />
+          <Route path="/features" element={<Features />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/sentences" element={<SentencesView />} />
+          <Route path="/sentences/play" element={<SentenceView />} />
+          <Route path="/gameSelection" element={<See />} />
+          <Route path="/login" element={<LoginUser />} />
+          <Route path="/register" element={<RegisterUser />} />
+          <Route path="*" element={<Error404 />} />
+          <Route
+            path="/forgot-password"
+            element={<h1>Forgot Password</h1>}
+          />
+          <Route path="/cart/:id" element={<Cart />} />
+          <Route path="/payment/:id" element={<Payment />} />
+          {/* implement the forgot password yet*/}
+        </Route>
       </Routes>
     </GlobalContext.Provider>
   );
