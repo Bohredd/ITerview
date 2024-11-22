@@ -13,7 +13,6 @@ const RegisterForm = () => {
     email: "",
     password: "",
   });
-  
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
@@ -39,8 +38,25 @@ const RegisterForm = () => {
       return;
     }
 
-    console.log("User: ", user);
-    setSuccess(true);
+    try {
+      const response = await fetch("http://localhost:8000/user/api/user/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(user),
+      });
+
+      if (response.ok) {
+        setSuccess(true);
+        setError(null);
+      } else {
+        const errorData = await response.json();
+        setError(errorData.message || "An error occurred during registration.");
+        setSuccess(false);
+      }
+    } catch (err) {
+      setError("Failed to connect to the server.");
+      setSuccess(false);
+    }
   };
 
   return (

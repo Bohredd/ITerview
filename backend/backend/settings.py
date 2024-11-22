@@ -32,21 +32,22 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'rest_framework',
-    'corsheaders',
-    'interview',
-    'user',
-    'feedback',
-    'daily',
-    'plans',
-    'sentences',
-    'payment',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "rest_framework",
+    "rest_framework.authtoken",
+    "corsheaders",
+    "interview",
+    "user",
+    "feedback",
+    "daily",
+    "plans",
+    "sentences",
+    "payment",
 ]
 
 MIDDLEWARE = [
