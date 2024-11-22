@@ -6,8 +6,11 @@ class Plans(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     price = models.IntegerField()
     max_daily_participations = models.IntegerField()
-    max_interview_participations = models.IntegerField()
-    max_common_sentences = models.IntegerField()
+    max_interview_participations = models.IntegerField(null=True, blank=True)
+    max_common_sentences = models.IntegerField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+
+    card_text_color = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
         db_table = "plans"

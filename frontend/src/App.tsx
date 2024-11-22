@@ -13,7 +13,10 @@ const DailiesView = lazy(() => import("./views/dailies/DailiesView"));
 const DailyView = lazy(() => import("./views/dailies/DailyView"));
 const Error404 = lazy(() => import("./views/error/Error404"));
 const LoginUser = lazy(() => import("./views/user/LoginUser"));
-import RegisterUser from "./views/user/RegisterUser";
+const RegisterUser = lazy( () => import("./views/user/RegisterUser"));
+const Cart = lazy( () => import("./components/home/pricing/Cart"));
+const Payment = lazy( () => import("./components/home/pricing/Payment"));
+
 import Layout from "./components/Layout";
 
 type Theme = "light" | "dark";
@@ -59,9 +62,11 @@ function App() {
           <Route path="/register" element={<RegisterUser />} />
           <Route path="*" element={<Error404 />} />
           <Route
-            path="forgot-password"
+            path="/forgot-password"
             element={<h1>Forgot Password</h1>}
-          />{" "}
+          />
+          <Route path="/cart/:id" element={<Cart />} />
+          <Route path="/payment/:id" element={<Payment />} />
           {/* implement the forgot password yet*/}
         </Route>
       </Routes>

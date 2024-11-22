@@ -1,5 +1,6 @@
 import { Container, Card, Button, Row, Col } from "react-bootstrap";
 import { CSSProperties } from "react";
+import ListGroup from "react-bootstrap/ListGroup";
 
 const cardStyles: CSSProperties = {
   width: "100%",
@@ -40,17 +41,17 @@ export const ShowFeatures = () => {
                 Fake Daily Meeting
               </Card.Title>
               <Card.Text className="text-center flex-grow-1">
-                <ul>
-                  <li>a mutual conversation with a tech team</li>
-                  <li>you will be questioned about something by the team</li>
-                  <li>
+                 <ListGroup as="ul">
+                  <ListGroup.Item>a mutual conversation with a tech team</ListGroup.Item>
+                  <ListGroup.Item>you will be questioned about something by the team</ListGroup.Item>
+                  <ListGroup.Item>
                     you just have the needed information to answer the questions
-                  </li>
-                  <li>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
                     if you don't answer correctly, you will be penalized by
                     someone
-                  </li>
-                </ul>
+                  </ListGroup.Item>
+                </ListGroup>
               </Card.Text>
               <Button variant="primary" href="/dailies" style={buttonStyles}>
                 Play this one
@@ -71,17 +72,17 @@ export const ShowFeatures = () => {
                 Fake Job Interview
               </Card.Title>
               <Card.Text className="text-center flex-grow-1">
-                <ul>
-                  <li>
+                 <ListGroup as="ul">
+                  <ListGroup.Item>
                     you will be asked about themes and subthemes of the job
-                  </li>
-                  <li>you need to answer the questions speaking in English</li>
-                  <li>if you don't answer correctly, you can answer again</li>
-                  <li>
+                  </ListGroup.Item>
+                  <ListGroup.Item>you need to answer the questions speaking in English</ListGroup.Item>
+                  <ListGroup.Item>if you don't answer correctly, you can answer again</ListGroup.Item>
+                  <ListGroup.Item>
                     you can listen to the recruiter’s answer and the possible
                     answers too
-                  </li>
-                </ul>
+                  </ListGroup.Item>
+                </ListGroup>
               </Card.Text>
               <Button variant="primary" href="/interviews" style={buttonStyles}>
                 Play this one
@@ -103,24 +104,24 @@ export const ShowFeatures = () => {
                 Most Common Sentences
               </Card.Title>
               <Card.Text className="text-center flex-grow-1">
-                <ul>
-                  <li>
+                 <ListGroup as="ul">
+                  <ListGroup.Item>
                     you will listen to the most common developer sentences said
                     in the routine
-                  </li>
-                  <li>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
                     after listening to the sentence, you need to write it
                     correctly
-                  </li>
-                  <li>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
                     you can listen to the sentence again and see the correct
                     answer
-                  </li>
-                  <li>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
                     after writing the sentence correctly, you can say it aloud
                     and validate if you said it correctly
-                  </li>
-                </ul>
+                  </ListGroup.Item>
+                </ListGroup>
               </Card.Text>
               <Button variant="primary" href="/sentences" style={buttonStyles}>
                 Play this one
