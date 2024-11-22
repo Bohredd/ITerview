@@ -5,6 +5,7 @@ import { AnswerShow } from "./AnswerShow";
 import { ValidateAnswerUser } from "./ValidateAnswerUser";
 import { Button } from "react-bootstrap";
 import { BsVolumeUp } from "react-icons/bs";
+import { TextToSpeech } from "../../functions/TextToSpeech";
 
 interface Props {
     actualQuestionNumber: number
@@ -61,13 +62,17 @@ export const QuestionShow = ({
     return <div>No correct answer found</div>;
   }
 
+  const handleListenQuestion = () => {
+    TextToSpeech(question.text);
+  };
+
   return (
     <div>
        <div className="d-flex justify-content-center align-items-center gap-2">
         <h1 className="fw-bold fs-1">
           Q{actualQuestionNumber + 1}: {question.text}{" "}
         </h1>
-        <Button variant="secondary">
+        <Button variant="secondary" onClick={handleListenQuestion}>
           <BsVolumeUp />
         </Button>
       </div>
