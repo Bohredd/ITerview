@@ -2,6 +2,7 @@ import { Interview } from "../../types/interview/Interview";
 import { useState } from "react";
 import useFetchData from "../../functions/FetchData";
 import { ShowInterview } from "../../components/interviews/ShowInterview";
+import { Col, Container, Row } from "react-bootstrap";
 
 export const InterviewsView = () => {
 
@@ -33,15 +34,29 @@ export const InterviewsView = () => {
     console.log(interviews);
 
     return (
-        <div>
-            <div>
-                <h1>InterviewsView</h1>
-                {interviews.map((interview) => (
-                    <ShowInterview interview={interview} />
-                ))}
-            </div>
+      <div>
+        <div className="container align-items-center text-center">
+          <h1 className="fw-bold fs-1 pt-5 pb-5">Here are some interviews to practice your English</h1>
+          <Container className="pt-5 pb-5">
+            <Row className="d-flex justify-content-center">
+              {interviews.map((interview) => (
+                <Col
+                  key={interview.id}
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  lg={3}
+                  className="d-flex justify-content-center mb-4"
+                >
+                  <ShowInterview interview={interview} />
+                </Col>
+              ))}
+            </Row>
+          </Container>
         </div>
+      </div>
     );
+
 }
 
 export default InterviewsView;

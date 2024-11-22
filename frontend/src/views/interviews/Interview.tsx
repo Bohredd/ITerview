@@ -36,12 +36,10 @@ export const InterviewView = () => {
         return <div>No interview found</div>
     }
 
-    // console.log(interview);
-
     return (
-      <div>
-        <h1>{interview.level}</h1>
-        <p>{interview.interview_type}</p>
+      <div className="container text-center align-items-center pt-5">
+        <h3>{interview.level}</h3>
+        <h5 className="pb-5">{interview.interview_type}</h5>
         <QuestionsShow questions={interview.questions} />
       </div>
     );

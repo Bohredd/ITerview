@@ -1,10 +1,12 @@
 import { Sentence } from "../../types/sentences/Sentence";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useFetchData from "../../functions/FetchData";
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { TextToSpeech } from "../../functions/TextToSpeech";
 import Alert from "react-bootstrap/Alert";
+import { BsVolumeUpFill } from "react-icons/bs";
+import ListenPersonAnswer from "../../functions/ListenPerson";
 
 export const ShowSentence = () => {
   const [sentences, setSentences] = useState<Sentence[] | null>(null);
@@ -19,6 +21,12 @@ export const ShowSentence = () => {
   );
   const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null);
   const [showTranslation, setShowTranslation] = useState<boolean>(false);
+  const [recognition, setRecognition] = useState<any>(null);
+  const [answerUser, setAnswer] = useState<string | null>(null);
+  const [isAnswering, setIsAnswering] = useState<boolean>(false);
+  const [isCorrectUserSpeech, setIsCorrectUserSpeech] = useState<boolean | null>(
+    null
+  );
 
   useFetchData<Sentence[]>({
     method: "LIST",
@@ -28,6 +36,13 @@ export const ShowSentence = () => {
     setLoading,
     setError,
   });
+
+  useEffect(() => {
+    setIsAnswering(false);
+    setAnswer(null);
+    setRecognition(null);
+    setIsCorrectUserSpeech(null);
+  }, [currentIndex]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -106,9 +121,41 @@ export const ShowSentence = () => {
     setCurrentIndex(Math.floor(Math.random() * sentences.length)); 
   };
 
-  const handleRepeatSentence = () => {
-    // user vai falar a sentença e verificar se foi falado corretamente
-    TextToSpeech(currentSentence.sentence); 
+  const handleTryRepeat = () => {
+    try {
+      setIsAnswering(true);
+      const recognition = ListenPersonAnswer("en-US");
+      setRecognition(recognition);
+      recognition.onresult = (event: any) => {
+        const current = event.resultIndex;
+        const transcript = event.results[current][0].transcript;
+        setAnswer(transcript);
+      };
+
+      recognition.start();
+    } catch (error) {
+      console.log("error: ", error);
+    }
+  };
+
+  const handleStopTryRepeat = () => {
+    if (recognition) {
+      recognition.stop();
+    }
+
+    if (!answerUser) {
+      return;
+    }
+
+    let answerUserAdjusted = answerUser;
+
+    answerUserAdjusted = answerUserAdjusted.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+
+    setIsCorrectUserSpeech(
+      answerUserAdjusted.toLowerCase() === currentSentence.sentence.toLowerCase()
+    );
+
+    setIsAnswering(false);
   };
 
   const handleToggleTranslation = () => {
@@ -126,7 +173,7 @@ export const ShowSentence = () => {
           onClick={handleListenSentence}
           style={{ width: "200px", height: "50px" }}
         >
-          Listen Sentence
+          <BsVolumeUpFill />
         </Button>
       </div>
 
@@ -190,6 +237,12 @@ export const ShowSentence = () => {
             </Button>
           </div>
 
+          {answerUser && <h3>Your answer: {answerUser}</h3>}
+
+          {!isAnswering && answerUser && (
+            <h3>{isCorrectUserSpeech ? "Correct" : "Incorrect"}</h3>
+          )}
+
           {isAnswerCorrect && (
             <div
               className="d-flex justify-content-center"
@@ -197,10 +250,18 @@ export const ShowSentence = () => {
             >
               <Button
                 variant="info"
-                onClick={handleRepeatSentence} 
+                onClick={handleTryRepeat}
                 style={{ width: "200px" }}
               >
-                Repeat the answer
+                Try to repeat the sentence
+              </Button>
+              <Button
+                variant="info"
+                onClick={handleStopTryRepeat}
+                style={{ width: "200px" }}
+              >
+                {" "}
+                Stop
               </Button>
               <Button
                 variant="info"

@@ -6,6 +6,8 @@ import useFetchData from "../../functions/FetchData";
 import { useState } from "react";
 import { ShowTheme } from "./ShowTheme";
 import { ShowSubTheme } from "./ShowSubTheme";
+import { Card } from "react-bootstrap";
+
 interface ShowInterviewProps {
     interview: Interview;
 }
@@ -56,23 +58,31 @@ export const ShowInterview = ({ interview }: ShowInterviewProps) => {
 
 
     return (
-        <div>
-            <h3>Interview {interview.interview_type} {interview.level}</h3>
-            <p>Questions : {interview.questions.length}</p>
-            <p>Interview themes</p>
-            <ul>
-                {themes.map((theme) => (
+        <Card style={{ width: "18rem" }}>
+            <Card.Header>
+                <Card.Title>Interview {interview.interview_type} {interview.level}</Card.Title>
+            </Card.Header>
+            <Card.Body>
+                <p>Questions : {interview.questions.length}</p>
+                <h5>Interview themes</h5>
+                <ul>
+                    {themes.map((theme) => (
                     <ShowTheme theme={theme} />
-                ))}
-            </ul>
-            <p>Interview sub themes</p>
-            <ul>
-                {subThemes.map((subTheme) => (
+                    ))}
+                </ul>
+                <h5>Interview sub themes</h5>
+                <ul>
+                    {subThemes.map((subTheme) => (
                     <ShowSubTheme subTheme={subTheme} />
-                ))}
+                    ))}
             </ul>
+            </Card.Body>
+            <Card.Footer>
 
-            <Button variant="primary" href={`/interviews/${interview.id}`}>Play</Button>
-        </div>
+            <Button variant="primary" href={`/interviews/${interview.id}`}>
+                Play
+            </Button>
+            </Card.Footer>
+        </Card>
     );
 }

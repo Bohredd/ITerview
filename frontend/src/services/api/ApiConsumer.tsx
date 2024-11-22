@@ -16,6 +16,8 @@ export class ApiConsumer {
   }
 
   static async post<T>(appname: string, url: string, data: any): Promise<T> {
+    console.log("POST request to:", `${baseUrl}${appname}/api/${url}`);
+    console.log("With data:", data);
     try {
       const response = await axios.post(
         `${baseUrl}${appname}/api/${url}`,
