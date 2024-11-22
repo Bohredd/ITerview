@@ -146,15 +146,10 @@ export const ShowSentence = () => {
     if (!answerUser) {
       return;
     }
-    console.log("user answer: ", answerUser);
-    console.log("correct answer: ", currentSentence.sentence);
 
     let answerUserAdjusted = answerUser;
 
-    // Remove punctuation
     answerUserAdjusted = answerUserAdjusted.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
-
-    console.log("user answer adjusted: ", answerUserAdjusted);
 
     setIsCorrectUserSpeech(
       answerUserAdjusted.toLowerCase() === currentSentence.sentence.toLowerCase()
