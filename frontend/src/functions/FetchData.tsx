@@ -39,6 +39,7 @@ const useFetchData = <T,>({
             id ? Number(id) : undefined
           );
         } else if (method === "POST") {
+          console.log("body: ", body);
           data = await ApiConsumer.post<T>(app_name, url, body);
         } else if (method === "PUT") {
           data = await ApiConsumer.put<T>(app_name, url, body);

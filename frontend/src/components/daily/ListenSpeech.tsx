@@ -4,6 +4,7 @@ import { useState } from "react";
 import useFetchData from "../../functions/FetchData";
 import { Person } from "../../types/daily/Person";
 import { TextToSpeech } from "../../functions/TextToSpeech";
+import { BsVolumeUpFill } from "react-icons/bs";
 
 interface ListenSpeechProps {
     speech: Speech,
@@ -43,7 +44,7 @@ export const ListenSpeech = ({ speech }: ListenSpeechProps) => {
   return (
     <div>
       <Button onClick={handleListen} className="mt-2 mb-2">
-        Listen the speech
+        <BsVolumeUpFill />
       </Button>
     </div>
   );

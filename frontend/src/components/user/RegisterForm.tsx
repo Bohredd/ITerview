@@ -4,8 +4,6 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
-import useFetchData from "../../functions/FetchData";
-import { User } from "../../types/user/User";
 
 const RegisterForm = () => {
   const [validated, setValidated] = useState(false);
@@ -18,6 +16,7 @@ const RegisterForm = () => {
   
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -41,17 +40,7 @@ const RegisterForm = () => {
     }
 
     console.log("User: ", user);
-
-    useFetchData<User>({
-      method: "POST",
-      url: "http://localhost:8000/api/users/",
-      body: user,
-      app_name: "users",
-      setData: () => {},
-      setLoading: () => {},
-      setError: () => {},
-    })
-
+    setSuccess(true);
   };
 
   return (
@@ -146,6 +135,9 @@ const RegisterForm = () => {
         </Form.Group>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <Button type="submit">Submit form</Button>
+        {success && !error && (
+          <p style={{ color: "green" }}>Form submitted successfully!</p>
+        )}
         <Button href="/login">Already have an account? Login</Button>
       </Form>
     </div>
