@@ -31,8 +31,20 @@ export const LoginForm = () => {
       });
 
       if (response.ok) {
-        setSuccess(true);
-        window.location.href = "/cart"; 
+        const data = await response.json();
+        const token = data.token;
+
+        if (token) {
+          localStorage.setItem("authToken", token);
+
+          setSuccess(true);
+          console.log("Login successful!");
+          console.log("Token stored: ", token);
+
+          window.location.href = "/cart";
+        } else {
+          setError("Unexpected response: Token not found.");
+        }
       } else {
         const data = await response.json();
         setError(data.message || "Invalid email or password.");
@@ -74,25 +86,12 @@ export const LoginForm = () => {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Remember me" />
-        </Form.Group>
-
         {error && <div style={{ color: "red" }}>{error}</div>}
         {success && <div style={{ color: "green" }}>Login successful!</div>}
 
         <Button variant="primary" type="submit" disabled={loading}>
           {loading ? "Logging in..." : "Submit"}
         </Button>
-
-        <div className="mt-3">
-          <Button variant="link" href="/register">
-            Do not have an account? Register here
-          </Button>
-          <Button variant="link" href="/forgot-password">
-            Forgot password?
-          </Button>
-        </div>
       </Form>
     </div>
   );
