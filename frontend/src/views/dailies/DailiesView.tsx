@@ -37,14 +37,14 @@ export const DailiesView = () => {
       <Row
         className={`gy-4 ${
           dailies.length === 1 ? "justify-content-center" : ""
-        }`} // Center single card
+        }`} 
       >
         {dailies.map((daily) => (
           <Col
             xs={12}
             sm={12}
-            md={dailies.length === 1 ? 8 : 6} // Adjust width if only one card
-            lg={dailies.length === 1 ? 6 : 4} // Adjust width for large screens
+            md={dailies.length === 1 ? 8 : 6} 
+            lg={dailies.length === 1 ? 6 : 4} 
             key={daily.id}
           >
             <Card
