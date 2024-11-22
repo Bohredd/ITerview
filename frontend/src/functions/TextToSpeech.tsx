@@ -5,13 +5,30 @@ export function TextToSpeech(text: string, voiceName?: string) {
   utterance.rate = 1.0;
   utterance.pitch = 1.0;
 
-  if (voiceName) {
+
+  const loadVoices = () => {
     const voices = synth.getVoices();
-    const selectedVoice = voices.find((voice) => voice.name === voiceName);
-    if (selectedVoice) {
-      utterance.voice = selectedVoice;
+
+    if (voiceName) {
+      const selectedVoice = voices.find((voice) => voice.name === voiceName);
+
+      if (selectedVoice) {
+        utterance.voice = selectedVoice;
+      }
+    }
+
+    synth.speak(utterance);
+  };
+
+  const voices = synth.getVoices();
+
+  if (voices.length > 0) {
+    loadVoices();
+  } else {
+    if (synth.onvoiceschanged !== undefined) {
+      synth.onvoiceschanged = loadVoices;
+    } else {
+      loadVoices(); 
     }
   }
-
-  synth.speak(utterance);
 }
