@@ -2,7 +2,6 @@ import useFetchData from "../../functions/FetchData";
 import { useState } from "react";
 import { Daily } from "../../types/daily/Daily";
 import { DailyInfo } from "../../components/daily/DailyInfo";
-import { CustomNavbar } from "../../components/home/Navbar";
 import { Card, Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
@@ -35,8 +34,7 @@ export const DailiesView = () => {
   console.log(dailies);
 
   return (
-    <div>
-      <CustomNavbar />
+    <>
       <Container className="d-flex flex-column justify-content-center align-items-center pt-5 pb-5">
         <h1>Dailies Available</h1>
         {dailies.map((daily) => (
@@ -64,6 +62,8 @@ export const DailiesView = () => {
           </Card>
         ))}
       </Container>
-    </div>
+    </>
   );
 };
+
+export default DailiesView;

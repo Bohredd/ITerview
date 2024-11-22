@@ -4,55 +4,98 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
+import useFetchData from "../../functions/FetchData";
+import { User } from "../../types/user/User";
 
 const RegisterForm = () => {
   const [validated, setValidated] = useState(false);
+  const [user, setUser] = useState({
+    username: "",
+    full_name: "",
+    email: "",
+    password: "",
+  });
+  
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
 
-  interface FormEvent extends React.FormEvent<HTMLFormElement> {}
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUser((prevUser) => ({ ...prevUser, [name]: value }));
+  };
 
-  const handleSubmit = (event: FormEvent): void => {
+  const handleConfirmPasswordChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setConfirmPassword(e.target.value);
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+    if (form.checkValidity() === false || user.password !== confirmPassword) {
+      setValidated(true);
+      return;
     }
 
-    setValidated(true);
+    console.log("User: ", user);
+
+    useFetchData<User>({
+      method: "POST",
+      url: "http://localhost:8000/api/users/",
+      body: user,
+      app_name: "users",
+      setData: () => {},
+      setLoading: () => {},
+      setError: () => {},
+    })
+
   };
 
   return (
     <div>
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Row className="mb-3">
-          <Form.Group as={Col} md="4" controlId="validationCustom01">
-            <Form.Label>First name</Form.Label>
+          <Form.Group as={Col} md="6" controlId="validationCustomFullName">
+            <Form.Label>Full Name</Form.Label>
             <Form.Control
               required
               type="text"
-              placeholder="First name"
-              defaultValue="Mark"
+              placeholder="Full name"
+              name="full_name"
+              value={user.full_name}
+              onChange={handleChange}
             />
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
-          <Form.Group as={Col} md="4" controlId="validationCustom02">
-            <Form.Label>Last name</Form.Label>
+          <Form.Group as={Col} md="6" controlId="validationCustomEmail">
+            <Form.Label>Email</Form.Label>
             <Form.Control
               required
-              type="text"
-              placeholder="Last name"
-              defaultValue="Otto"
+              type="email"
+              placeholder="Email"
+              name="email"
+              value={user.email}
+              onChange={handleChange}
             />
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
-          <Form.Group as={Col} md="4" controlId="validationCustomUsername">
+        </Row>
+        <Row className="mb-3">
+          <Form.Group as={Col} md="12" controlId="validationCustomUsername">
             <Form.Label>Username</Form.Label>
             <InputGroup hasValidation>
               <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
               <Form.Control
+                required
                 type="text"
                 placeholder="Username"
+                name="username"
+                value={user.username}
+                onChange={handleChange}
                 aria-describedby="inputGroupPrepend"
-                required
               />
               <Form.Control.Feedback type="invalid">
                 Please choose a username.
@@ -61,25 +104,35 @@ const RegisterForm = () => {
           </Form.Group>
         </Row>
         <Row className="mb-3">
-          <Form.Group as={Col} md="6" controlId="validationCustom03">
-            <Form.Label>City</Form.Label>
-            <Form.Control type="text" placeholder="City" required />
+          <Form.Group as={Col} md="6" controlId="validationCustomPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              required
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={user.password}
+              onChange={handleChange}
+            />
             <Form.Control.Feedback type="invalid">
-              Please provide a valid city.
+              Please provide a password.
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group as={Col} md="3" controlId="validationCustom04">
-            <Form.Label>State</Form.Label>
-            <Form.Control type="text" placeholder="State" required />
+          <Form.Group
+            as={Col}
+            md="6"
+            controlId="validationCustomConfirmPassword"
+          >
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              required
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
+            />
             <Form.Control.Feedback type="invalid">
-              Please provide a valid state.
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group as={Col} md="3" controlId="validationCustom05">
-            <Form.Label>Zip</Form.Label>
-            <Form.Control type="text" placeholder="Zip" required />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid zip.
+              Passwords must match.
             </Form.Control.Feedback>
           </Form.Group>
         </Row>
@@ -91,9 +144,10 @@ const RegisterForm = () => {
             feedbackType="invalid"
           />
         </Form.Group>
+        {error && <p style={{ color: "red" }}>{error}</p>}
         <Button type="submit">Submit form</Button>
+        <Button href="/login">Already have an account? Login</Button>
       </Form>
-      
     </div>
   );
 };

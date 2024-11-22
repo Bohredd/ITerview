@@ -1,4 +1,3 @@
-import { CustomNavbar } from "../../components/home/Navbar";
 import { Interview } from "../../types/interview/Interview";
 import { useState } from "react";
 import useFetchData from "../../functions/FetchData";
@@ -35,7 +34,6 @@ export const InterviewsView = () => {
 
     return (
         <div>
-            <CustomNavbar />
             <div>
                 <h1>InterviewsView</h1>
                 {interviews.map((interview) => (
@@ -45,3 +43,5 @@ export const InterviewsView = () => {
         </div>
     );
 }
+
+export default InterviewsView;

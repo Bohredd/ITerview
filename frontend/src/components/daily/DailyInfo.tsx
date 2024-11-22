@@ -1,4 +1,3 @@
-import { Button } from "react-bootstrap"
 import { Daily } from "../../types/daily/Daily"
 import { Person } from "../../types/daily/Person"
 import useFetchData from "../../functions/FetchData"

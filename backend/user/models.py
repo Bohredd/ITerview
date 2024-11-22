@@ -6,7 +6,7 @@ from django.templatetags.static import static
 
 
 class User(AbstractUser):
-    username = None
+    username = models.CharField("Username", max_length=100, blank=False, null=False)
     first_name = None
     last_name = None
     full_name = models.CharField(

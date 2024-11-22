@@ -8,4 +8,5 @@ urlpatterns = [
     # path('plans/', include('plans.urls')),
     # path('feedback/', include('feedback.urls')),
     path('sentences/', include('sentences.urls')),
+    path('user/', include('user.urls')),
 ]

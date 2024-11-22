@@ -24,7 +24,7 @@ export const LoginForm = () => {
           Submit
         </Button>
         <Button variant="primary" href="/register">
-          Already have an account? Register here
+           Do not have an account? Register here
         </Button>
         <Button variant="primary" href="/forgot-password">
           Forgot password?

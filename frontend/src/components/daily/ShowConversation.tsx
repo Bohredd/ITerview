@@ -47,3 +47,5 @@ export const ShowConversation = ({ speechId }: ShowConversationProps) => {
     </div>
   );
 };
+
+// fazer um slice com redux que abraça a tela inteira 

@@ -33,9 +33,7 @@ export const ShowPersonFrame = ({ personId }: ShowPersonFrameProps) => {
   if (!person) {
     return <div>No person found</div>;
   }
-
-  console.log(person);
-
+  
   return (
     <div
       className={`person-frame-${person.id}`}
