@@ -48,7 +48,7 @@ export const InterviewsView = () => {
                   lg={3}
                   className="d-flex justify-content-center mb-4"
                 >
-                  <ShowInterview interview={interview} />
+                  <ShowInterview key={interview.id} interview={interview} />
                 </Col>
               ))}
             </Row>

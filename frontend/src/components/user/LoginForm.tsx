@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { useAuth } from "../../auth/AuthContext";
 
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -8,6 +9,7 @@ export const LoginForm = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
+  const { setIsAuthenticated } = useAuth();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -38,6 +40,8 @@ export const LoginForm = () => {
           localStorage.setItem("authToken", token);
 
           setSuccess(true);
+          setIsAuthenticated(true);
+
           console.log("Login successful!");
           console.log("Token stored: ", token);
 

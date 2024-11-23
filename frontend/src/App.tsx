@@ -1,6 +1,7 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import { createContext, useContext, useState, lazy } from "react";
+
 const Home = lazy(() => import("./views/home/Home"));
 const Features = lazy(() => import("./views/home/Features"));
 const Pricing = lazy(() => import("./views/home/Pricing"));
@@ -13,11 +14,12 @@ const DailiesView = lazy(() => import("./views/dailies/DailiesView"));
 const DailyView = lazy(() => import("./views/dailies/DailyView"));
 const Error404 = lazy(() => import("./views/error/Error404"));
 const LoginUser = lazy(() => import("./views/user/LoginUser"));
-const RegisterUser = lazy( () => import("./views/user/RegisterUser"));
-const Cart = lazy( () => import("./components/home/pricing/Cart"));
-const Payment = lazy( () => import("./components/home/pricing/Payment"));
+const RegisterUser = lazy(() => import("./views/user/RegisterUser"));
+const Cart = lazy(() => import("./components/home/pricing/Cart"));
+const Payment = lazy(() => import("./components/home/pricing/Payment"));
 
 import Layout from "./components/Layout";
+import ProtectedRoute from "./auth/ProtectedRoute";
 
 type Theme = "light" | "dark";
 type Language = "en-US" | "pt-BR";
@@ -30,6 +32,7 @@ interface GlobalContextType {
 }
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
+
 export const useGlobalContext = (): GlobalContextType => {
   const context = useContext(GlobalContext);
   if (!context) {
@@ -37,8 +40,6 @@ export const useGlobalContext = (): GlobalContextType => {
   }
   return context;
 };
-
-
 
 function App() {
   const [theme, setTheme] = useState<Theme>("light");
@@ -51,23 +52,58 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/interviews" element={<InterviewsView />} />
           <Route path="/dailies" element={<DailiesView />} />
-          <Route path="/interviews/:id" element={<InterviewView />} />
-          <Route path="/dailies/:id" element={<DailyView />} />
+
+          {/* Protected Routes */}
+          <Route
+            path="/interviews/:id"
+            element={
+              <ProtectedRoute>
+                <InterviewView />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dailies/:id"
+            element={
+              <ProtectedRoute>
+                <DailyView />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/sentences/play"
+            element={
+              <ProtectedRoute>
+                <SentenceView />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/cart/:id"
+            element={
+              <ProtectedRoute>
+                <Cart />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/payment/:id"
+            element={
+              <ProtectedRoute>
+                <Payment />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Public Routes */}
           <Route path="/features" element={<Features />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/sentences" element={<SentencesView />} />
-          <Route path="/sentences/play" element={<SentenceView />} />
           <Route path="/gameSelection" element={<See />} />
           <Route path="/login" element={<LoginUser />} />
           <Route path="/register" element={<RegisterUser />} />
           <Route path="*" element={<Error404 />} />
-          <Route
-            path="/forgot-password"
-            element={<h1>Forgot Password</h1>}
-          />
-          <Route path="/cart/:id" element={<Cart />} />
-          <Route path="/payment/:id" element={<Payment />} />
-          {/* implement the forgot password yet*/}
+          <Route path="/forgot-password" element={<h1>Forgot Password</h1>} />
         </Route>
       </Routes>
     </GlobalContext.Provider>
