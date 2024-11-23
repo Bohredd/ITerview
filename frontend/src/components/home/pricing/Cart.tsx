@@ -1,40 +1,24 @@
 import { Plans } from "../../../types/payment/Plans";
-import { useParams } from "react-router-dom";
-import { useState } from "react";
-import useFetchData from "../../../functions/FetchData";
+import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 
 export const Cart = () => {
 
-    const { id } = useParams();
-    const [plan, setPlan] = useState<Plans>();
-    const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+    const [plan, setPlan] = useState<Plans | null>(null);
 
-    useFetchData<Plans>({
-        method: "GET",
-        app_name: "plans",
-        url: `plan/`,
-        id : id,
-        setData: setPlan,
-        setLoading: setIsLoading,
-        setError,
-    });
+    useEffect(() => {
+        const selectedPlan = localStorage.getItem("selectedPlan");
+        if (selectedPlan) {
+            setPlan(JSON.parse(selectedPlan));
+        }
+    }, []);
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>{error}</div>;
-    }
 
     if (!plan) {
-        return <div>No plan found</div>;
+        return <div>No plan selected</div>;
     }
 
-    
-
+    console.log("Selected plan: ", plan);
 
   return (
     <div>
