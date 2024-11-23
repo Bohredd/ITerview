@@ -58,31 +58,34 @@ export const ShowInterview = ({ interview }: ShowInterviewProps) => {
 
 
     return (
-        <Card style={{ width: "18rem" }}>
-            <Card.Header>
-                <Card.Title>Interview {interview.interview_type} {interview.level}</Card.Title>
-            </Card.Header>
-            <Card.Body>
-                <p>Questions : {interview.questions.length}</p>
-                <h5>Interview themes</h5>
-                <ul>
-                    {themes.map((theme) => (
-                    <ShowTheme theme={theme} />
-                    ))}
-                </ul>
-                <h5>Interview sub themes</h5>
-                <ul>
-                    {subThemes.map((subTheme) => (
-                    <ShowSubTheme subTheme={subTheme} />
-                    ))}
+      <Card style={{ width: "18rem" }}>
+        <Card.Header>
+          <Card.Title>
+            Interview {interview.interview_type} {interview.level}
+          </Card.Title>
+        </Card.Header>
+        <Card.Body>
+          <div>
+            <p>Questions : {interview.questions.length}</p>
+            <h5>Interview themes</h5>
+            <ul>
+              {themes.map((theme) => (
+                <ShowTheme key={theme.id} theme={theme} />
+              ))}
             </ul>
-            </Card.Body>
-            <Card.Footer>
-
-            <Button variant="primary" href={`/interviews/${interview.id}`}>
-                Play
-            </Button>
-            </Card.Footer>
-        </Card>
+            <h5>Interview sub themes</h5>
+            <ul>
+              {subThemes.map((subTheme) => (
+                <ShowSubTheme key={subTheme.id} subTheme={subTheme} />
+              ))}
+            </ul>
+          </div>
+        </Card.Body>
+        <Card.Footer>
+          <Button variant="primary" href={`/interviews/${interview.id}`}>
+            Play
+          </Button>
+        </Card.Footer>
+      </Card>
     );
 }
