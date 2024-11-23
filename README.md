@@ -17,9 +17,8 @@
    - Familiarize yourself with common phrases and technical interview vocabulary.  
    - Receive instant feedback on your answers.
 
-3. **Routine Conversations**  
-   - Engage in typical scenarios like explaining bugs, planning sprints, or conducting code reviews.  
-   - Listen to pre-recorded sentences or write your responses to improve comprehension and clarity.
+3. **Most common sentences**  
+   - Prepare to listen  all the most common sentences developers says in our routine.
 
 4. **Feedback System**  
    - Analyze your responses for grammar, clarity, and technical accuracy.  
@@ -41,24 +40,42 @@
 
 ### **Installation**  
 1. Clone the repository:  
-   ```bash
-   git clone https://github.com/yourusername/iterview.git
-   cd iterview
+```bash
+git clone https://github.com/yourusername/iterview.git
+cd iterview
+```
 
-Install dependencies:
+2.Install dependencies:
+```bash
 pip install -r requirements.txt
-Run migrations:
+```
+
+3. Run migrations:
+ ```bash
 python manage.py migrate
-Start the development server:
+ ```
+
+4. Start the development server:
+```bash
 python manage.py runserver
-Open your browser and go to:
+```
+   
+5. Open your browser and go to:
+```bash
 http://127.0.0.1:8000
-Usage Guide
+```
+
+### **Usage Guide**
+
 Register as a user: Create an account or log in to access your personalized progress tracker.
-Select a scenario: Choose from "Daily Meeting," "Mock Interview," or "Routine Conversation."
+
+Select a scenario: Choose from "Fake Daily Meeting," "Fake Job Interview," or "Most Common Sentences."
+
 Respond to prompts: Listen to, read, or respond to the scenario in the selected mode.
+
 Review feedback: Use the feedback provided to refine your skills and track improvements.
-Contributing
+
+### **Contributing**
 Contributions are welcome! If you'd like to contribute, please:
 
 Fork the repository.
@@ -66,13 +83,14 @@ Make your changes.
 Submit a pull request.
 For bugs or feature requests, open an issue.
 
-License
+### **License**
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
-Contact
+### **Contact**
 Have questions or suggestions? Feel free to reach out!
 
-Email: your.email@example.com
-GitHub: yourusername
+Email: bohreddev@gmail.com
+
+GitHub: bohredd
 
 Happy learning with ITerview! 🚀
