@@ -4,46 +4,51 @@ import ListGroup from "react-bootstrap/ListGroup";
 
 const cardStyles: CSSProperties = {
   width: "100%",
-  minHeight: "28rem",
+  minHeight: "32rem",
   display: "flex",
   flexDirection: "column",
-  position: "relative", 
+  position: "relative",
 };
 
 const cardBodyStyles: CSSProperties = {
-  flex: 1, 
-  position: "relative", 
+  flex: 1,
+  position: "relative",
 };
 
 const footerStyles: CSSProperties = {
-  minHeight: "4rem", 
+  minHeight: "5rem",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
 };
 
 const buttonStyles: CSSProperties = {
-  position: "absolute", 
-  bottom: "1rem",
+  position: "absolute",
+  bottom: "1.5rem",
   left: "50%",
-  transform: "translateX(-50%)", 
-  width: "80%", 
+  transform: "translateX(-50%)",
+  width: "80%",
 };
 
 export const ShowFeatures = () => {
   return (
     <Container className="pt-5 pb-5">
       <Row className="gy-4">
+
         <Col xs={12} md={6} lg={4}>
           <Card style={cardStyles}>
             <Card.Body style={cardBodyStyles}>
               <Card.Title className="text-center fw-bold fs-5">
                 Fake Daily Meeting
               </Card.Title>
-              <Card.Text className="text-center flex-grow-1">
-                 <ListGroup as="ul">
-                  <ListGroup.Item>a mutual conversation with a tech team</ListGroup.Item>
-                  <ListGroup.Item>you will be questioned about something by the team</ListGroup.Item>
+              <div className="text-center flex-grow-1">
+                <ListGroup as="ul">
+                  <ListGroup.Item>
+                    a mutual conversation with a tech team
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    you will be questioned about something by the team
+                  </ListGroup.Item>
                   <ListGroup.Item>
                     you just have the needed information to answer the questions
                   </ListGroup.Item>
@@ -52,7 +57,7 @@ export const ShowFeatures = () => {
                     someone
                   </ListGroup.Item>
                 </ListGroup>
-              </Card.Text>
+              </div>
               <Button variant="primary" href="/dailies" style={buttonStyles}>
                 Play this one
               </Button>
@@ -71,19 +76,23 @@ export const ShowFeatures = () => {
               <Card.Title className="text-center fw-bold fs-5">
                 Fake Job Interview
               </Card.Title>
-              <Card.Text className="text-center flex-grow-1">
-                 <ListGroup as="ul">
+              <div className="text-center flex-grow-1">
+                <ListGroup as="ul">
                   <ListGroup.Item>
                     you will be asked about themes and subthemes of the job
                   </ListGroup.Item>
-                  <ListGroup.Item>you need to answer the questions speaking in English</ListGroup.Item>
-                  <ListGroup.Item>if you don't answer correctly, you can answer again</ListGroup.Item>
+                  <ListGroup.Item>
+                    you need to answer the questions speaking in English
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    if you don't answer correctly, you can answer again
+                  </ListGroup.Item>
                   <ListGroup.Item>
                     you can listen to the recruiter’s answer and the possible
                     answers too
                   </ListGroup.Item>
                 </ListGroup>
-              </Card.Text>
+              </div>
               <Button variant="primary" href="/interviews" style={buttonStyles}>
                 Play this one
               </Button>
@@ -103,8 +112,8 @@ export const ShowFeatures = () => {
               <Card.Title className="text-center fw-bold fs-5">
                 Most Common Sentences
               </Card.Title>
-              <Card.Text className="text-center flex-grow-1">
-                 <ListGroup as="ul">
+              <div className="text-center flex-grow-1">
+                <ListGroup as="ul">
                   <ListGroup.Item>
                     you will listen to the most common developer sentences said
                     in the routine
@@ -122,14 +131,14 @@ export const ShowFeatures = () => {
                     and validate if you said it correctly
                   </ListGroup.Item>
                 </ListGroup>
-              </Card.Text>
+              </div>
               <Button variant="primary" href="/sentences" style={buttonStyles}>
                 Play this one
               </Button>
             </Card.Body>
             <Card.Footer style={footerStyles} className="text-center">
               <small className="text-success">
-                you will have the knowledge for a lot of common developers
+                you will have the knowledge for a lot of common developer
                 sentences
               </small>
             </Card.Footer>

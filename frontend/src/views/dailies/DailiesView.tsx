@@ -2,7 +2,7 @@ import useFetchData from "../../functions/FetchData";
 import { useState } from "react";
 import { Daily } from "../../types/daily/Daily";
 import { DailyInfo } from "../../components/daily/DailyInfo";
-import { Card, Container } from "react-bootstrap";
+import { Card, Container, Row, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
 export const DailiesView = () => {
@@ -31,38 +31,46 @@ export const DailiesView = () => {
     return <div>No dailies found</div>;
   }
 
-  console.log(dailies);
-
   return (
-    <>
-      <Container className="d-flex flex-column justify-content-center align-items-center pt-5 pb-5">
-        <h1>Dailies Available</h1>
+    <Container className="pt-5 pb-5">
+      <h1 className="text-center mb-4">Dailies Available</h1>
+      <Row
+        className={`gy-4 ${
+          dailies.length === 1 ? "justify-content-center" : ""
+        }`} 
+      >
         {dailies.map((daily) => (
-          <Card
+          <Col
+            xs={12}
+            sm={12}
+            md={dailies.length === 1 ? 8 : 6} 
+            lg={dailies.length === 1 ? 6 : 4} 
             key={daily.id}
-            className="mb-4"
-            style={{
-              width: "58rem",
-              textAlign: "center",
-              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-            }}
           >
-            <Card.Body>
-              <DailyInfo daily={daily} />
-            </Card.Body>
-            <Card.Footer className="bg-white border-0">
-              <Button
-                variant="primary"
-                href={`/dailies/${daily.id}`}
-                className="w-100"
-              >
-                I want to participate in this daily
-              </Button>
-            </Card.Footer>
-          </Card>
+            <Card
+              className="h-100"
+              style={{
+                textAlign: "center",
+                boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <Card.Body>
+                <DailyInfo daily={daily} />
+              </Card.Body>
+              <Card.Footer className="bg-white border-0">
+                <Button
+                  variant="primary"
+                  href={`/dailies/${daily.id}`}
+                  className="w-100"
+                >
+                  I want to participate in this daily
+                </Button>
+              </Card.Footer>
+            </Card>
+          </Col>
         ))}
-      </Container>
-    </>
+      </Row>
+    </Container>
   );
 };
 

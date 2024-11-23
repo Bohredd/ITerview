@@ -25,10 +25,18 @@ class User(AbstractUser):
         return self.full_name.split(" ")[0]
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-
-            free_plan = Plans.objects.get(title="Junior")
-            user_plan = UserPlan.objects.create(user=self, plan=free_plan)
-            user_plan.save()
+        is_new = self._state.adding
 
         super().save(*args, **kwargs)
+
+        if is_new:
+            from plans.models import Plans, UserPlan
+
+            try:
+                free_plan = Plans.objects.get(title="Junior")
+            except Plans.DoesNotExist:
+                raise ValueError(
+                    "The 'Junior' plan does not exist. Please create it first."
+                )
+
+            UserPlan.objects.create(user=self, plan=free_plan)

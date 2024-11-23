@@ -41,6 +41,8 @@ export const ListenSpeech = ({ speech }: ListenSpeechProps) => {
         TextToSpeech(speech.content, actualPerson?.voice);
     };
 
+    console.log("person voice : ", actualPerson?.voice);
+
   return (
     <div>
       <Button onClick={handleListen} className="mt-2 mb-2">

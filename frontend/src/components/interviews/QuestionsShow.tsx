@@ -38,11 +38,11 @@ export const QuestionsShow = ({ questions }: Props) => {
 
         <div className="d-flex justify-content-center gap-3 mt-3">
 
-          <Button onClick={handlePreviousQuestion}>
+          <Button onClick={handlePreviousQuestion} variant="secondary">
             Previous
           </Button> 
 
-          <Button onClick={handleNextQuestion}>
+          <Button onClick={handleNextQuestion} variant="info">
             Next
           </Button>
 
