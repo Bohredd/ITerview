@@ -1,9 +1,7 @@
 import { Plans } from "../../../types/payment/Plans";
 import { useState, useEffect } from "react";
 import { Button, Card, Container, Row, Col } from "react-bootstrap";
-import { useAuth } from "../../../auth/AuthContext";
-// import MercadoPagoConfig from "mercadopago";
-// import { Payment } from "mercadopago";
+// import { useAuth } from "../../../auth/AuthContext";
 
 export const Cart = () => {
   const [plan, setPlan] = useState<Plans | null>(null);
@@ -25,35 +23,7 @@ export const Cart = () => {
   };
 
   const onCheckout = () => {
-    console.log("will go to mercado pago");
-    // const client = new MercadoPagoConfig({
-    //   accessToken: "access_token",
-    //   options: { timeout: 5000, idempotencyKey: "abc" },
-    // });
 
-    // const payment = new Payment(client);
-
-    // const body = {
-    //   transaction_amount: plan.price,
-    //   description: plan.title,
-    //   currency_id: "BRL",
-    //   quantity: 1,
-    //   unit_price: plan.price,
-    //   back_urls: {
-    //     success: "http://localhost:3000/success",
-    //     failure: "http://localhost:3000/failure",
-    //     pending: "http://localhost:3000/pending",
-    //   },
-    // }
-
-    // payment
-    //   .create(body)
-    //   .then((response) => {
-    //     window.location.href = response.body.init_point;
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
   };
 
   return (

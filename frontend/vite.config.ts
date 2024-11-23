@@ -5,6 +5,13 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   build: {
-    assetsDir: "static/react"
-  }
-})
+    assetsDir: "static/react",
+  },
+  define: {
+    "process.env": {
+      REACT_APP_MERCADO_PAGO_ACCESS_TOKEN: JSON.stringify(
+        process.env.REACT_APP_MERCADO_PAGO_ACCESS_TOKEN
+      ),
+    },
+  },
+});

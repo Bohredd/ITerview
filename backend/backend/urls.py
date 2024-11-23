@@ -9,4 +9,5 @@ urlpatterns = [
     # path('feedback/', include('feedback.urls')),
     path('sentences/', include('sentences.urls')),
     path('user/', include('user.urls')),
+    path('payment/', include('payment.urls')),
 ]
