@@ -1,7 +1,6 @@
 import { Plans } from "../../../types/payment/Plans";
 import { useState, useEffect } from "react";
 import { Button, Card, Container, Row, Col } from "react-bootstrap";
-// import { useAuth } from "../../../auth/AuthContext";
 
 export const Cart = () => {
   const [plan, setPlan] = useState<Plans | null>(null);
@@ -23,7 +22,7 @@ export const Cart = () => {
   };
 
   const onCheckout = () => {
-
+    window.location.href = "/payment/checkout";
   };
 
   return (

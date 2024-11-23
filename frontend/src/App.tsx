@@ -16,7 +16,7 @@ const Error404 = lazy(() => import("./views/error/Error404"));
 const LoginUser = lazy(() => import("./views/user/LoginUser"));
 const RegisterUser = lazy(() => import("./views/user/RegisterUser"));
 const Cart = lazy(() => import("./components/home/pricing/Cart"));
-// const Payment = lazy(() => import("./components/home/pricing/Payment"));
+const Payment = lazy(() => import("./views/payment/PaymentCheckout"));
 
 import Layout from "./components/Layout";
 import ProtectedRoute from "./auth/ProtectedRoute";
@@ -86,14 +86,15 @@ function App() {
               </ProtectedRoute>
             }
           />
-          {/* <Route
-            path="/payment/"
+          
+          <Route
+            path="/payment/checkout"
             element={
               <ProtectedRoute>
                 <Payment />
               </ProtectedRoute>
             }
-          /> */}
+          />
 
           {/* Public Routes */}
           <Route path="/features" element={<Features />} />

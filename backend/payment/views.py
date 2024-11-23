@@ -8,6 +8,7 @@ from decouple import config
 from plans.models import Plans
 from user.models import User
 from payment.utils import get_dolar_to_brl
+from rest_framework.authtoken.models import Token
 
 class PlanUserView(APIView):
     def post(self, request, *args, **kwargs):
@@ -19,10 +20,10 @@ class PlanUserView(APIView):
             sdk = mercadopago.SDK(config("MERCADO_PAGO_ACCESS_TOKEN_TEST"))
 
             plan_id = serializer.validated_data["plan_id"]
-            user_id = serializer.validated_data["user_id"]
+            user_token = serializer.validated_data["user_token"]
 
             plan = Plans.objects.get(id=plan_id)
-            user = User.objects.get(id=user_id)
+            user = Token.objects.get(key=user_token).user
 
             dolar_to_brl = get_dolar_to_brl()
 
