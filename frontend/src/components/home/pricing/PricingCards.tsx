@@ -1,7 +1,7 @@
+import { useState } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { Plans } from "../../../types/payment/Plans";
 import useFetchData from "../../../functions/FetchData";
-import { useState } from "react";
 
 export const PricingCards = () => {
   const [plans, setPlans] = useState<Plans[] | null>(null);
@@ -17,6 +17,12 @@ export const PricingCards = () => {
     setError,
   });
 
+  const handleSelectCard = (plan: Plans) => {
+    localStorage.setItem("selectedPlan", JSON.stringify(plan));
+    console.log("Selected plan: ", plan);
+    window.location.href = "/cart";
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -28,8 +34,6 @@ export const PricingCards = () => {
   if (!plans || plans.length === 0) {
     return <div>No plans found</div>;
   }
-
-  console.log(plans);
 
   return (
     <Container className="pt-5 pb-5">
@@ -68,7 +72,7 @@ export const PricingCards = () => {
                   {plan.price !== 0 && (
                     <Button
                       variant={plan.card_text_color}
-                      href={`/cart/${plan.id}`}
+                      onClick={() => handleSelectCard(plan)} 
                     >
                       Subscribe
                     </Button>
