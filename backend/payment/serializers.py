@@ -20,5 +20,15 @@ class PlanUserSerializer(serializers.Serializer):
         except User.DoesNotExist:
             raise serializers.ValidationError("User with this ID does not exist.")
         return value
+    
+class TransactionSerializer(serializers.Serializer):
+    user_token = serializers.CharField()
+
+    def validate_user_token(self, value):
+        try:
+            Token.objects.get(key=value)
+        except Token.DoesNotExist:
+            raise serializers.ValidationError("User with this token does not exist.")
+        return value
 
 # {"plan_id":2, "user_token": "8f3e88858e87f20ee3df40bdef7802e2c9079de1"}

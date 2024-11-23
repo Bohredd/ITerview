@@ -25,6 +25,9 @@ class UserPlan(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
 
+    changed_at = models.DateTimeField(null=True, blank=True, auto_now=True)
+    end_date = models.DateTimeField(null=True, blank=True)
+
     daily_usage = models.IntegerField(default=0)
     interview_usage = models.IntegerField(default=0)
     common_sentences_usage = models.IntegerField(default=0)
