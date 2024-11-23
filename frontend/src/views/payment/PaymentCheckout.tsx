@@ -23,8 +23,6 @@ const PaymentCheckout = () => {
         user_token: user_token,
       };
 
-      console.log("Sending POST request with data:", payload);
-
       const fetchPaymentUrl = async () => {
         try {
           const response = await axios.post(
@@ -32,24 +30,16 @@ const PaymentCheckout = () => {
             payload
           );
 
-          console.log("Response from API:", response.data);
-
           if (response.data && response.data.url) {
             setPaymentUrl(response.data.url);
           } else {
             console.error("No 'url' returned in the response.");
-            alert("Payment URL is not available.");
           }
         } catch (error) {
           if (axios.isAxiosError(error) && error.response) {
             console.error("Error Response Data:", error.response.data);
-            console.error("Error Response Status:", error.response.status);
-            alert(
-              "Failed to generate the payment plan. Please try again later."
-            );
           } else {
             console.error("Error Message:", (error as Error).message);
-            alert("An error occurred while making the payment request.");
           }
         }
       };

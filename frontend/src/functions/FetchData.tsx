@@ -30,9 +30,9 @@ const useFetchData = <T,>({
         let data;
 
         if (method === "GET" || method === "LIST") {
-          console.log("app_name: ", app_name);
-          console.log("url: ", url);
-          console.log("id: ", id);
+          // console.log("app_name: ", app_name);
+          // console.log("url: ", url);
+          // console.log("id: ", id);
           data = await ApiConsumer.get<T>(
             app_name,
             url,
@@ -63,12 +63,12 @@ const useFetchData = <T,>({
     if (id || method === "LIST") {
       fetchData();
     } else {
-                console.log("app_name: ", app_name);
-                console.log("url: ", url);
-              console.log("id: ", id);
-              console.log(
-                `127.0.0.1:8000/${app_name}/api/${url}${id ? `${id}` : ""}`
-              );
+                // console.log("app_name: ", app_name);
+                // console.log("url: ", url);
+              // console.log("id: ", id);
+              // console.log(
+                // `127.0.0.1:8000/${app_name}/api/${url}${id ? `${id}` : ""}`
+              // );
       setError("Invalid ID or request method");
       setLoading(false);
     }
