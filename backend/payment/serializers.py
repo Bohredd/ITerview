@@ -32,3 +32,25 @@ class TransactionSerializer(serializers.Serializer):
         return value
 
 # {"plan_id":2, "user_token": "8f3e88858e87f20ee3df40bdef7802e2c9079de1"}
+
+class DiscountGameUsageSerializer(serializers.Serializer):
+    user_token = serializers.CharField()
+    game_name = serializers.CharField()
+
+    def validate_user_token(self, value):
+        try:
+            Token.objects.get(key=value)
+        except Token.DoesNotExist:
+            raise serializers.ValidationError("User with this token does not exist.")
+        return value
+    
+    def validate_game_id(self, value):
+        games = [
+            'Fake Daily Meeting',
+            'Fake Job Interview',
+            'Most Common Sentences',
+        ]
+
+        if value not in games:
+            raise serializers.ValidationError("Game with this name does not exist.")
+        return value

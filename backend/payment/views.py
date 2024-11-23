@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import PlanUserSerializer, TransactionSerializer
+from .serializers import PlanUserSerializer, TransactionSerializer, DiscountGameUsageSerializer
 import mercadopago
 from decouple import config
 from plans.models import Plans, UserPlan
@@ -133,3 +133,70 @@ class PaymentSuccessView(APIView):
     
     def post(self, request, *args, **kwargs):
         return self.get(request, *args, **kwargs)
+
+class DiscountGameUsageView(APIView):
+
+    def post(self, request, *args, **kwargs):
+
+        serializer = DiscountGameUsageSerializer(data=request.data)
+
+        if serializer.is_valid():
+            user_token = serializer.validated_data["user_token"]
+            game_name = serializer.validated_data["game_name"]
+
+            user = Token.objects.get(key=user_token).user
+
+            user_plan = UserPlan.objects.get(user=user)
+
+            if game_name == 'Fake Daily Meeting':
+                user_plan.daily_usage += 1
+            elif game_name == 'Fake Job Interview':
+                user_plan.interview_usage += 1
+            elif game_name == 'Most Common Sentences':
+                user_plan.common_sentences_usage += 1
+
+            user_plan.save()
+
+            return Response({"message": "Game usage updated"}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CanPlayGameView(APIView):
+
+    def post(self, request, *args, **kwargs):
+
+        serializer = DiscountGameUsageSerializer(data=request.data)
+
+        if serializer.is_valid():
+            user_token = serializer.validated_data["user_token"]
+            game_name = serializer.validated_data["game_name"]
+
+            user = Token.objects.get(key=user_token).user
+
+            user_plan = UserPlan.objects.get(user=user)
+
+            usage = 0
+
+            if game_name == "Fake Daily Meeting":
+                usage = user_plan.daily_usage
+            elif game_name == "Fake Job Interview":
+                usage = user_plan.interview_usage
+            elif game_name == "Most Common Sentences":
+                usage = user_plan.common_sentences_usage
+
+            limit = 0
+
+            if game_name == "Fake Daily Meeting":
+                limit = user_plan.plan.max_daily_participations
+            elif game_name == "Fake Job Interview":
+                limit = user_plan.plan.max_interview_participations
+            elif game_name == "Most Common Sentences":
+                limit = user_plan.plan.max_common_sentences
+
+            if usage >= limit:
+                return Response({"message": "You have reached the limit for this game"}, status=status.HTTP_400_BAD_REQUEST)
+
+            return Response(
+                {"message": "You can play this game"}, status=status.HTTP_200_OK
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
