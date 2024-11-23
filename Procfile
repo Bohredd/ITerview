@@ -1,2 +1,2 @@
 web: gunicorn backend.backend.wsgi --log-file -
-web: python manage.py makemigrations && python manage.py migrate
+web: python backend/manage.py makemigrations && python backend/manage.py migrate
