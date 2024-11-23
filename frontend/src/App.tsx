@@ -17,6 +17,9 @@ const LoginUser = lazy(() => import("./views/user/LoginUser"));
 const RegisterUser = lazy(() => import("./views/user/RegisterUser"));
 const Cart = lazy(() => import("./components/home/pricing/Cart"));
 const Payment = lazy(() => import("./views/payment/PaymentCheckout"));
+const PaymentPending = lazy(() => import("./views/payment/PaymentPending"));
+const PaymentSuccess = lazy(() => import("./views/payment/PaymentSuccess"));
+const PaymentFailure = lazy(() => import("./views/payment/PaymentFailure"));
 
 import Layout from "./components/Layout";
 import ProtectedRoute from "./auth/ProtectedRoute";
@@ -94,6 +97,34 @@ function App() {
                 <Payment />
               </ProtectedRoute>
             }
+          />
+
+          <Route
+            path="/payment/pending"
+            element={
+              <ProtectedRoute>
+                <PaymentPending />
+              </ProtectedRoute>
+            }
+
+          />
+
+          <Route
+            path="/payment/success"
+            element={
+              <ProtectedRoute>
+                <PaymentSuccess />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/payment/failure"
+            element={
+              <ProtectedRoute>
+                <PaymentFailure />
+              </ProtectedRoute>
+            } 
           />
 
           {/* Public Routes */}

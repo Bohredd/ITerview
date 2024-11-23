@@ -1,14 +1,15 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.urls import reverse
 from .serializers import PlanUserSerializer
 import mercadopago
 from decouple import config
 from plans.models import Plans
-from user.models import User
 from payment.utils import get_dolar_to_brl
 from rest_framework.authtoken.models import Token
+from payment.models import Transaction
+import hashlib
+import datetime
 
 class PlanUserView(APIView):
     def post(self, request, *args, **kwargs):
@@ -27,6 +28,21 @@ class PlanUserView(APIView):
 
             dolar_to_brl = get_dolar_to_brl()
 
+            external_reference = hashlib.sha256(f"{user.id}-{plan.id}-{plan.title}-{user.email}-{datetime.datetime.now()}".encode()).hexdigest()
+
+            transaction = Transaction.objects.create(
+                plan_acquired=plan,
+                amount=float(dolar_to_brl) * float(plan.price),
+                status="pending",
+                created_at=datetime.datetime.now(),
+                payment_method="",
+                hash_id=external_reference,
+                updated_at=datetime.datetime.now(),
+            )
+
+            user.transactions.add(transaction)
+            user.save()
+
             payment_data = {
                 "items": [
                     {
@@ -38,12 +54,20 @@ class PlanUserView(APIView):
                         "description": f"You are subscribing to the plan {plan.description}",
                     }
                 ],
+                "back_urls": {
+                    "success": 'http://localhost:5173/payment/success',
+                    "failure": 'http://localhost:5173/payment/failure',
+                    "pending": 'http://localhost:5173/payment/pending',
+                },
                 "payer": {
                     "email": user.email,
                 },
+                "external_reference": external_reference,
             }
 
             result = sdk.preference().create(payment_data)
+
+            print(result)
 
             url = result["response"]['init_point']
 

@@ -6,6 +6,7 @@ class PaymentMethod(TextChoices):
     pix = "pix", "Pix"
 
 class Transaction(models.Model):
+    hash_id = models.CharField(max_length=255)
     amount = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

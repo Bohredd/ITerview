@@ -16,6 +16,8 @@ class User(AbstractUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["full_name"]
 
+    transactions = models.ManyToManyField("payment.Transaction", blank=True)
+
     objects = UsuarioManager()
 
     def __str__(self):

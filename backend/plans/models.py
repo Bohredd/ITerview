@@ -25,4 +25,6 @@ class UserPlan(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
 
-    transactions = models.ManyToManyField("payment.Transaction", blank=True)
+    daily_usage = models.IntegerField(default=0)
+    interview_usage = models.IntegerField(default=0)
+    common_sentences_usage = models.IntegerField(default=0)
