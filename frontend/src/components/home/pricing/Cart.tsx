@@ -1,6 +1,7 @@
 import { Plans } from "../../../types/payment/Plans";
 import { useState, useEffect } from "react";
 import { Button, Card, Container, Row, Col } from "react-bootstrap";
+import { useAuth } from "../../../auth/AuthContext";
 // import MercadoPagoConfig from "mercadopago";
 // import { Payment } from "mercadopago";
 
