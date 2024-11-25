@@ -184,14 +184,27 @@ class CanPlayGameView(APIView):
             elif game_name == "Most Common Sentences":
                 usage = user_plan.common_sentences_usage
 
+            print("Usage", usage)
+
             limit = 0
+
+            print("Game name", game_name)
 
             if game_name == "Fake Daily Meeting":
                 limit = user_plan.plan.max_daily_participations
             elif game_name == "Fake Job Interview":
+                print("Plan", user_plan.plan)
+                print("Max interview participations", user_plan.plan.max_interview_participations)
                 limit = user_plan.plan.max_interview_participations
             elif game_name == "Most Common Sentences":
                 limit = user_plan.plan.max_common_sentences
+
+            print("Limit", limit)
+
+            if limit == None:
+                return Response(
+                    {"message": "You can play this game"}, status=status.HTTP_200_OK
+                )
 
             if usage >= limit:
                 return Response({"message": "You have reached the limit for this game"}, status=status.HTTP_400_BAD_REQUEST)

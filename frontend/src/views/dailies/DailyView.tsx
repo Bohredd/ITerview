@@ -1,11 +1,12 @@
 import { useParams } from "react-router-dom";
 import useFetchData from "../../functions/FetchData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Daily } from "../../types/daily/Daily";
 import { ShowPeopleFrame } from "../../components/daily/ShowPeopleFrame";
 import { ShowConversations } from "../../components/daily/ShowConversations";
 import { Container, Row, Col } from "react-bootstrap";
 import { ShowYou } from "../../components/daily/ShowYou";
+import axios from "axios";
 
 export const DailyView = () => {
   const { id } = useParams<{ id: string }>();
@@ -14,6 +15,12 @@ export const DailyView = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  const [canPlayDaily, setCanPlayDaily] = useState<boolean | null>(
+    null
+  );
+
+  const userToken = localStorage.getItem("authToken");
+  
   useFetchData<Daily>({
     method: "GET",
     app_name: "dailies",
@@ -23,6 +30,43 @@ export const DailyView = () => {
     setLoading,
     setError,
   });
+
+
+  console.log("userToken", userToken);
+
+  async function checkCanPlayDaily() {
+    try {
+      const body = {
+        user_token: userToken,
+        game_name: "Fake Daily Meeting",
+      };
+
+      const response = await axios.post(
+        `http://127.0.0.1:8000/payment/api/can_play_game/`,
+        body
+      );
+
+      console.log("response", response);
+
+      if (response.status !== 200) {
+        setCanPlayDaily(false);
+      } else {
+        setCanPlayDaily(true);
+      }
+    } catch (error) {
+      console.error("Error checking can play interview:", error);
+      setCanPlayDaily(false);
+    }
+  }
+
+  useEffect(() => {
+    checkCanPlayDaily();
+    console.log("montado");
+  }, []);
+
+  if (!canPlayDaily) {
+    return <div>You have reached your daily meetings limit per month</div>;
+  }
 
   if (loading) {
     return <div>Loading...</div>;
@@ -34,6 +78,11 @@ export const DailyView = () => {
 
   if (!daily) {
     return <div>No daily found</div>;
+  }
+
+  if (canPlayDaily === true) {
+    console.log("can play daily");
+    console.log("consumacao -1");
   }
 
   console.log(daily);

@@ -7,6 +7,7 @@ import { TextToSpeech } from "../../functions/TextToSpeech";
 import Alert from "react-bootstrap/Alert";
 import { BsVolumeUpFill } from "react-icons/bs";
 import ListenPersonAnswer from "../../functions/ListenPerson";
+import axios from "axios";
 
 export const ShowSentence = () => {
   const [sentences, setSentences] = useState<Sentence[] | null>(null);
@@ -28,6 +29,10 @@ export const ShowSentence = () => {
     null
   );
 
+  const [canPlaySentence, setCanPlaySentence] = useState<boolean | null>(null);
+
+  const userToken = localStorage.getItem("authToken");
+
   useFetchData<Sentence[]>({
     method: "LIST",
     app_name: "sentences",
@@ -42,7 +47,47 @@ export const ShowSentence = () => {
     setAnswer(null);
     setRecognition(null);
     setIsCorrectUserSpeech(null);
+    setShowTranslation(false);
   }, [currentIndex]);
+
+  
+  console.log("userToken", userToken);
+
+  async function checkCanPlaySentence() {
+    try {
+      const body = {
+        user_token: userToken,
+        game_name: "Most Common Sentences",
+      };
+
+      const response = await axios.post(
+        `http://127.0.0.1:8000/payment/api/can_play_game/`,
+        body
+      );
+
+      console.log("response", response);
+
+      if (response.status !== 200) {
+        setCanPlaySentence(false);
+      } else {
+        setCanPlaySentence(true);
+      }
+    } catch (error) {
+      console.error("Error checking can play interview:", error);
+      setCanPlaySentence(false);
+    }
+  }
+
+  useEffect(() => {
+    checkCanPlaySentence();
+    console.log("montado");
+
+    console.log("consumação -1");
+  }, [currentIndex]);
+
+  if (!canPlaySentence) {
+    return <div>You have reached your most common sentences limit per month</div>;
+  }
 
   if (loading) {
     return <div>Loading...</div>;
