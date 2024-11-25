@@ -20,6 +20,7 @@ const Payment = lazy(() => import("./views/payment/PaymentCheckout"));
 const PaymentPending = lazy(() => import("./views/payment/PaymentPending"));
 const PaymentSuccess = lazy(() => import("./views/payment/PaymentSuccess"));
 const PaymentFailure = lazy(() => import("./views/payment/PaymentFailure"));
+const ForgotPassword = lazy(() => import("./views/user/ForgotPassUser"));
 
 import ProtectedRoute from "./auth/ProtectedRoute";
 
@@ -133,7 +134,7 @@ function App() {
           <Route path="/login" element={<LoginUser />} />
           <Route path="/register" element={<RegisterUser />} />
           <Route path="*" element={<Error404 />} />
-          <Route path="/forgot-password" element={<h1>Forgot Password</h1>} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
     </GlobalContext.Provider>
   );
