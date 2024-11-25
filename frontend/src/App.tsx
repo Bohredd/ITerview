@@ -21,7 +21,6 @@ const PaymentPending = lazy(() => import("./views/payment/PaymentPending"));
 const PaymentSuccess = lazy(() => import("./views/payment/PaymentSuccess"));
 const PaymentFailure = lazy(() => import("./views/payment/PaymentFailure"));
 
-import Layout from "./components/Layout";
 import ProtectedRoute from "./auth/ProtectedRoute";
 
 type Theme = "light" | "dark";
@@ -51,7 +50,6 @@ function App() {
   return (
     <GlobalContext.Provider value={{ theme, language, setTheme, setLanguage }}>
       <Routes>
-        {/* <Route path="/" element={<Layout />}> */}
           <Route path="/" element={<Home />} />
           <Route path="/interviews" element={<InterviewsView />} />
           <Route path="/dailies" element={<DailiesView />} />
@@ -136,7 +134,6 @@ function App() {
           <Route path="/register" element={<RegisterUser />} />
           <Route path="*" element={<Error404 />} />
           <Route path="/forgot-password" element={<h1>Forgot Password</h1>} />
-        {/* </Route> */}
       </Routes>
     </GlobalContext.Provider>
   );
