@@ -18,7 +18,7 @@ export const ShowSentence = () => {
     null
   );
   const [currentIndex, setCurrentIndex] = useState<number>(
-    Math.floor(Math.random() * 10)
+    Math.floor(Math.random() * 226)
   );
   const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null);
   const [showTranslation, setShowTranslation] = useState<boolean>(false);

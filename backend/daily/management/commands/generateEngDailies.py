@@ -9,7 +9,6 @@ from daily.models import (
     Information,
 )
 
-
 class Command(BaseCommand):
     help = "Populate initial data for the project with a long conversation"
 
