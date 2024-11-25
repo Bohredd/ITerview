@@ -1,4 +1,4 @@
-from .views import UserViewSet, LoginView
+from .views import UserViewSet, LoginView, ForgotPasswordView
 from rest_framework.routers import DefaultRouter
 from django.urls import path
 
@@ -9,4 +9,5 @@ urlpatterns = router.urls
 
 urlpatterns += [
     path('api/login', LoginView.as_view(), name='login'),
+    path('api/forgot_password', ForgotPasswordView.as_view(), name='forgot_password'),
 ]
