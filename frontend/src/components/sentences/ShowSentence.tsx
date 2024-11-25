@@ -82,7 +82,37 @@ export const ShowSentence = () => {
     checkCanPlaySentence();
     console.log("montado");
 
-    console.log("consumação -1");
+    if (canPlaySentence) {
+      
+      async function deductConsumption() {
+        try {
+          const body = {
+            user_token: userToken,
+            game_name: "Most Common Sentences",
+          };
+
+          const response = await axios.post(
+            `http://127.0.0.1:8000/payment/api/discount_game_usage/`,
+            body
+          );
+
+          console.log("response", response);
+
+          if (response.status !== 200) {
+            setCanPlaySentence(false);
+          } else {
+            console.log("consumação -1");
+            setCanPlaySentence(true);
+          }
+        } catch (error) {
+          console.error("Error checking can play interview:", error);
+          setCanPlaySentence(false);
+        }
+      }
+
+      deductConsumption();
+
+    }
   }, [currentIndex]);
 
   if (!canPlaySentence) {

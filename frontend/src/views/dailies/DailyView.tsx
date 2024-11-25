@@ -62,7 +62,39 @@ export const DailyView = () => {
   useEffect(() => {
     checkCanPlayDaily();
     console.log("montado");
-  }, []);
+
+    if (canPlayDaily === true) {
+        async function deductConsumption() {
+          try {
+            const body = {
+              user_token: userToken,
+              game_name: "Fake Daily Meeting",
+            };
+
+            const response = await axios.post(
+              `http://127.0.0.1:8000/payment/api/discount_game_usage/`,
+              body
+            );
+
+            console.log("response", response);
+
+            if (response.status !== 200) {
+              setCanPlayDaily(false);
+            } else {
+              console.log("consumação -1");
+              setCanPlayDaily(true);
+            }
+          } catch (error) {
+            console.error("Error checking can play interview:", error);
+            setCanPlayDaily(false);
+          }
+        }
+
+        deductConsumption();
+
+    }
+
+  }, [daily]);
 
   if (!canPlayDaily) {
     return <div>You have reached your daily meetings limit per month</div>;
@@ -78,11 +110,6 @@ export const DailyView = () => {
 
   if (!daily) {
     return <div>No daily found</div>;
-  }
-
-  if (canPlayDaily === true) {
-    console.log("can play daily");
-    console.log("consumacao -1");
   }
 
   console.log(daily);

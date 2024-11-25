@@ -155,6 +155,9 @@ class DiscountGameUsageView(APIView):
             elif game_name == 'Most Common Sentences':
                 user_plan.common_sentences_usage += 1
 
+            print("User plan", user_plan)
+            print("Game name", game_name)
+            print("Deducted")
             user_plan.save()
 
             return Response({"message": "Game usage updated"}, status=status.HTTP_200_OK)
