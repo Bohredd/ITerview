@@ -79,41 +79,62 @@ export const ShowSentence = () => {
   }
 
   useEffect(() => {
-    checkCanPlaySentence();
-    console.log("montado");
+    async function checkCanPlaySentence() {
+      try {
+        const body = {
+          user_token: userToken,
+          game_name: "Most Common Sentences",
+        };
 
-    if (canPlaySentence) {
-      
-      async function deductConsumption() {
-        try {
-          const body = {
-            user_token: userToken,
-            game_name: "Most Common Sentences",
-          };
+        const response = await axios.post(
+          `http://127.0.0.1:8000/payment/api/can_play_game/`,
+          body
+        );
 
-          const response = await axios.post(
-            `http://127.0.0.1:8000/payment/api/discount_game_usage/`,
-            body
-          );
-
-          console.log("response", response);
-
-          if (response.status !== 200) {
-            setCanPlaySentence(false);
-          } else {
-            console.log("consumação -1");
-            setCanPlaySentence(true);
-          }
-        } catch (error) {
-          console.error("Error checking can play interview:", error);
+        if (response.status === 200) {
+          setCanPlaySentence(true);
+        } else {
           setCanPlaySentence(false);
         }
+      } catch (error) {
+        console.error("Error checking can play interview:", error);
+        setCanPlaySentence(false);
       }
-
-      deductConsumption();
-
     }
-  }, [currentIndex]);
+
+    checkCanPlaySentence();
+  }, [currentIndex, userToken]);
+
+  useEffect(() => {
+    async function deductConsumption() {
+      if (!canPlaySentence) return;
+
+      try {
+        const body = {
+          user_token: userToken,
+          game_name: "Most Common Sentences",
+        };
+
+        const response = await axios.post(
+          `http://127.0.0.1:8000/payment/api/discount_game_usage/`,
+          body
+        );
+
+        if (response.status === 200) {
+          console.log("Consumação realizada com sucesso.");
+        } else {
+          console.log("Erro ao realizar consumação.");
+          setCanPlaySentence(false);
+        }
+      } catch (error) {
+        console.error("Error deducting consumption:", error);
+        setCanPlaySentence(false);
+      }
+    }
+
+    deductConsumption();
+  }, [canPlaySentence, currentIndex, userToken]);
+
 
   if (!canPlaySentence) {
     return <div>You have reached your most common sentences limit per month</div>;
