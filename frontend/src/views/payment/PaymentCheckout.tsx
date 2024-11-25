@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Plans } from "../../types/payment/Plans";
 import { useState, useEffect, useRef } from "react";
+import { CustomNavbar } from "../../components/home/Navbar";
 
 const PaymentCheckout = () => {
   const [plan, setPlan] = useState<Plans | null>(null);
@@ -48,25 +49,33 @@ const PaymentCheckout = () => {
     }
   }, [plan, user_token]); 
 
+  console.log("Payment URL:", paymentUrl);
+  console.log("Plan:", plan);
+  console.log("User Token:", user_token);
+  console.log("Iframe Ref:", iframeRef.current);
+
   return (
-    <div style={{ height: "100vh", width: "100%", margin: 0, padding: 0 }}>
-      {paymentUrl && (
-        <iframe
-          ref={iframeRef}
-          src={paymentUrl}
-          width="100%"
-          height="100%"
-          frameBorder="0"
-          title="Payment Page"
-          style={{
-            display: "block",
-            border: "none",
-            height: "100%",
-            width: "100%",
-          }}
-        ></iframe>
-      )}
-    </div>
+    <>
+      <CustomNavbar />
+      <div style={{ height: "100vh", width: "100%", margin: 0, padding: 0 }}>
+        {paymentUrl && (
+          <iframe
+            ref={iframeRef}
+            src={paymentUrl}
+            width="100%"
+            height="100%"
+            frameBorder="0"
+            title="Payment Page"
+            style={{
+              display: "block",
+              border: "none",
+              height: "100%",
+              width: "100%",
+            }}
+          ></iframe>
+        )}
+      </div>
+    </>
   );
 };
 

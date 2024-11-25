@@ -3,6 +3,7 @@ import { useState } from "react";
 import useFetchData from "../../functions/FetchData";
 import { ShowInterview } from "../../components/interviews/ShowInterview";
 import { Col, Container, Row } from "react-bootstrap";
+import { CustomNavbar } from "../../components/home/Navbar";
 
 export const InterviewsView = () => {
 
@@ -35,6 +36,7 @@ export const InterviewsView = () => {
 
     return (
       <div>
+        <CustomNavbar />
         <div className="container align-items-center text-center">
           <h1 className="fw-bold fs-1 pt-5 pb-5">Here are some interviews to practice your English</h1>
           <Container className="pt-5 pb-5">

@@ -7,6 +7,7 @@ import { ShowConversations } from "../../components/daily/ShowConversations";
 import { Container, Row, Col } from "react-bootstrap";
 import { ShowYou } from "../../components/daily/ShowYou";
 import axios from "axios";
+import { CustomNavbar } from "../../components/home/Navbar";
 
 export const DailyView = () => {
   const { id } = useParams<{ id: string }>();
@@ -117,19 +118,29 @@ export const DailyView = () => {
   console.log(daily.people);
 
   return (
-    <div>
-      <Container className="d-flex flex-column align-items-center pt-5 pb-5">
-        <h1 className="text-center mb-4">Daily {daily.project_name} Team</h1>
-        <p>Scrum master started the daily at: {new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</p>
-        <ShowYou youId={daily.you} daily={daily} />
-        <Row className="justify-content-center w-100">
-          <Col md={8} className="d-flex flex-column align-items-center">
-            <ShowPeopleFrame peopleId={daily.people} />
-            <ShowConversations speechesId={daily.speeches} />
-          </Col>
-        </Row>
-      </Container>
-    </div>
+    <>
+      <CustomNavbar />
+      <div>
+        <Container className="d-flex flex-column align-items-center pt-5 pb-5">
+          <h1 className="text-center mb-4">Daily {daily.project_name} Team</h1>
+          <p>
+            Scrum master started the daily at:{" "}
+            {new Date().toLocaleTimeString("en-US", {
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+            })}
+          </p>
+          <ShowYou youId={daily.you} daily={daily} />
+          <Row className="justify-content-center w-100">
+            <Col md={8} className="d-flex flex-column align-items-center">
+              <ShowPeopleFrame peopleId={daily.people} />
+              <ShowConversations speechesId={daily.speeches} />
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    </>
   );
 };
 

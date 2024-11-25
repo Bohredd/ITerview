@@ -51,7 +51,7 @@ function App() {
   return (
     <GlobalContext.Provider value={{ theme, language, setTheme, setLanguage }}>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        {/* <Route path="/" element={<Layout />}> */}
           <Route path="/" element={<Home />} />
           <Route path="/interviews" element={<InterviewsView />} />
           <Route path="/dailies" element={<DailiesView />} />
@@ -136,7 +136,7 @@ function App() {
           <Route path="/register" element={<RegisterUser />} />
           <Route path="*" element={<Error404 />} />
           <Route path="/forgot-password" element={<h1>Forgot Password</h1>} />
-        </Route>
+        {/* </Route> */}
       </Routes>
     </GlobalContext.Provider>
   );

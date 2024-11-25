@@ -1,9 +1,10 @@
 import { Button } from "react-bootstrap";
+import { CustomNavbar } from "../../components/home/Navbar";
 
 export const SentencesView = () => {
   return (
     <div>
-
+      <CustomNavbar />
       <div className="container align-items-center text-center vh-150 pt-5">
         <h1 className="fw-bold fs-1 pt-5 pb-5">
           Common Sentences to practice your English!

@@ -5,6 +5,6 @@ const PaymentSuccess = () => {
       <h1>Payment Success</h1>
     </div>
   );
-}
+};
 
 export default PaymentSuccess;

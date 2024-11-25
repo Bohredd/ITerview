@@ -53,30 +53,30 @@ export const ShowSentence = () => {
   
   console.log("userToken", userToken);
 
-  async function checkCanPlaySentence() {
-    try {
-      const body = {
-        user_token: userToken,
-        game_name: "Most Common Sentences",
-      };
+  // async function checkCanPlaySentence() {
+  //   try {
+  //     const body = {
+  //       user_token: userToken,
+  //       game_name: "Most Common Sentences",
+  //     };
 
-      const response = await axios.post(
-        `http://127.0.0.1:8000/payment/api/can_play_game/`,
-        body
-      );
+  //     const response = await axios.post(
+  //       `http://127.0.0.1:8000/payment/api/can_play_game/`,
+  //       body
+  //     );
 
-      console.log("response", response);
+  //     console.log("response", response);
 
-      if (response.status !== 200) {
-        setCanPlaySentence(false);
-      } else {
-        setCanPlaySentence(true);
-      }
-    } catch (error) {
-      console.error("Error checking can play interview:", error);
-      setCanPlaySentence(false);
-    }
-  }
+  //     if (response.status !== 200) {
+  //       setCanPlaySentence(false);
+  //     } else {
+  //       setCanPlaySentence(true);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error checking can play interview:", error);
+  //     setCanPlaySentence(false);
+  //   }
+  // }
 
   useEffect(() => {
     async function checkCanPlaySentence() {

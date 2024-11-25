@@ -4,6 +4,7 @@ import { Daily } from "../../types/daily/Daily";
 import { DailyInfo } from "../../components/daily/DailyInfo";
 import { Card, Container, Row, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import { CustomNavbar } from "../../components/home/Navbar";
 
 export const DailiesView = () => {
   const [dailies, setDailies] = useState<Daily[] | null>(null);
@@ -32,6 +33,8 @@ export const DailiesView = () => {
   }
 
   return (
+    <>
+    <CustomNavbar />
     <Container className="pt-5 pb-5">
       <h1 className="text-center mb-4">Dailies Available</h1>
       <Row
@@ -71,6 +74,7 @@ export const DailiesView = () => {
         ))}
       </Row>
     </Container>
+    </>
   );
 };
 

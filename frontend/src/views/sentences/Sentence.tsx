@@ -1,4 +1,5 @@
 import { ShowSentence } from "../../components/sentences/ShowSentence";
+import { CustomNavbar } from "../../components/home/Navbar";
 
 export const SentenceView = () => {
 
@@ -6,6 +7,7 @@ export const SentenceView = () => {
 
   return (
     <div>
+      <CustomNavbar />
       <ShowSentence />
     </div>
   );

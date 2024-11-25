@@ -4,6 +4,9 @@ import useFetchData from "../../functions/FetchData";
 import { useParams } from "react-router-dom";
 import { QuestionsShow } from "../../components/interviews/QuestionsShow";
 import axios from "axios";
+import { CustomNavbar } from "../../components/home/Navbar";
+
+
 export const InterviewView = () => {
   const { id } = useParams<{ id: string }>();
 
@@ -113,11 +116,14 @@ export const InterviewView = () => {
   // }
 
   return (
-    <div className="container text-center align-items-center pt-5">
-      <h3>{interview.level}</h3>
-      <h5 className="pb-5">{interview.interview_type}</h5>
-      <QuestionsShow questions={interview.questions} />
-    </div>
+    <>
+      <CustomNavbar />
+      <div className="container text-center align-items-center pt-5">
+        <h3>{interview.level}</h3>
+        <h5 className="pb-5">{interview.interview_type}</h5>
+        <QuestionsShow questions={interview.questions} />
+      </div>
+    </>
   );
 };
 
