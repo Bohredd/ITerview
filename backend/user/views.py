@@ -59,7 +59,7 @@ class ForgotPasswordView(APIView):
             print("Users ", User.objects.all().values_list("email", "username"))
 
             if user:
-                # Simulate sending a reset link
+                # criar o link de send mail e a view de reset password
                 reset_link = (
                     f"http://yourfrontend.com/reset-password?token=exampletoken"
                 )
