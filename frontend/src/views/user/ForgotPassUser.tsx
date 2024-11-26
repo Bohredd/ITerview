@@ -51,7 +51,7 @@ const ForgotPassword = () => {
     <>
       <CustomNavbar />
       <div className="d-flex flex-column justify-content-center align-items-center vh-100 bg-light">
-        <div className="container text-center">
+        <div className="text-center w-100" style={{ maxWidth: "400px" }}>
           <h1 className="display-4 text-primary mb-4">Forgot Password</h1>
           <p className="lead mb-4">
             Enter your username and email address below, and we'll send you a
@@ -63,7 +63,6 @@ const ForgotPassword = () => {
           <form
             onSubmit={handleSubmit}
             className="d-flex flex-column justify-content-center align-items-center w-100"
-            style={{ maxWidth: "400px" }}
           >
             <div className="mb-3 w-100">
               <input

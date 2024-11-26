@@ -60,102 +60,113 @@ const RegisterForm = () => {
   };
 
   return (
-    <div>
-      <Form noValidate validated={validated} onSubmit={handleSubmit}>
-        <Row className="mb-3">
-          <Form.Group as={Col} md="6" controlId="validationCustomFullName">
-            <Form.Label>Full Name</Form.Label>
-            <Form.Control
-              required
-              type="text"
-              placeholder="Full name"
-              name="full_name"
-              value={user.full_name}
-              onChange={handleChange}
-            />
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group as={Col} md="6" controlId="validationCustomEmail">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              required
-              type="email"
-              placeholder="Email"
-              name="email"
-              value={user.email}
-              onChange={handleChange}
-            />
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-          </Form.Group>
-        </Row>
-        <Row className="mb-3">
-          <Form.Group as={Col} md="12" controlId="validationCustomUsername">
-            <Form.Label>Username</Form.Label>
-            <InputGroup hasValidation>
-              <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+    <div
+      className="d-flex justify-content-center align-items-center"
+      style={{ minHeight: "80vh" }}
+    >
+      <div className="w-100" style={{ maxWidth: "600px", marginTop: "3vh" }}>
+        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+          <Row className="mb-3">
+            <Form.Group as={Col} md="6" controlId="validationCustomFullName">
+              <Form.Label>Full Name</Form.Label>
               <Form.Control
                 required
                 type="text"
-                placeholder="Username"
-                name="username"
-                value={user.username}
+                placeholder="Full name"
+                name="full_name"
+                value={user.full_name}
                 onChange={handleChange}
-                aria-describedby="inputGroupPrepend"
+              />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col} md="6" controlId="validationCustomEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                required
+                type="email"
+                placeholder="Email"
+                name="email"
+                value={user.email}
+                onChange={handleChange}
+              />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            </Form.Group>
+          </Row>
+          <Row className="mb-3">
+            <Form.Group as={Col} md="12" controlId="validationCustomUsername">
+              <Form.Label>Username</Form.Label>
+              <InputGroup hasValidation>
+                <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+                <Form.Control
+                  required
+                  type="text"
+                  placeholder="Username"
+                  name="username"
+                  value={user.username}
+                  onChange={handleChange}
+                  aria-describedby="inputGroupPrepend"
+                />
+                <Form.Control.Feedback type="invalid">
+                  Please choose a username.
+                </Form.Control.Feedback>
+              </InputGroup>
+            </Form.Group>
+          </Row>
+          <Row className="mb-3">
+            <Form.Group as={Col} md="6" controlId="validationCustomPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                required
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={user.password}
+                onChange={handleChange}
               />
               <Form.Control.Feedback type="invalid">
-                Please choose a username.
+                Please provide a password.
               </Form.Control.Feedback>
-            </InputGroup>
-          </Form.Group>
-        </Row>
-        <Row className="mb-3">
-          <Form.Group as={Col} md="6" controlId="validationCustomPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
+            </Form.Group>
+            <Form.Group
+              as={Col}
+              md="6"
+              controlId="validationCustomConfirmPassword"
+            >
+              <Form.Label>Confirm Password</Form.Label>
+              <Form.Control
+                required
+                type="password"
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
+              />
+              <Form.Control.Feedback type="invalid">
+                Passwords must match.
+              </Form.Control.Feedback>
+            </Form.Group>
+          </Row>
+          <Form.Group className="mb-3">
+            <Form.Check
               required
-              type="password"
-              placeholder="Password"
-              name="password"
-              value={user.password}
-              onChange={handleChange}
+              label="Agree to terms and conditions"
+              feedback="You must agree before submitting."
+              feedbackType="invalid"
             />
-            <Form.Control.Feedback type="invalid">
-              Please provide a password.
-            </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group
-            as={Col}
-            md="6"
-            controlId="validationCustomConfirmPassword"
-          >
-            <Form.Label>Confirm Password</Form.Label>
-            <Form.Control
-              required
-              type="password"
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={handleConfirmPasswordChange}
-            />
-            <Form.Control.Feedback type="invalid">
-              Passwords must match.
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Row>
-        <Form.Group className="mb-3">
-          <Form.Check
-            required
-            label="Agree to terms and conditions"
-            feedback="You must agree before submitting."
-            feedbackType="invalid"
-          />
-        </Form.Group>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <Button type="submit">Submit form</Button>
-        {success && !error && (
-          <p style={{ color: "green" }}>Form submitted successfully!</p>
-        )}
-        <Button href="/login">Already have an account? Login</Button>
-      </Form>
+          {error && <p style={{ color: "red" }}>{error}</p>}
+          <Button type="submit" className="me-2">
+            Submit form
+          </Button>
+          <Button href="/login" variant="link">
+            Already have an account? Login
+          </Button>
+          {success && !error && (
+            <p style={{ color: "green", marginTop: "10px" }}>
+              Form submitted successfully!
+            </p>
+          )}
+        </Form>
+      </div>
     </div>
   );
 };
