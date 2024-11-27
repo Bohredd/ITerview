@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-4a)4c%#lk11tfiot(&s(5k17+bf_fn*7uqah7($n2!m6!ttt6_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
@@ -135,3 +136,17 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.User'
+
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend" 
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  
+
+EMAIL_HOST = config("EMAIL_HOST")
+EMAIL_PORT = 587 
+EMAIL_USE_TLS = True  
+EMAIL_USE_SSL = False  
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD") 
+
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")

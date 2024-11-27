@@ -16,9 +16,10 @@ class PlanUserView(APIView):
         serializer = PlanUserSerializer(data=request.data)
         if serializer.is_valid():
 
-            # trocar para prd no deploy
-
-            sdk = mercadopago.SDK(config("MERCADO_PAGO_ACCESS_TOKEN_TEST"))
+            if config("DEBUG", default=False, cast=bool):
+                sdk = mercadopago.SDK(config("MERCADO_PAGO_ACCESS_TOKEN_TEST"))
+            else:
+                sdk = mercadopago.SDK(config("MERCADO_PAGO_ACCESS_TOKEN_PRD"))
 
             plan_id = serializer.validated_data["plan_id"]
             user_token = serializer.validated_data["user_token"]
@@ -67,8 +68,6 @@ class PlanUserView(APIView):
 
             result = sdk.preference().create(payment_data)
 
-            print(result)
-
             url = result["response"]['init_point']
 
             return Response({"url": url}, status=status.HTTP_200_OK)
@@ -84,8 +83,6 @@ class PaymentSuccessView(APIView):
 
             user_token = serializer.validated_data["user_token"]
 
-            # print("user_token", user_token)
-            # print("All tokens ", Token.objects.all())
             user = Token.objects.get(key=user_token).user
 
             transaction = Transaction.objects.filter(user=user).last()
@@ -95,7 +92,6 @@ class PaymentSuccessView(APIView):
             sdk = mercadopago.SDK(config("MERCADO_PAGO_ACCESS_TOKEN_TEST"))
 
             payment = sdk.payment().search({"external_reference": hash_id})
-            # print(payment)
             if payment["response"]["results"][0]["status"] == "approved":
                 transaction.status = "approved"
 
@@ -106,7 +102,6 @@ class PaymentSuccessView(APIView):
                 else:
                     transaction.payment_method = "pix"
 
-                # transaction.payment_method = payment["response"]["results"][0]["payment_method_id"]
                 transaction.updated_at = datetime.datetime.now()
                 transaction.save()
 
@@ -155,9 +150,6 @@ class DiscountGameUsageView(APIView):
             elif game_name == 'Most Common Sentences':
                 user_plan.common_sentences_usage += 1
 
-            print("User plan", user_plan)
-            print("Game name", game_name)
-            print("Deducted")
             user_plan.save()
 
             return Response({"message": "Game usage updated"}, status=status.HTTP_200_OK)
@@ -187,22 +179,14 @@ class CanPlayGameView(APIView):
             elif game_name == "Most Common Sentences":
                 usage = user_plan.common_sentences_usage
 
-            print("Usage", usage)
-
             limit = 0
-
-            print("Game name", game_name)
 
             if game_name == "Fake Daily Meeting":
                 limit = user_plan.plan.max_daily_participations
             elif game_name == "Fake Job Interview":
-                print("Plan", user_plan.plan)
-                print("Max interview participations", user_plan.plan.max_interview_participations)
                 limit = user_plan.plan.max_interview_participations
             elif game_name == "Most Common Sentences":
                 limit = user_plan.plan.max_common_sentences
-
-            print("Limit", limit)
 
             if limit == None:
                 return Response(

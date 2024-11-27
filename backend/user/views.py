@@ -12,6 +12,8 @@ from rest_framework.permissions import AllowAny
 from django.core.mail import send_mail
 import random
 import string
+from django.core.mail import EmailMultiAlternatives
+from decouple import config
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -66,17 +68,28 @@ class ForgotPasswordView(APIView):
             if user:
                 new_password = self.generate_random_password()
 
-                print("New password", new_password)
-
                 user.set_password(new_password)
                 user.save()
 
-                send_mail(
-                    subject="Your New Password",
-                    message=f"Hello {user.username},\n\nYour new password is: {new_password}\n\nPlease log in and change your password as soon as possible.",
-                    from_email="no-reply@example.com",
-                    recipient_list=[email],
+                subject = "Your New Password at ITerview!"
+                text_content = (
+                    f"Hello {user.username},\n\n"
+                    f"Your new password is: {new_password}\n\n"
+                    f"Please log in and change your password as soon as possible.\n\n"
+                    f"Log in here: {config("APP_URL")}/login"
                 )
+                html_content = f"""
+                    <p>Hello <strong>{user.username}</strong>,</p>
+                    <p>Your new password is: <strong>{new_password}</strong></p>
+                    <p>Please <a href="{config("APP_URL")}/login">log in here</a> and change your password as soon as possible.</p>
+                """
+
+                email_message = EmailMultiAlternatives(
+                    subject, text_content, "no-reply@example.com", [email]
+                )
+                email_message.attach_alternative(html_content, "text/html")
+                email_message.send()
+
                 return Response(
                     {"message": "A new password has been sent to your email."},
                     status=status.HTTP_200_OK,
