@@ -1,6 +1,6 @@
 from .models import User
 from rest_framework import viewsets
-from .serializers import UserSerializer, ForgotPasswordSerializer
+from .serializers import UserSerializer, ForgotPasswordSerializer, ChangePasswordSerializer
 from django.contrib.auth import authenticate
 from rest_framework import status
 from rest_framework.response import Response
@@ -10,6 +10,8 @@ from .serializers import LoginSerializer
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
 from django.core.mail import send_mail
+import random
+import string
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -46,6 +48,11 @@ class LoginView(APIView):
 class ForgotPasswordView(APIView):
     permission_classes = [AllowAny]
 
+    def generate_random_password(self, length=12):
+        """Generate a random password with letters, digits, and special characters."""
+        characters = string.ascii_letters + string.digits + "!@#$%^&*()"
+        return "".join(random.choices(characters, k=length))
+
     def post(self, request, *args, **kwargs):
         serializer = ForgotPasswordSerializer(data=request.data)
 
@@ -56,21 +63,22 @@ class ForgotPasswordView(APIView):
             # Validate email and username
             user = User.objects.filter(email=email, username=username).first()
 
-            print("Users ", User.objects.all().values_list("email", "username"))
-
             if user:
-                # criar o link de send mail e a view de reset password
-                reset_link = (
-                    f"http://yourfrontend.com/reset-password?token=exampletoken"
-                )
+                new_password = self.generate_random_password()
+
+                print("New password", new_password)
+
+                user.set_password(new_password)
+                user.save()
+
                 send_mail(
-                    subject="Password Reset Request",
-                    message=f"Click the link to reset your password: {reset_link}",
+                    subject="Your New Password",
+                    message=f"Hello {user.username},\n\nYour new password is: {new_password}\n\nPlease log in and change your password as soon as possible.",
                     from_email="no-reply@example.com",
                     recipient_list=[email],
                 )
                 return Response(
-                    {"message": "Password reset link sent to your email."},
+                    {"message": "A new password has been sent to your email."},
                     status=status.HTTP_200_OK,
                 )
 
@@ -79,4 +87,17 @@ class ForgotPasswordView(APIView):
                 status=status.HTTP_404_NOT_FOUND,
             )
 
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ChangePasswordView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        serializer = ChangePasswordSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {"message": "Password changed successfully."}, status=status.HTTP_200_OK
+            )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -21,6 +21,7 @@ const PaymentPending = lazy(() => import("./views/payment/PaymentPending"));
 const PaymentSuccess = lazy(() => import("./views/payment/PaymentSuccess"));
 const PaymentFailure = lazy(() => import("./views/payment/PaymentFailure"));
 const ForgotPassword = lazy(() => import("./views/user/ForgotPassUser"));
+const ChangePassword = lazy(() => import("./views/user/ChangePassUser"));
 
 import ProtectedRoute from "./auth/ProtectedRoute";
 
@@ -124,6 +125,15 @@ function App() {
                 <PaymentFailure />
               </ProtectedRoute>
             } 
+          />
+
+          <Route
+            path="/change-password"
+            element={
+              <ProtectedRoute>
+                <ChangePassword />
+              </ProtectedRoute>
+            }
           />
 
           {/* Public Routes */}
