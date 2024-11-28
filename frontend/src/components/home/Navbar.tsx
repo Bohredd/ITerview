@@ -1,18 +1,9 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
-import {
-  BsFillPersonFill,
-  BsFillPersonXFill,
-  BsFillPersonPlusFill,
-} from "react-icons/bs";
+import { BsFillPersonFill, BsFillPersonPlusFill } from "react-icons/bs";
 import { useAuth } from "../../auth/AuthContext";
 
 export const CustomNavbar = () => {
   const { isAuthenticated } = useAuth();
-
-  const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    window.location.href = "/login";
-  };
 
   return (
     <Navbar expand="lg" bg="light" className="bg-body-tertiary">
@@ -44,12 +35,9 @@ export const CustomNavbar = () => {
 
           <Nav className="ms-auto">
             {isAuthenticated ? (
-              <Nav.Link
-                onClick={handleLogout}
-                className="d-flex align-items-center"
-              >
-                <BsFillPersonXFill size={14} className="ms-1" />
-                <span className="text-primary fw-bold fs-6 ms-2">Logout</span>
+              <Nav.Link href="/account" className="d-flex align-items-center">
+                <BsFillPersonFill size={14} className="ms-1" />
+                <span className="text-primary fw-bold fs-6 ms-2">Account</span>
               </Nav.Link>
             ) : (
               <>
