@@ -68,7 +68,7 @@ class PlanUserView(APIView):
 
             result = sdk.preference().create(payment_data)
 
-            url = result["response"]['init_point']
+            url = result["response"]['init_point'] 
 
             return Response({"url": url}, status=status.HTTP_200_OK)
 
@@ -89,7 +89,10 @@ class PaymentSuccessView(APIView):
 
             hash_id = transaction.hash_id
 
-            sdk = mercadopago.SDK(config("MERCADO_PAGO_ACCESS_TOKEN_TEST"))
+            if config("DEBUG", default=False, cast=bool):
+                sdk = mercadopago.SDK(config("MERCADO_PAGO_ACCESS_TOKEN_TEST"))
+            else:
+                sdk = mercadopago.SDK(config("MERCADO_PAGO_ACCESS_TOKEN_PRD"))
 
             payment = sdk.payment().search({"external_reference": hash_id})
             if payment["response"]["results"][0]["status"] == "approved":
@@ -125,7 +128,7 @@ class PaymentSuccessView(APIView):
             else:
                 return Response({"message": "Payment not approved"}, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
     def post(self, request, *args, **kwargs):
         return self.get(request, *args, **kwargs)
 
