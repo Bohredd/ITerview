@@ -1,11 +1,15 @@
 from celery import shared_task
 from celery.exceptions import MaxRetriesExceededError
-from time import sleep
 
-@shared_task(bind=True, max_retries=24, default_retry_delay=300) 
-def check_payment(self, payment_id):
+
+@shared_task(
+    bind=True, max_retries=24, default_retry_delay=300, name="check_payment_status_task"
+) # default retry delay is 5 minutes
+def check_payment_status_task(self, payment_id):
     try:
-        payment_successful = True
+        payment_successful = False
+
+        print("Pagamento com sucesso? ", payment_successful)
 
         if payment_successful:
             print(f"Payment {payment_id} has been successful!")
