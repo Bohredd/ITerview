@@ -27,6 +27,8 @@ SECRET_KEY = 'django-insecure-4a)4c%#lk11tfiot(&s(5k17+bf_fn*7uqah7($n2!m6!ttt6_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
 
+USE_CELERY = config("USE_CELERY", default=False, cast=bool)
+
 ALLOWED_HOSTS = ['*']
 
 CORS_ALLOWED_ORIGINS = [
@@ -43,6 +45,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework.authtoken",
+    "django_celery_beat",
+    "django_celery_results",
     "corsheaders",
     "interview",
     "user",
@@ -52,7 +56,6 @@ INSTALLED_APPS = [
     "sentences",
     "payment",
     "jobs",
-    "django_celery_results",
 ]
 
 MIDDLEWARE = [
