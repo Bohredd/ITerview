@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['*']
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:3000",
+    "https://iterview-production.up.railway.app/",
 ]
 
 INSTALLED_APPS = [
@@ -164,3 +165,5 @@ DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = "/static/"
+
+ALLOWED_HOSTS = ["*"]
