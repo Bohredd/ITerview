@@ -13,4 +13,12 @@ COPY . /app/
 
 ENV PYTHONUNBUFFERED=1
 
-CMD ["bash", "-c", "python backend/manage.py makemigrations && python backend/manage.py migrate && python backend/manage.py runserver 0.0.0.0:8000 & cd frontend && npm install && npm run dev"]
+CMD ["bash", "-c", "python backend/manage.py makemigrations && \
+                    python backend/manage.py migrate && \
+                    python backend/manage.py generateEngInterview && \
+                    python backend/manage.py generateEngDailies && \
+                    python backend/manage.py generateEngSentences && \
+                    python backend/manage.py generatePlans && \
+                    python backend/manage.py generateAdmin && \
+                    python backend/manage.py runserver 0.0.0.0:8000 & \
+                    cd frontend && npm install && npm run dev"]
