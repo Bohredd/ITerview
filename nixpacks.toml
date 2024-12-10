@@ -1,0 +1,31 @@
+# Specify backend setup
+[phases.setup.backend]
+nixpkgs = ["python310"]
+
+[phases.install.backend]
+commands = ["pip install -r backend/requirements.txt"]
+
+[phases.start.backend]
+commands = ["python3 backend/manage.py runserver 0.0.0.0:8000"]
+
+# Specify frontend setup
+[phases.setup.frontend]
+nixpkgs = ["nodejs"]
+
+[phases.install.frontend]
+commands = ["cd frontend && npm install"]
+
+[phases.build.frontend]
+commands = ["cd frontend && npm run build"]
+
+[phases.start.frontend]
+commands = ["cd frontend && npm start"]
+
+# Optional shared phase for environment variables
+[phases.setup]
+commands = ["cp .env.template .env"]
+
+# Specify entrypoint commands
+[entrypoints]
+web = ["python3 backend/manage.py runserver 0.0.0.0:8000"]
+frontend = ["npm start --prefix frontend"]
