@@ -26,7 +26,7 @@ export const LoginForm = () => {
     setError(null);
 
     try {
-      const response = await fetch("http://0.0.0.0:8000/user/api/login", {
+      const response = await fetch("https://0.0.0.0:8000/user/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
