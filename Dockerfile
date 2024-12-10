@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Install backend dependencies
 WORKDIR /app/backend
-RUN pip install -r requirements.txt
+RUN pip install -r ./requirements.txt
 
 # Build the frontend
 WORKDIR /app/frontend
