@@ -1,31 +1,29 @@
 version: '3.8'
 
 services:
-  # Django service
   django:
     build:
       context: ./backend
-      dockerfile: Dockerfile  # Make sure you have a proper Dockerfile in the backend directory
+      dockerfile: Dockerfile 
     volumes:
       - ./backend:/app
     ports:
       - "8000:8000"
     depends_on:
-      - iterview-db  # Depends on the Postgres database
-      - redis  # Depends on Redis for Celery
+      - iterview-db 
+      - redis  
     env_file:
-      - .env  # Make sure all the environment variables (like DB and Redis) are defined in .env
+      - .env 
     environment:
       - SERVICE=backend
     command: ["bash", "-c", "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
     networks:
       - backend
 
-  # Frontend service
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile  # Make sure you have a proper Dockerfile in the frontend directory
+      dockerfile: Dockerfile  
     ports:
       - "3000:3000"
     environment:
@@ -34,59 +32,55 @@ services:
     networks:
       - backend
 
-  # Postgres database service
   iterview-db:
-    image: postgres:13  # Using the official Postgres image
+    image: postgres:13 
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_PORT: ${DB_PORT}
     volumes:
-      - postgres_data:/var/lib/postgresql/data  # Persist database data
+      - postgres_data:/var/lib/postgresql/data  
     networks:
       - backend
 
-  # Redis service for Celery
   redis:
-    image: redis:latest  # Using the latest Redis image
+    image: redis:latest
     volumes:
-      - redis_data:/data  # Persist Redis data
+      - redis_data:/data  
     networks:
       - backend
 
-  # Celery worker service
   celery:
     build:
       context: ./backend
-      dockerfile: Dockerfile  # Reuse the backend Dockerfile for Celery worker
-    command: celery -A backend.celery_config.app worker --loglevel=info  # Starts the Celery worker
+      dockerfile: Dockerfile 
+    command: celery -A backend.celery_config.app worker --loglevel=info 
     depends_on:
-      - redis  # Celery depends on Redis
-      - django  # Celery depends on Django (since it needs to access Django settings)
+      - redis  
+      - django 
     env_file:
-      - .env  # Load environment variables like broker URL and result backend
+      - .env 
     networks:
       - backend
 
-  # Celery Beat service for periodic tasks
   celery-beat:
     build:
       context: ./backend
-      dockerfile: Dockerfile  # Reuse the backend Dockerfile for Celery Beat
-    command: celery -A backend.celery_config.app beat --loglevel=info  # Starts Celery Beat for scheduled tasks
+      dockerfile: Dockerfile 
+    command: celery -A backend.celery_config.app beat --loglevel=info 
     depends_on:
-      - redis  # Celery Beat also depends on Redis
-      - django  # Celery Beat depends on Django for task management
+      - redis 
+      - django  
     env_file:
-      - .env  # Load environment variables for Celery Beat
+      - .env  
     networks:
       - backend
 
 volumes:
-  postgres_data:  # Volume to persist Postgres data
-  redis_data:  # Volume to persist Redis data
+  postgres_data:  
+  redis_data:
 
 networks:
   backend:
-    driver: bridge  # Network for all services to communicate
+    driver: bridge 
