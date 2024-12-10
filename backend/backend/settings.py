@@ -31,6 +31,12 @@ USE_CELERY = config("USE_CELERY", default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
+SECURE_SSL_REDIRECT = True 
+SESSION_COOKIE_SECURE = True  
+CSRF_COOKIE_SECURE = True  
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:3000",
