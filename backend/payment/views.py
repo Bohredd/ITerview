@@ -56,9 +56,9 @@ class PlanUserView(APIView):
                     }
                 ],
                 "back_urls": {
-                    "success": 'http://localhost:5173/payment/success/',
-                    "failure": 'http://localhost:5173/payment/failure/',
-                    "pending": 'http://localhost:5173/payment/pending/',
+                    "success": 'http://localhost:3000/payment/success/',
+                    "failure": 'http://localhost:3000/payment/failure/',
+                    "pending": 'http://localhost:3000/payment/pending/',
                 },
                 "payer": {
                     "email": user.email,
