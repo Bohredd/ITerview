@@ -6,7 +6,7 @@ nixpkgs = ["python310"]
 commands = ["pip install -r backend/requirements.txt"]
 
 [phases.start.backend]
-commands = ["python backend/manage.py runserver 0.0.0.0:8000"]
+commands = ["python3 backend/manage.py runserver 0.0.0.0:8000"]
 
 # Specify frontend setup
 [phases.setup.frontend]
