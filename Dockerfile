@@ -20,5 +20,5 @@ CMD ["bash", "-c", "python backend/manage.py makemigrations && \
                     python backend/manage.py generateEngSentences && \
                     python backend/manage.py generatePlans && \
                     python backend/manage.py generateAdmin && \
-                    python backend/manage.py runserver 0.0.0.0:8000 & \
-                    cd frontend && npm install && npm run build"]
+                    cd frontend && npm install && npm run build && \
+                    python backend/manage.py runserver 0.0.0.0:8000"]
