@@ -187,7 +187,9 @@ STATIC_URL = "/static/"
 
 if not DEBUG:
     STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, "staticfiles"),
+        os.path.join(
+            BASE_DIR, "staticfiles"
+        ), 
     ]
 else:
     STATICFILES_DIRS = [
