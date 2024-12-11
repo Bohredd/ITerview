@@ -100,7 +100,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {}
 
-if 'gunicorn' in sys.argv:
+if not DEBUG:
     {"default": {
             "ENGINE": "django.db.backends.postgresql_psycopg2",
             "NAME": os.environ["PGDATABASE"],
