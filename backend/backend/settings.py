@@ -101,7 +101,8 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {}
 
 if not DEBUG:
-    {"default": {
+    DATABASES = {
+        "default": {
             "ENGINE": "django.db.backends.postgresql_psycopg2",
             "NAME": os.environ["PGDATABASE"],
             "USER": os.environ["PGUSER"],
@@ -111,7 +112,7 @@ if not DEBUG:
         }
     }
 else:
-    {
+    DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql_psycopg2",
             "NAME": config("DB_NAME"),
@@ -121,11 +122,6 @@ else:
             "PORT": config("DB_PORT"),
         }
     }
-
-DATABASES = {
-    **DATABASES,
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
