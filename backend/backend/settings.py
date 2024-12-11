@@ -78,7 +78,7 @@ import os
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "../frontend/dist")],
+        "DIRS": [os.path.join(BASE_DIR, "frontend/dist")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -185,15 +185,10 @@ ALLOWED_HOSTS = ["*"]
 
 STATIC_URL = "/static/"
 
-if not DEBUG:
-    STATICFILES_DIRS = [
-        os.path.join(
-            BASE_DIR, "staticfiles"
-        ), 
-    ]
-else:
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, "../frontend/dist/static"),
-    ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "frontend/dist/static"),
+]
 
-STATIC_ROOT = os.path.join(BASE_DIR, "collected_static")
+# STATIC_ROOT = os.path.join(
+#     BASE_DIR, "staticfiles"
+# )  

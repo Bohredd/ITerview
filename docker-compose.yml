@@ -3,7 +3,7 @@ version: '3.8'
 services:
   django:
     build:
-      context: ./backend
+      context: .
       dockerfile: Dockerfile 
     volumes:
       - ./backend:/app
@@ -17,18 +17,6 @@ services:
     environment:
       - SERVICE=backend
     command: ["bash", "-c", "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
-    networks:
-      - backend
-
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile  
-    ports:
-      - "3000:3000"
-    environment:
-      - SERVICE=frontend
-    command: ["npm", "run", "dev"]
     networks:
       - backend
 
@@ -53,7 +41,7 @@ services:
 
   celery:
     build:
-      context: ./backend
+      context: .
       dockerfile: Dockerfile 
     command: celery -A backend.celery_config.app worker --loglevel=info 
     depends_on:
@@ -66,7 +54,7 @@ services:
 
   celery-beat:
     build:
-      context: ./backend
+      context: .
       dockerfile: Dockerfile 
     command: celery -A backend.celery_config.app beat --loglevel=info 
     depends_on:
