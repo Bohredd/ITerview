@@ -7,13 +7,6 @@ export default defineConfig({
   build: {
     assetsDir: "static/react",
   },
-  define: {
-    "process.env": {
-      REACT_APP_MERCADO_PAGO_ACCESS_TOKEN: JSON.stringify(
-        process.env.REACT_APP_MERCADO_PAGO_ACCESS_TOKEN
-      ),
-    },
-  },
   server: {
     host: "0.0.0.0", 
     port: 3000,
