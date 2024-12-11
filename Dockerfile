@@ -13,7 +13,7 @@ COPY . /app/
 
 ENV PYTHONUNBUFFERED=1
 
-CMD ["bash", "-c", "cd frontend && npm install && npm run build && \
+CMD ["bash", "-c", "cd app && cd frontend && npm install && npm run build && \
                     cd .. && \
                     python backend/manage.py makemigrations && \
                     python backend/manage.py migrate && \
