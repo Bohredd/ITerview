@@ -10,7 +10,7 @@ export const CustomNavbar = () => {
       <Container>
         <Navbar.Brand href="/" className="fw-bold d-flex align-items-center">
           <img
-            src="/src/assets/iterview-icon.png"
+            src="/static/react/iterview-icon-D4gjbvme.png"
             alt="ITerview Logo"
             width={40}
             height="auto"
