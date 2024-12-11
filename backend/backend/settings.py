@@ -186,7 +186,7 @@ ALLOWED_HOSTS = ["*"]
 STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
-    os.path.join("frontend/dist/static"),
+    os.path.join("app/frontend/dist/static"),
 ]
 
 STATIC_ROOT = os.path.join(
