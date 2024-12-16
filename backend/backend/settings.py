@@ -183,6 +183,8 @@ STATIC_URL = "/static/"
 
 ALLOWED_HOSTS = ["*"]
 
+print("Base dir: ", BASE_DIR)
+
 STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
