@@ -188,7 +188,7 @@ print("Base dir: ", BASE_DIR)
 STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "frontend/dist/static"),
+    os.path.join(BASE_DIR, "frontend/dist/static/react"),
 ]
 
 STATIC_ROOT = BASE_DIR / "static"
