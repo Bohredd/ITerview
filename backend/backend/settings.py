@@ -191,4 +191,4 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "frontend/dist/static/react"),
 ]
 
-STATIC_ROOT = BASE_DIR / "static"
+# STATIC_ROOT = BASE_DIR / "static"
