@@ -24,7 +24,10 @@ const ForgotPassword = lazy(() => import("./views/user/ForgotPassUser"));
 const ChangePassword = lazy(() => import("./views/user/ChangePassUser"));
 const AccountPage = lazy(() => import("./views/user/AccountUser"));
 
+import LoadingSpinner from "./components/Layout/loading";
 import ProtectedRoute from "./auth/ProtectedRoute";
+
+import { Suspense } from "react";
 
 type Theme = "light" | "dark";
 type Language = "en-US" | "pt-BR";
@@ -52,7 +55,8 @@ function App() {
 
   return (
     <GlobalContext.Provider value={{ theme, language, setTheme, setLanguage }}>
-      <Routes>
+      <Suspense fallback={<LoadingSpinner />}>
+        <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/interviews" element={<InterviewsView />} />
           <Route path="/dailies" element={<DailiesView />} />
@@ -90,7 +94,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          
+
           <Route
             path="/payment/checkout"
             element={
@@ -107,7 +111,6 @@ function App() {
                 <PaymentPending />
               </ProtectedRoute>
             }
-
           />
 
           <Route
@@ -125,7 +128,7 @@ function App() {
               <ProtectedRoute>
                 <PaymentFailure />
               </ProtectedRoute>
-            } 
+            }
           />
 
           <Route
@@ -155,7 +158,8 @@ function App() {
           <Route path="/register" element={<RegisterUser />} />
           <Route path="*" element={<Error404 />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-      </Routes>
+        </Routes>
+      </Suspense>
     </GlobalContext.Provider>
   );
 }
