@@ -16,7 +16,7 @@ services:
       - .env 
     environment:
       - SERVICE=backend
-    command: ["bash", "-c", "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+    command: ["bash", "-c", "python manage.py makemigrations && python manage.py migrate && python manage.py generateEngDailies && python manage.py generateEngInterview && python manage.py generateEngSentences && python manage.py generatePlans && python manage.py runserver 0.0.0.0:8000"]
     networks:
       - backend
 

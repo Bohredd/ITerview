@@ -537,7 +537,7 @@ class Command(BaseCommand):
 
         for item in data:
             # Criar a entrevista
-            interview = Interview.objects.create(
+            interview, _ = Interview.objects.get_or_create(
                 interview_type=item["interview"]["type"],
                 level=item["interview"]["level"],
             )
@@ -557,7 +557,7 @@ class Command(BaseCommand):
 
             # Criar perguntas e respostas
             for question_data in item["questions"]:
-                question = Question.objects.create(
+                question, _ = Question.objects.get_or_create(
                     text=question_data["text"],
                     interview_type=question_data["type"],
                     level=question_data["level"],

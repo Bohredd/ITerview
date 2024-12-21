@@ -27,18 +27,16 @@ def check_payment_status_task(self, hash_id):
 
         payment = sdk.payment().search({"external_reference": hash_id})
 
-        if payment["response"]["results"][0]["status"] == "approved":
+        print("User: ", user)
+        print("Is superuser: ", user.is_superuser)
+        print("Is admin: ", user.is_staff)
+
+        if user.is_superuser:
             transaction.status = "approved"
-
-            payment_method = payment["response"]["results"][0]["payment_method_id"]
-
-            if payment_method == "credit_card":
-                transaction.payment_method = "credit_card"
-            else:
-                transaction.payment_method = "pix"
-
             transaction.updated_at = datetime.datetime.now()
             transaction.save()
+
+            payment_successful = True
 
             user_plan = UserPlan.objects.filter(user=user)
 
@@ -52,13 +50,44 @@ def check_payment_status_task(self, hash_id):
 
             user_plan.plan = transaction.plan_acquired
             user_plan.active = True
-            user_plan.changed_at = datetime.datetime.now()
+            user_plan.changed_at = datetime.datetime.now()  
             user_plan.end_date = datetime.datetime.now() + datetime.timedelta(days=30)
             user_plan.save()
 
-            payment_successful = True
         else:
-            payment_successful = False
+
+            if payment["response"]["results"][0]["status"] == "approved":
+                transaction.status = "approved"
+
+                payment_method = payment["response"]["results"][0]["payment_method_id"]
+
+                if payment_method == "credit_card":
+                    transaction.payment_method = "credit_card"
+                else:
+                    transaction.payment_method = "pix"
+
+                transaction.updated_at = datetime.datetime.now()
+                transaction.save()
+
+                user_plan = UserPlan.objects.filter(user=user)
+
+                if not user_plan.exists():
+                    UserPlan.objects.create(user=user, plan=Plans.objects.get(title="Junior"))
+
+                    user_plan = UserPlan.objects.get(user=user)
+
+                else:
+                    user_plan = user_plan.first()
+
+                user_plan.plan = transaction.plan_acquired
+                user_plan.active = True
+                user_plan.changed_at = datetime.datetime.now()
+                user_plan.end_date = datetime.datetime.now() + datetime.timedelta(days=30)
+                user_plan.save()
+
+                payment_successful = True
+            else:
+                payment_successful = False
 
         if payment_successful:
             print(f"Payment {hash_id} has been successful!")

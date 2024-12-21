@@ -3,7 +3,7 @@ import Image from "react-bootstrap/Image";
 
 export const CustomBody = () => {
   return (
-    <Container className="text-center vh-100 d-flex flex-column justify-content-center align-items-center">
+    <Container className="text-center vh-100 d-flex flex-column justify-content-center align-items-center pt-5">
       <Image src="src/assets/iterview-logo.png" rounded className="mb-4 img-fluid" />
 
       <p className="text-black fw-bold fs-3 pt-3">

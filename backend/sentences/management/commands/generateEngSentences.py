@@ -466,6 +466,6 @@ class Command(BaseCommand):
         ]
 
         for sentence, translation in zip(sentences, translated_in_ptbr):
-            Sentences.objects.create(sentence=sentence, translation_ptbr=translation)
+            sentence, _ = Sentences.objects.get_or_create(sentence=sentence, translation_ptbr=translation)
 
         self.stdout.write(self.style.SUCCESS("Sentences generated successfully!"))

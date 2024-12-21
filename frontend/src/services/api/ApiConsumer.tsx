@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:8000/";
+const baseUrl = "http://127.0.0.1:8000/";
 
 export class ApiConsumer {
   static async get<T>(appname: string, url: string, id?: number): Promise<T> {

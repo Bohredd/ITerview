@@ -6,7 +6,7 @@ export const CustomNavbar = () => {
   const { isAuthenticated } = useAuth();
 
   return (
-    <Navbar expand="lg" bg="light" className="bg-body-tertiary fixed-top">
+    <Navbar expand="lg" bg="light" className="bg-body-tertiary">
       <Container>
         <Navbar.Brand href="/" className="fw-bold d-flex align-items-center">
           <img

@@ -51,7 +51,7 @@ const ChangePasswordForm = () => {
       }
 
       const response = await fetch(
-        "http://localhost:8000/user/api/change_password",
+        "http://127.0.0.1:8000/user/api/change_password",
         {
           method: "POST",
           headers: {
